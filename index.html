@@ -60,6 +60,8 @@ button{font:inherit;color:inherit}
 #top .tin{max-width:1180px;margin:0 auto;padding:8px 16px;display:flex;align-items:center;gap:12px}
 #top .brand{font-family:var(--f-d);font-weight:800;font-size:15px;letter-spacing:-.01em;white-space:nowrap}
 #top .brand span{color:var(--accent)}
+.examtop .sep{display:none}
+@media (max-width:640px){.examtop .sep{display:inline}}
 .bar{flex:1;height:8px;background:var(--paper2);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
 .bar i{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .45s cubic-bezier(.3,1,.4,1)}
 #pct{font-family:var(--f-m);font-size:12px;color:var(--muted);min-width:34px;text-align:right}
@@ -242,7 +244,7 @@ footer{border-top:1px solid var(--line);padding:22px 0 10px;color:var(--muted);f
 </style>
 
 <div id="top"><div class="tin">
-  <div class="brand">Inglés I · <span>Lectocomprensión</span></div>
+  <div class="brand">Inglés I<span class="long"> · </span><span class="long" style="color:var(--accent)">Lectocomprensión</span></div>
   <div class="bar" title="Progreso del taller"><i id="barfill"></i></div>
   <span id="pct">0%</span>
   <button class="iconbtn" id="themebtn" aria-label="Cambiar tema">◐</button>
@@ -1291,6 +1293,7 @@ var DICT = {
   var TAG={'':['Palabra clave','t-key'],cog:['Cognado','t-cog'],fal:['Falso cognado ⚠','t-fal'],loan:['Préstamo lingüístico','t-loan'],prop:['Nombre propio','t-prop']};
   function close(){pop.classList.remove('show');if(cur)cur.classList.remove('on');cur=null;}
   function place(btn){
+    if(window.POP_SHEET&&window.POP_SHEET()){ pop.style.left=''; pop.style.top=''; return; }
     var r=btn.getBoundingClientRect(), pw=pop.offsetWidth, ph=pop.offsetHeight;
     if(r.bottom<0||r.top>window.innerHeight){close();return;}
     var left=Math.min(Math.max(12,r.left+r.width/2-pw/2), window.innerWidth-pw-12);
@@ -1748,8 +1751,8 @@ var N2=[
     var head = '<div class="examtop">'+
       '<b style="font-family:var(--f-d);font-size:16px">'+(lv===1?'Nivel 1 · Validación':'Nivel 2 · Simulacro real')+'</b>'+
       (lv===2?'<span class="tm" id="clock">40:00</span>':'')+
-      '<span class="lbl" id="answered">0 de '+bank.length+' respondidas</span>'+
-      '<span style="flex:1"></span>'+
+      '<span class="lbl" id="answered">0<span class="long"> de </span><span class="sep">/</span>'+bank.length+'<span class="long"> respondidas</span></span>'+
+      '<span class="spacer" style="flex:1"></span>'+
       '<button class="btn pri" id="submitex">'+(lv===1?'Ver resultado':'Entregar examen')+'</button>'+
       '<button class="btn" id="quitex">Salir</button></div>'+
       (lv===2?'<div id="passagebox" hidden>'+PASSAGE+'</div>':'')+
@@ -1763,7 +1766,7 @@ var N2=[
     quiz=new Quiz(document.getElementById('exhost').querySelector('.exbody'), bank, mode);
     quiz.onChange=function(){
       var n=quiz.ans.filter(function(a){return a!=null&&a!=='';}).length;
-      document.getElementById('answered').textContent=n+' de '+bank.length+' respondidas';
+      document.getElementById('answered').innerHTML=n+'<span class="long"> de </span><span class="sep">/</span>'+bank.length+'<span class="long"> respondidas</span>';
     };
     document.getElementById('submitex').addEventListener('click',function(){finish(bank);});
     document.getElementById('quitex').addEventListener('click',function(){stopTimer();area.innerHTML='';window.scrollTo({top:document.getElementById('examen').offsetTop-60,behavior:'smooth'});});
@@ -1825,5 +1828,128 @@ var N2=[
   document.querySelectorAll('[data-start]').forEach(function(b){
     b.addEventListener('click',function(){start(parseInt(b.getAttribute('data-start'),10));});
   });
+})();
+</script>
+
+<style>
+/* ============ AJUSTES PARA TELÉFONO ============ */
+@media (max-width:640px){
+  body{font-size:16px}
+  main{padding-block:14px 56px}
+  section{margin-bottom:42px}
+  .lead{font-size:16.5px}
+  main p,ul,ol{max-width:none}
+  h3{font-size:18.5px;margin-top:24px}
+
+  /* barra superior compacta */
+  #top .tin{padding:7px 14px;gap:9px}
+  #top .brand{font-size:13px}
+  #top .brand .long{display:none}
+  .bar{min-width:70px}
+  #pct{font-size:11px;min-width:30px}
+  .iconbtn{width:31px;height:31px;font-size:14px}
+
+  /* el eyebrow ya no se corta */
+  .eyebrow{flex-wrap:wrap;font-size:10px;letter-spacing:.1em;line-height:1.5}
+  .eyebrow::after{min-width:24px}
+
+  /* hero */
+  .hero{padding:20px 18px;border-radius:14px}
+  .hero p{font-size:16.5px}
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .stat{padding:8px 11px;font-size:12.5px}
+  .stat b{font-size:18px}
+  .row .cta{flex:1;justify-content:center;text-align:center}
+
+  /* TABLAS: cada fila pasa a ser una ficha legible */
+  .tw{border:0;border-radius:0;overflow:visible;background:none;margin:14px 0}
+  .tw table{display:block;width:100%;background:none;font-size:15px}
+  .tw thead,.tw tr.hrow{display:none}
+  .tw tbody{display:block}
+  .tw tr{display:block;background:var(--paper);border:1px solid var(--line);border-radius:11px;
+         padding:6px 14px 10px;margin-bottom:10px;box-shadow:var(--shadow)}
+  .tw td{display:block;border:0;padding:7px 0 0;border-top:1px dashed var(--line)}
+  .tw tr td:first-child{border-top:0;padding-top:8px;font-size:16.5px}
+  .tw td::before{content:attr(data-label);display:block;font-family:var(--f-m);font-size:9.5px;
+                 letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+  .tw td:empty{display:none}
+  #gtable{max-height:none}
+
+  /* ejercicios */
+  .ex{padding:14px 15px}
+  .opt{padding:10px 12px;font-size:15px}
+  .fb{max-width:none}
+  .note,.warn,.brain{max-width:none;padding:12px 14px}
+
+  /* examen: barra fija chica para que no se coma la pantalla */
+  .examtop{top:calc(env(safe-area-inset-top,0px) + 50px);padding:8px 11px;gap:7px;border-radius:10px}
+  .examtop b{font-size:12.5px!important;flex:1 0 100%;line-height:1.3}
+  .examtop .tm{font-size:16px;order:2}
+  .examtop .lbl{font-size:12px;order:3;flex:0 0 auto;white-space:nowrap}
+  .examtop .long{display:none}
+  .examtop .spacer{display:none}
+  .examtop .btn{padding:6px 11px;font-size:13px;order:4}
+  .bigscore{font-size:42px}
+  .result{padding:18px 16px}
+  .tb{grid-template-columns:1fr 52px 34px;font-size:13px}
+
+  /* frase nominal */
+  .np{padding:11px;gap:6px}
+  .np .tok .t{font-size:15.5px;padding:2px 6px}
+  .np .tok .r{font-size:8.5px}
+
+  /* texto fuente */
+  .src .sb{padding:12px 13px;font-size:15.5px}
+  .src ol li{padding-left:33px}
+  .src .sh{padding:8px 13px;font-size:10px}
+
+  /* glosario y tarjetas */
+  .streakbox{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .sb{min-width:0;padding:10px 11px}
+  .sb b{font-size:21px}
+  .sb span{font-size:11.5px}
+  .fc{padding:22px 16px;min-height:150px}
+  .fc .fw{font-size:24px}
+  #gsearch{width:100%}
+
+  /* la tarjeta de palabra se abre como panel inferior */
+  #pop{left:0!important;right:0!important;top:auto!important;bottom:0;width:100%;
+       border-radius:16px 16px 0 0;border-bottom:0;
+       padding:16px 18px calc(16px + env(safe-area-inset-bottom,0px));
+       box-shadow:0 -12px 40px -14px rgba(0,0,0,.45)}
+  #pop.show{animation:sheet .18s ease-out}
+  @keyframes sheet{from{transform:translateY(100%)}to{transform:none}}
+  #pop .x{top:10px;right:10px;font-size:19px;padding:6px}
+  #pop .pw{font-size:23px}
+  #pop .ptr{font-size:18px}
+}
+@media (max-width:640px) and (prefers-reduced-motion:reduce){#pop.show{animation:none}}
+</style>
+
+<script>
+/* etiquetar celdas para la vista de fichas en teléfono */
+(function(){
+  function labelRows(table){
+    var heads=[];
+    var hr=table.querySelector('thead tr') || table.querySelector('tr');
+    if(!hr) return;
+    if(!hr.querySelector('th')) return;
+    hr.classList.add('hrow');
+    hr.querySelectorAll('th').forEach(function(th){heads.push(th.textContent.trim());});
+    table.querySelectorAll('tr').forEach(function(tr){
+      if(tr.classList.contains('hrow')) return;
+      tr.querySelectorAll('td').forEach(function(td,i){
+        if(heads[i]) td.setAttribute('data-label',heads[i]);
+      });
+    });
+  }
+  function run(){ document.querySelectorAll('.tw table').forEach(labelRows); }
+  run();
+  var gt=document.querySelector('#gtable tbody');
+  if(gt && 'MutationObserver' in window){
+    new MutationObserver(function(){ labelRows(document.getElementById('gtable')); }).observe(gt,{childList:true});
+  }
+  /* la tarjeta de palabra no se reposiciona cuando es panel inferior */
+  window.POP_SHEET=function(){return window.innerWidth<=640;};
 })();
 </script>
