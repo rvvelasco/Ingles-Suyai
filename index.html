@@ -1,0 +1,1829 @@
+<title>Taller de Lectocomprensión</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{
+  --bg:#f3f6f7; --paper:#ffffff; --paper2:#eef3f4;
+  --ink:#13212a; --ink2:#3d525e; --muted:#6a7f8b; --line:#d5e0e4; --line2:#bccbd1;
+  --accent:#0b5f70; --accent2:#0a8397; --accent-ink:#ffffff; --accent-wash:#e2f0f2;
+  --hl:#ffd84d; --hl-ink:#3a2c00;
+  --key:#c22f3a; --key-wash:#fdeceb;
+  --cog:#1a7a52; --cog-wash:#e4f4ec;
+  --false:#c22f3a; --false-wash:#fdeceb;
+  --loan:#2560ad; --loan-wash:#e6eefa;
+  --proper:#6f45c0; --proper-wash:#eee8fb;
+  --ok:#16794f; --ok-wash:#e4f4ec; --bad:#c22f3a; --bad-wash:#fdeceb;
+  --shadow:0 1px 2px rgba(19,33,42,.06),0 8px 24px -12px rgba(19,33,42,.18);
+  --r:12px;
+  --f-d:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --f-b:"Source Sans 3",system-ui,-apple-system,sans-serif;
+  --f-s:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --f-m:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e161a; --paper:#151f25; --paper2:#1b272e;
+  --ink:#e7eef0; --ink2:#bccbd2; --muted:#8ba2ac; --line:#28373f; --line2:#3a4d56;
+  --accent:#5fd0e0; --accent2:#8fe3ef; --accent-ink:#06222a; --accent-wash:#12313a;
+  --hl:#f5c93a; --hl-ink:#2a1f00;
+  --key:#ff8a84; --key-wash:#3a1c1e;
+  --cog:#6cd6a4; --cog-wash:#14332a;
+  --false:#ff8a84; --false-wash:#3a1c1e;
+  --loan:#8ab6f5; --loan-wash:#17273d;
+  --proper:#c2a5f7; --proper-wash:#271d3c;
+  --ok:#6cd6a4; --ok-wash:#14332a; --bad:#ff8a84; --bad-wash:#3a1c1e;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 28px -14px rgba(0,0,0,.7);
+}}
+:root[data-theme="dark"]{
+  --bg:#0e161a; --paper:#151f25; --paper2:#1b272e;
+  --ink:#e7eef0; --ink2:#bccbd2; --muted:#8ba2ac; --line:#28373f; --line2:#3a4d56;
+  --accent:#5fd0e0; --accent2:#8fe3ef; --accent-ink:#06222a; --accent-wash:#12313a;
+  --hl:#f5c93a; --hl-ink:#2a1f00;
+  --key:#ff8a84; --key-wash:#3a1c1e;
+  --cog:#6cd6a4; --cog-wash:#14332a;
+  --false:#ff8a84; --false-wash:#3a1c1e;
+  --loan:#8ab6f5; --loan-wash:#17273d;
+  --proper:#c2a5f7; --proper-wash:#271d3c;
+  --ok:#6cd6a4; --ok-wash:#14332a; --bad:#ff8a84; --bad-wash:#3a1c1e;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 28px -14px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-b);font-size:16.5px;line-height:1.62;-webkit-text-size-adjust:100%}
+h1,h2,h3,h4{font-family:var(--f-d);line-height:1.15;text-wrap:balance;margin:0}
+p{margin:0}
+a{color:var(--accent);text-underline-offset:3px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent2);outline-offset:2px;border-radius:4px}
+
+/* ---------- top bar ---------- */
+#top{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+#top .tin{max-width:1180px;margin:0 auto;padding:8px 16px;display:flex;align-items:center;gap:12px}
+#top .brand{font-family:var(--f-d);font-weight:800;font-size:15px;letter-spacing:-.01em;white-space:nowrap}
+#top .brand span{color:var(--accent)}
+.bar{flex:1;height:8px;background:var(--paper2);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.bar i{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .45s cubic-bezier(.3,1,.4,1)}
+#pct{font-family:var(--f-m);font-size:12px;color:var(--muted);min-width:34px;text-align:right}
+.iconbtn{background:var(--paper);border:1px solid var(--line);border-radius:9px;width:34px;height:34px;display:grid;place-items:center;cursor:pointer;font-size:15px;flex:none}
+.iconbtn:hover{border-color:var(--accent)}
+
+/* ---------- layout ---------- */
+.page{max-width:1180px;margin:0 auto;padding:0 16px;display:grid;grid-template-columns:232px minmax(0,1fr);gap:34px;align-items:start}
+#nav{position:sticky;top:calc(env(safe-area-inset-top,0px) + 62px);padding-block:22px;max-height:calc(100vh - 80px);overflow:auto}
+#nav .nt{font-family:var(--f-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 10px 10px}
+#nav a{display:flex;gap:9px;align-items:baseline;padding:6px 10px;border-radius:8px;text-decoration:none;color:var(--ink2);font-size:14.2px;border-left:2px solid transparent}
+#nav a b{font-family:var(--f-m);font-size:11px;color:var(--muted);font-weight:500}
+#nav a:hover{background:var(--paper)}
+#nav a.on{background:var(--accent-wash);color:var(--ink);border-left-color:var(--accent);font-weight:600}
+#nav a.done b::after{content:"✓";color:var(--ok);margin-left:2px}
+main{padding-block:22px 80px;min-width:0}
+section{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 70px);margin-bottom:54px}
+.eyebrow{font-family:var(--f-m);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.eyebrow::after{content:"";height:1px;flex:1;background:var(--line)}
+h2{font-size:clamp(25px,4.6vw,33px);font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+h3{font-size:19.5px;font-weight:700;margin:28px 0 8px;letter-spacing:-.01em}
+h4{font-size:15.5px;font-weight:700;margin:18px 0 6px}
+.lead{font-size:17.5px;color:var(--ink2);margin-bottom:16px;max-width:66ch}
+main p{max-width:68ch;margin-bottom:12px}
+ul,ol{max-width:68ch;padding-left:20px;margin:0 0 14px}
+li{margin-bottom:6px}
+
+/* ---------- hero ---------- */
+.hero{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:30px;box-shadow:var(--shadow);margin:22px 0 40px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:linear-gradient(90deg,var(--cog),var(--accent2),var(--key),var(--proper))}
+.hero h1{font-size:clamp(30px,6.2vw,46px);font-weight:800;letter-spacing:-.03em;margin:10px 0 12px}
+.hero .kicker{font-family:var(--f-m);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.hero p{font-size:17.5px;color:var(--ink2);max-width:60ch}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.stat{background:var(--paper2);border:1px solid var(--line);border-radius:10px;padding:9px 13px;font-size:13.5px}
+.stat b{display:block;font-family:var(--f-d);font-size:20px;line-height:1.1}
+.cta{display:inline-flex;gap:8px;align-items:center;background:var(--accent);color:var(--accent-ink);border:0;border-radius:10px;padding:11px 18px;font-weight:700;cursor:pointer;text-decoration:none;font-size:15px}
+.cta:hover{filter:brightness(1.08)}
+.cta.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--line2)}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+
+/* ---------- blocks ---------- */
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;margin:14px 0;box-shadow:var(--shadow)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:14px;margin:14px 0}
+.grid2 .card{margin:0}
+.note{border-left:3px solid var(--accent);background:var(--accent-wash);border-radius:0 10px 10px 0;padding:13px 16px;margin:14px 0;font-size:15.3px;max-width:70ch}
+.note b{color:var(--accent)}
+.brain{border-left:3px solid var(--proper);background:var(--proper-wash);border-radius:0 10px 10px 0;padding:13px 16px;margin:16px 0;font-size:14.8px;max-width:70ch}
+.brain .bt{font-family:var(--f-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--proper);display:block;margin-bottom:4px}
+.warn{border-left:3px solid var(--false);background:var(--false-wash);border-radius:0 10px 10px 0;padding:13px 16px;margin:14px 0;font-size:15.3px;max-width:70ch}
+.warn b{color:var(--false)}
+table{border-collapse:collapse;width:100%;font-size:14.6px;background:var(--paper)}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:10px;margin:14px 0}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--f-b);font-weight:700;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:var(--paper2)}
+tr:last-child td{border-bottom:0}
+code,.mono{font-family:var(--f-m);font-size:.9em;background:var(--paper2);padding:1px 5px;border-radius:5px}
+
+/* English source text with line numbers */
+.src{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);margin:16px 0;box-shadow:var(--shadow);overflow:hidden}
+.src .sh{background:var(--paper2);border-bottom:1px solid var(--line);padding:9px 16px;font-family:var(--f-m);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.src .sb{padding:14px 16px;font-family:var(--f-s);font-size:16px;line-height:1.75}
+.src ol{margin:0;padding:0;list-style:none;counter-reset:ln}
+.src ol li{counter-increment:ln;margin:0 0 4px;padding-left:40px;position:relative}
+.src ol li::before{content:"L" counter(ln);position:absolute;left:0;top:.28em;font-family:var(--f-m);font-size:10.5px;color:var(--muted);user-select:none}
+.src ol li[data-n]::before{content:"L" attr(data-n)}
+.src .tr{display:block;font-family:var(--f-b);font-size:14px;color:var(--muted);font-style:italic;margin-top:1px}
+
+/* ---------- interactive words ---------- */
+.w{cursor:pointer;border:0;background:none;padding:0 1px;font:inherit;color:var(--key);font-weight:600;border-bottom:1.5px dotted currentColor;border-radius:2px;transition:background .15s}
+.w:hover{background:var(--key-wash)}
+.w.cog{color:var(--cog)}.w.cog:hover{background:var(--cog-wash)}
+.w.fal{color:var(--false);border-bottom-style:solid;text-decoration:none}
+.w.fal::after{content:"⚠";font-size:.72em;vertical-align:super;opacity:.8}
+.w.fal:hover{background:var(--false-wash)}
+.w.loan{color:var(--loan)}.w.loan:hover{background:var(--loan-wash)}
+.w.prop{color:var(--proper)}.w.prop:hover{background:var(--proper-wash)}
+.w.on{background:var(--hl);color:var(--hl-ink);border-bottom-color:transparent}
+.en{font-family:var(--f-s);font-style:italic}
+.legend{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}
+.chip{font-size:12.6px;padding:4px 10px;border-radius:99px;border:1px solid var(--line2);background:var(--paper);display:inline-flex;gap:6px;align-items:center}
+.chip i{width:9px;height:9px;border-radius:50%;display:block;font-style:normal}
+.dot-key{background:var(--key)}.dot-cog{background:var(--cog)}.dot-fal{background:var(--false)}.dot-loan{background:var(--loan)}.dot-prop{background:var(--proper)}
+
+#pop{position:fixed;z-index:80;width:min(330px,calc(100vw - 24px));background:var(--paper);border:1px solid var(--line2);border-radius:14px;box-shadow:0 20px 50px -18px rgba(0,0,0,.45),0 2px 6px rgba(0,0,0,.08);padding:15px 16px 14px;display:none}
+#pop.show{display:block;animation:pin .16s ease-out}
+@keyframes pin{from{opacity:0;transform:translateY(6px) scale(.98)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){#pop.show{animation:none}.bar i{transition:none}}
+#pop .pw{font-family:var(--f-d);font-size:21px;font-weight:700;letter-spacing:-.01em}
+#pop .pc{font-family:var(--f-m);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+#pop .ptr{font-size:17px;font-weight:700;color:var(--accent);margin-bottom:10px}
+#pop .pex{border-top:1px dashed var(--line2);padding-top:9px;font-size:14.4px}
+#pop .pex .e{font-family:var(--f-s);margin-bottom:2px}
+#pop .pex .s{color:var(--muted);font-style:italic}
+#pop .ptag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:99px;margin-bottom:8px;font-weight:700}
+#pop .x{position:absolute;top:8px;right:8px;background:none;border:0;cursor:pointer;color:var(--muted);font-size:17px;line-height:1;padding:4px}
+.t-key{background:var(--key-wash);color:var(--key)}.t-cog{background:var(--cog-wash);color:var(--cog)}
+.t-fal{background:var(--false-wash);color:var(--false)}.t-loan{background:var(--loan-wash);color:var(--loan)}
+.t-prop{background:var(--proper-wash);color:var(--proper)}
+
+/* ---------- exercises ---------- */
+.ex{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--hl);border-radius:0 var(--r) var(--r) 0;padding:16px 18px;margin:18px 0;box-shadow:var(--shadow)}
+.ex .exh{font-family:var(--f-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.q{margin-bottom:16px;padding-bottom:14px;border-bottom:1px dashed var(--line)}
+.q:last-child{border-bottom:0;padding-bottom:0;margin-bottom:0}
+.qt{font-weight:600;margin-bottom:9px;display:flex;gap:9px;align-items:baseline}
+.qt .n{font-family:var(--f-m);font-size:11.5px;color:var(--muted);flex:none}
+.opts{display:flex;flex-direction:column;gap:6px;max-width:64ch}
+.opt{display:flex;gap:9px;align-items:flex-start;text-align:left;background:var(--paper2);border:1.5px solid transparent;border-radius:9px;padding:8px 12px;cursor:pointer;font-size:15px;transition:.14s}
+.opt:hover{border-color:var(--line2)}
+.opt .k{font-family:var(--f-m);font-size:11.5px;color:var(--muted);flex:none;margin-top:3px}
+.opt.sel{border-color:var(--accent);background:var(--accent-wash)}
+.opt.good{border-color:var(--ok);background:var(--ok-wash)}
+.opt.bad{border-color:var(--bad);background:var(--bad-wash)}
+.opt[disabled]{cursor:default}
+.fb{margin-top:9px;font-size:14.5px;border-radius:9px;padding:9px 12px;display:none;max-width:64ch}
+.fb.show{display:block}
+.fb.good{background:var(--ok-wash);border-left:3px solid var(--ok)}
+.fb.bad{background:var(--bad-wash);border-left:3px solid var(--bad)}
+.fb b{display:block;margin-bottom:2px}
+input[type=text]{font:inherit;font-size:15px;padding:8px 11px;border-radius:9px;border:1.5px solid var(--line2);background:var(--paper2);color:var(--ink);width:min(300px,100%)}
+input[type=text]:focus{border-color:var(--accent);outline:none}
+.inputrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{background:var(--paper2);border:1.5px solid var(--line2);border-radius:9px;padding:7px 14px;font-weight:600;font-size:14.5px;cursor:pointer}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.pri{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.pri:hover{filter:brightness(1.08);color:var(--accent-ink)}
+.scoreline{font-family:var(--f-m);font-size:13px;color:var(--muted);margin-top:12px}
+
+/* ---------- exam ---------- */
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(265px,1fr));gap:16px;margin:18px 0}
+.mode{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.mode.m2{border-color:var(--key);box-shadow:0 0 0 1px var(--key-wash),var(--shadow)}
+.mode h3{margin-top:0}
+.mode .lvl{font-family:var(--f-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.mode ul{font-size:14.5px;color:var(--ink2);flex:1}
+.mode .best{font-family:var(--f-m);font-size:12px;color:var(--muted);margin:8px 0}
+#examarea{margin-top:20px}
+.examtop{position:sticky;top:calc(env(safe-area-inset-top,0px) + 54px);z-index:20;background:var(--paper);border:1px solid var(--line2);border-radius:12px;padding:10px 14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;box-shadow:var(--shadow);margin-bottom:16px}
+.examtop .tm{font-family:var(--f-m);font-size:19px;font-weight:500;letter-spacing:.02em}
+.examtop .tm.low{color:var(--bad)}
+.examtop .lbl{font-size:13.5px;color:var(--muted)}
+.result{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:var(--shadow);margin-bottom:18px}
+.bigscore{font-family:var(--f-d);font-size:52px;font-weight:800;line-height:1;letter-spacing:-.03em}
+.bigscore small{font-size:20px;color:var(--muted);font-weight:500}
+.tbreak{display:flex;flex-direction:column;gap:7px;margin-top:16px;max-width:520px}
+.tb{display:grid;grid-template-columns:1fr 60px 40px;gap:9px;align-items:center;font-size:14px}
+.tb .mini{height:7px;border-radius:99px;background:var(--paper2);overflow:hidden;border:1px solid var(--line)}
+.tb .mini i{display:block;height:100%;background:var(--accent)}
+.tb .mini i.w3{background:var(--bad)}
+.tb .v{font-family:var(--f-m);font-size:12px;color:var(--muted);text-align:right}
+
+/* ---------- flashcards ---------- */
+.fcwrap{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin:16px 0}
+.fc{flex:1;min-width:260px;background:var(--paper);border:1px solid var(--line2);border-radius:14px;padding:26px 20px;text-align:center;box-shadow:var(--shadow);cursor:pointer;min-height:168px;display:flex;flex-direction:column;justify-content:center;gap:6px}
+.fc .fw{font-family:var(--f-d);font-size:27px;font-weight:700}
+.fc .fh{font-family:var(--f-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.fc .fa{font-size:19px;color:var(--accent);font-weight:700}
+.fc .fe{font-family:var(--f-s);font-size:14.5px;color:var(--ink2);margin-top:6px}
+
+.checkoff{display:flex;align-items:center;gap:10px;margin-top:26px;padding:12px 16px;background:var(--paper);border:1px dashed var(--line2);border-radius:12px;max-width:68ch;cursor:pointer;font-size:14.6px}
+.checkoff input{width:19px;height:19px;accent-color:var(--accent);flex:none}
+.checkoff.done{border-style:solid;border-color:var(--ok);background:var(--ok-wash)}
+.streakbox{display:flex;gap:14px;flex-wrap:wrap;margin:14px 0}
+.sb{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 16px;min-width:120px}
+.sb b{font-family:var(--f-d);font-size:26px;display:block;line-height:1.1}
+.sb span{font-size:12.5px;color:var(--muted)}
+footer{border-top:1px solid var(--line);padding:22px 0 10px;color:var(--muted);font-size:13.5px}
+@media (max-width:900px){
+  .page{grid-template-columns:minmax(0,1fr);gap:0}
+  #nav{position:static;max-height:none;padding-block:12px 0;overflow:visible;border-bottom:1px solid var(--line);min-width:0;max-width:100%}
+  #nav .navlist{max-width:100%;min-width:0}
+  #nav .nt{display:none}
+  #nav .navlist{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin}
+  #nav a{white-space:nowrap;border:1px solid var(--line);border-left:1px solid var(--line);border-radius:99px;font-size:13.3px;padding:5px 12px}
+  #nav a.on{border-color:var(--accent)}
+  .hero{padding:22px}
+  main{padding-block:16px 60px}
+}
+</style>
+
+<div id="top"><div class="tin">
+  <div class="brand">Inglés I · <span>Lectocomprensión</span></div>
+  <div class="bar" title="Progreso del taller"><i id="barfill"></i></div>
+  <span id="pct">0%</span>
+  <button class="iconbtn" id="themebtn" aria-label="Cambiar tema">◐</button>
+</div></div>
+
+<div class="page">
+<nav id="nav" aria-label="Secciones">
+  <p class="nt">El taller</p>
+  <div class="navlist">
+    <a href="#metodo"><b>00</b>Cómo usar esto</a>
+    <a href="#paratexto"><b>01</b>El paratexto</a>
+    <a href="#palabras"><b>02</b>Cognados y falsos amigos</a>
+    <a href="#morfo"><b>03</b>Palabra base y sufijos</a>
+    <a href="#dicc"><b>04</b>Diccionario y categorías</a>
+    <a href="#frases"><b>05</b>La frase nominal</a>
+    <a href="#tecnicas"><b>06</b>Skimming y scanning</a>
+    <a href="#conectores"><b>07</b>Conectores y señales</a>
+    <a href="#datos"><b>08</b>Números y siglas</a>
+    <a href="#textos"><b>09</b>Los 6 textos</a>
+    <a href="#practica"><b>10</b>Zona de práctica</a>
+    <a href="#examen"><b>11</b>Examen</a>
+    <a href="#glosario"><b>12</b>Glosario</a>
+    <a href="#plan"><b>13</b>Plan de 7 días</a>
+  </div>
+</nav>
+
+<main>
+
+<div class="hero">
+  <p class="kicker">Cuadernillo · Guías 1 a 6 · Páginas 1–25</p>
+  <h1>Aprobar inglés sin saber inglés</h1>
+  <p>Esta materia <b>no te pide hablar, ni escribir, ni traducir todo</b>. Te pide entender de qué habla un texto en inglés usando pistas: el diseño de la página, las palabras que se parecen al español, las fechas, los números y la forma de las frases. Eso se entrena. Acá está todo, paso a paso, desde cero.</p>
+  <div class="stats">
+    <div class="stat"><b>6</b>guías del cuadernillo</div>
+    <div class="stat"><b>200+</b>palabras clickeables</div>
+    <div class="stat"><b>2</b>niveles de examen</div>
+    <div class="stat"><b>90+</b>ejercicios</div>
+  </div>
+  <div class="row">
+    <a class="cta" href="#metodo">Empezar por el principio</a>
+    <a class="cta ghost" href="#examen">Ir directo al examen</a>
+  </div>
+  <div class="note" style="margin-bottom:0">
+    <b>Probá ahora mismo:</b> tocá cualquier palabra de color, por ejemplo <button class="w" data-k="supply">supply</button> o <button class="w fal" data-k="library">library</button>. Se abre una tarjeta con la traducción, la categoría gramatical y un ejemplo real. Funciona en toda la página.
+  </div>
+</div>
+
+<!-- ============ 00 ============ -->
+<section id="metodo" data-mod="metodo">
+  <p class="eyebrow">Módulo 00 · 6 minutos</p>
+  <h2>Cómo usar esto (y por qué está armado así)</h2>
+  <p class="lead">Antes de la primera palabra en inglés, entendé el juego: qué te evalúan, cómo están armadas las guías y cómo estudiar para que se te quede.</p>
+
+  <h3>Qué es “lectocomprensión”</h3>
+  <p>Tu materia es <b>Inglés I Transversal</b>: una materia de <b>lectura comprensiva</b>. El objetivo no es que produzcas inglés, es que <b>leas un texto en inglés y respondas en español</b>. Las consignas del cuadernillo están escritas en español y se responden en español. Por eso podés aprobar aunque hoy no sepas decir ni “hola”.</p>
+
+  <div class="grid2">
+    <div class="card"><h4>❌ Lo que NO te van a pedir</h4><ul style="margin-bottom:0">
+      <li>Hablar o conversar en inglés.</li>
+      <li>Escribir textos en inglés.</li>
+      <li>Traducir palabra por palabra.</li>
+      <li>Saberte la gramática de memoria.</li>
+    </ul></div>
+    <div class="card"><h4>✅ Lo que SÍ te van a pedir</h4><ul style="margin-bottom:0">
+      <li>Identificar <b>el paratexto</b> (todo lo que rodea al texto).</li>
+      <li>Reconocer <b>cognados</b> y evitar <b>falsos cognados</b>.</li>
+      <li>Encontrar la <b>idea principal</b> y datos puntuales.</li>
+      <li>Detectar <b>frases nominales</b> y conceptos clave.</li>
+      <li>Escribir una <b>síntesis conceptual</b> en español.</li>
+    </ul></div>
+  </div>
+
+  <h3>Las tres partes de toda guía de actividades</h3>
+  <p>Fijate que las 6 guías del cuadernillo repiten siempre la misma estructura. Si entendés esta estructura, ya sabés qué te van a preguntar antes de leer la guía.</p>
+  <div class="tw"><table>
+    <tr><th>Momento</th><th>Qué te piden</th><th>Cómo se responde</th></tr>
+    <tr><td><b>Anticipación</b><br><span style="color:var(--muted);font-size:13px">antes de leer</span></td><td>Mirar el paratexto, predecir el tema, decir la fuente, la fecha, la autoría, armar una <b>hipótesis de lectura</b>.</td><td>Sin leer el texto todavía. Solo mirando título, imágenes, logo, fecha y enlace.</td></tr>
+    <tr><td><b>Lectura</b><br><span style="color:var(--muted);font-size:13px">mientras leés</span></td><td>Subrayar cognados, encerrar frases nominales, buscar palabras base, ubicar información en líneas específicas (L5, L12…), responder preguntas de detalle.</td><td>Con el texto delante, marcando y numerando. Nunca de memoria.</td></tr>
+    <tr><td><b>Poslectura</b><br><span style="color:var(--muted);font-size:13px">después de leer</span></td><td>Listar los conceptos principales, confirmar o refutar tu hipótesis, completar una <b>síntesis conceptual</b> de 80–100 palabras.</td><td>En español, con tus palabras, usando los conceptos que marcaste.</td></tr>
+  </table></div>
+
+  <div class="brain"><span class="bt">Por qué esta página funciona así</span>
+  Está diseñada con cinco principios de memoria que están probados: <b>1) Recuperación activa</b> — cada módulo termina en ejercicios, porque intentar recordar fija más que releer. <b>2) Codificación dual</b> — cada categoría tiene un color fijo: tu cerebro guarda “verde = cognado” más rápido que una definición. <b>3) Fragmentación</b> — módulos de 5 a 8 minutos, no capítulos de 40. <b>4) Efecto de generación</b> — te pregunto antes de darte la respuesta. <b>5) Repaso espaciado</b> — al final hay un plan de 7 días para volver justo antes de olvidarte.</div>
+
+  <h3>El código de colores que vas a ver en toda la página</h3>
+  <div class="legend">
+    <span class="chip"><i class="dot-key"></i>Palabra clave</span>
+    <span class="chip"><i class="dot-cog"></i>Cognado (se parece y significa lo mismo)</span>
+    <span class="chip"><i class="dot-fal"></i>Falso cognado ⚠ (te engaña)</span>
+    <span class="chip"><i class="dot-loan"></i>Préstamo lingüístico</span>
+    <span class="chip"><i class="dot-prop"></i>Nombre propio</span>
+  </div>
+  <p>Tocá cualquiera de ellas en cualquier parte de la página y vas a ver: traducción, categoría gramatical y un ejemplo de uso real.</p>
+
+  <label class="checkoff"><input type="checkbox" data-check="metodo"><span>Listo, entendí cómo se juega este partido.</span></label>
+</section>
+
+<!-- ============ 01 ============ -->
+<section id="paratexto" data-mod="paratexto">
+  <p class="eyebrow">Módulo 01 · el tema estrella de la Guía 1</p>
+  <h2>El paratexto: leer sin leer</h2>
+  <p class="lead">Es lo primero que evalúan y lo que más puntos regala. El paratexto es <b>todo lo que acompaña al texto sin ser el texto</b>: te permite saber de qué habla una publicación en inglés sin entender una sola oración.</p>
+
+  <h3>Definición en una línea</h3>
+  <div class="note"><b>Paratexto</b> = todo el envoltorio del texto: título, bajada, autoría, fecha, fuente, imágenes, logotipos, tipografía, colores, subtítulos, viñetas, números de página, notas al pie, enlaces web, ISBN, código de barras. Todo lo que ves <i>antes</i> de leer.</div>
+
+  <h3>Los elementos que tenés que saber nombrar</h3>
+  <div class="tw"><table>
+    <tr><th>Elemento</th><th>Qué es</th><th>Cómo lo reconocés</th></tr>
+    <tr><td><b>Título</b></td><td>El nombre de la publicación.</td><td>Lo más grande y arriba de todo.</td></tr>
+    <tr><td><b>Bajada de título</b><br><span style="font-size:13px;color:var(--muted)">(subtítulo)</span></td><td>Una o dos líneas debajo del título que amplían la información.</td><td>Letra mediana, debajo del título, generalmente sin punto final.</td></tr>
+    <tr><td><b>Autoría</b></td><td>Quién lo escribió: persona, institución o empresa.</td><td>Un nombre propio, o una sigla (WHO, NAEA). A veces no aparece: eso también se responde.</td></tr>
+    <tr><td><b>Fecha de publicación</b></td><td>Cuándo se publicó.</td><td>Ojo: hay textos con dos fechas (<i>Posted on</i> / <i>Updated on</i>).</td></tr>
+    <tr><td><b>Fuente</b></td><td>De dónde se sacó (el medio, el sitio, la revista).</td><td>Al pie, después de la palabra “Fuente” o “Disponible en”.</td></tr>
+    <tr><td><b>Soporte</b></td><td>El <i>formato físico o digital</i>: papel, sitio web, red social, libro impreso, revista, blog.</td><td>Preguntate: ¿esto está en papel o en pantalla? ¿Es red social, blog, sitio institucional?</td></tr>
+    <tr><td><b>Encabezados de sección</b></td><td>Los títulos internos que parten el texto.</td><td>En negrita, más chicos que el título.</td></tr>
+    <tr><td><b>Logotipo</b></td><td>La marca visual de quien publica.</td><td>Arriba a la izquierda casi siempre.</td></tr>
+    <tr><td><b>Imagen</b></td><td>Foto o ilustración.</td><td>Aporta tema y tono; a veces tiene epígrafe.</td></tr>
+    <tr><td><b>Numeración de línea / página</b></td><td>Los números al margen.</td><td>En el cuadernillo cada texto tiene líneas numeradas: <b>las vas a necesitar</b> para responder “¿en qué línea dice…?”.</td></tr>
+    <tr><td><b>Nota al pie</b></td><td>Aclaración al final de la página o del texto.</td><td>Un número chiquito arriba: <i>...by 2030 <b>(1)</b></i> remite a la referencia 1.</td></tr>
+    <tr><td><b>Enlace web (URL)</b></td><td>La dirección del sitio.</td><td>Empieza con https://. <b>Te dice muchísimo</b>: <code>who.int</code> = organismo de salud; <code>linkedin.com</code> = red profesional.</td></tr>
+    <tr><td><b>ISBN</b></td><td><i>International Standard Book Number</i>: el número único que identifica a un libro en todo el mundo.</td><td>Solo en libros, junto al código de barras de la contratapa.</td></tr>
+  </table></div>
+
+  <div class="warn"><b>Tipo de publicación ≠ soporte.</b> Es el error más común. <b>Tipo de publicación</b> responde “¿qué clase de texto es?” (artículo periodístico, entrada de blog, perfil institucional, contratapa de libro, publicación de red social, ficha de producto). <b>Soporte</b> responde “¿dónde está?” (sitio web, papel, red social, plataforma de e-commerce).</div>
+
+  <h3>Las 6 publicaciones de la Guía 1, resueltas</h3>
+  <p>El cuadernillo muestra seis publicaciones llamadas <b>A, B, C, D, E y F</b>. Esta tabla es prácticamente la respuesta al ejercicio 1, 2 y 3 de la Guía 1.</p>
+  <div class="tw"><table>
+    <tr><th>#</th><th>Publicación</th><th>Tipo</th><th>Soporte</th><th>Fecha / Autoría</th><th>Audiencia y área</th></tr>
+    <tr><td><b>A</b></td><td><i>CS2 skin trading for beginners</i> (DaddySkins)</td><td>Entrada de blog / guía para principiantes</td><td>Sitio web (blog comercial)</td><td>19/11/2025 · Rob</td><td>Jugadores de videojuegos que compran y venden skins. Área: videojuegos + economía.</td></tr>
+    <tr><td><b>B</b></td><td><i>China’s Yangtze River shows signs of remarkable recovery after fishing ban</i></td><td>Artículo periodístico (con título + bajada)</td><td>Sitio web de diario (<i>The Guardian</i>)</td><td>12/02/2026 · J. Watts</td><td>Público general interesado en actualidad. Área: medio ambiente.</td></tr>
+    <tr><td><b>C</b></td><td><i>The Hunger Games</i>, Suzanne Collins (tapa y contratapa)</td><td>Libro: tapa y contratapa</td><td>Papel (editorial Scholastic)</td><td>Autora: Suzanne Collins</td><td>Lectores de ficción juvenil. Área: literatura.</td></tr>
+    <tr><td><b>D</b></td><td><i>Atomic Habits</i>, James Clear (ficha de Amazon)</td><td>Ficha de producto / página de venta</td><td>Sitio de e-commerce (Amazon), formato ebook</td><td>Autor: James Clear</td><td>Personas que quieren mejorar hábitos. Área: desarrollo personal.</td></tr>
+    <tr><td><b>E</b></td><td><i>Is Medical Tourism the Next Big Career Opportunity?</i></td><td>Nota de sitio especializado (sección “Medical Tourism News”)</td><td>Sitio web temático (Radiant Hub)</td><td>16/01/2026 · Radiant Hub</td><td>Profesionales del turismo y la salud. Área: salud + turismo + trabajo.</td></tr>
+    <tr><td><b>F</b></td><td><i>VALORANT Masters Santiago 2026 — Event Overview</i></td><td>Nota informativa de evento (esports)</td><td>Sitio web de noticias gamer (juked.gg)</td><td>Sin autor visible</td><td>Fans de esports. Área: videojuegos / eventos deportivos.</td></tr>
+  </table></div>
+
+  <div class="note"><b>Preguntas 6, 7 y 8 de la Guía 1, resueltas:</b><br>
+  <b>6)</b> El <span class="en">ISBN</span> aparece en <b>C</b> (contratapa de <i>The Hunger Games</i>, junto al código de barras: 978-1-407132-08-2). Es el número internacional que identifica de forma única a ese libro, esa edición y esa editorial.<br>
+  <b>7)</b> El paratexto de la contratapa de <b>C</b> cumple una función <b>persuasiva y orientadora</b>: la frase <span class="en">“THE NUMBER ONE BESTSELLER”</span> y la recomendación de Stephenie Meyer buscan convencerte de comprarlo; el resumen te anticipa el argumento sin revelar el final.<br>
+  <b>8)</b> Fechas que <i>no</i> son la fecha de publicación aparecen en <b>F</b> (el evento va del 28 de febrero al 15 de marzo de 2026; la final del Skirmish, el 14 de marzo) y en <b>C</b> (la contratapa menciona el futuro cercano de la historia).</div>
+
+  <h3>Cómo se arma una “hipótesis de lectura”</h3>
+  <p>Es una <b>predicción justificada</b>. No es adivinar: es decir qué creés que vas a leer <i>y por qué</i>. Se escribe así:</p>
+  <div class="card"><p style="margin-bottom:0"><i>“A partir del título <b>“Nursing and midwifery”</b>, del logotipo de la <b>WHO</b> y de los subtítulos <b>“Key facts”</b> y <b>“WHO response”</b>, supongo que el texto va a informar datos sobre la cantidad de enfermeros y parteras en el mundo y sobre las medidas que toma la Organización Mundial de la Salud. El área de interés es la <b>salud</b>.”</i></p></div>
+  <p>La fórmula: <b>A partir de [elemento paratextual] + [elemento paratextual], infiero que el texto tratará sobre [tema]. El área de interés es [campo].</b> Después, en poslectura, te van a pedir confirmarla o refutarla: alcanza con “se confirma, porque el texto efectivamente desarrolla…”.</p>
+
+  <div class="ex" data-ex="paratexto"><div class="exh"><span>Práctica rápida · Paratexto</span><span>5 consignas</span></div><div class="exbody"></div></div>
+
+  <label class="checkoff"><input type="checkbox" data-check="paratexto"><span>Puedo nombrar los elementos del paratexto y diferenciar tipo de publicación de soporte.</span></label>
+</section>
+
+<!-- ============ 02 ============ -->
+<section id="palabras" data-mod="palabras">
+  <p class="eyebrow">Módulo 02 · la herramienta que más rinde</p>
+  <h2>Cognados, falsos amigos y préstamos</h2>
+  <p class="lead">Entre el 30% y el 40% de las palabras de un texto académico en inglés <b>se parecen al español</b>. Aprovechar eso es la mitad de la materia. La otra mitad es no caer en las que <i>parecen</i> pero no son.</p>
+
+  <h3>Las 5 categorías que te van a pedir clasificar</h3>
+  <div class="grid2">
+    <div class="card" style="border-left:3px solid var(--cog)"><h4 style="color:var(--cog)">1 · Cognado</h4>
+      <p>Se escribe parecido al español <b>y significa lo mismo</b>. Vienen del latín, por eso coinciden.</p>
+      <p style="margin-bottom:0"><button class="w cog" data-k="information">information</button>, <button class="w cog" data-k="important">important</button>, <button class="w cog" data-k="education">education</button>, <button class="w cog" data-k="industry">industry</button>, <button class="w cog" data-k="demand">demand</button>, <button class="w cog" data-k="event">event</button>.</p></div>
+
+    <div class="card" style="border-left:3px solid var(--false)"><h4 style="color:var(--false)">2 · Falso cognado (falso amigo) ⚠</h4>
+      <p>Se parece al español pero <b>significa otra cosa</b>. Es la trampa favorita de los exámenes.</p>
+      <p style="margin-bottom:0"><button class="w fal" data-k="library">library</button>, <button class="w fal" data-k="actually">actually</button>, <button class="w fal" data-k="realize">realize</button>, <button class="w fal" data-k="career">career</button>, <button class="w fal" data-k="success">success</button>, <button class="w fal" data-k="policy">policy</button>.</p></div>
+
+    <div class="card" style="border-left:3px solid var(--loan)"><h4 style="color:var(--loan)">3 · Préstamo lingüístico</h4>
+      <p>Palabra inglesa que <b>usamos en español tal cual</b>, sin traducir.</p>
+      <p style="margin-bottom:0"><button class="w loan" data-k="bestseller">bestseller</button>, <button class="w loan" data-k="online">online</button>, <button class="w loan" data-k="streaming">streaming</button>, <button class="w loan" data-k="software">software</button>, <button class="w loan" data-k="hardware">hardware</button>, <button class="w loan" data-k="app">app</button>, <button class="w loan" data-k="spam">spam</button>, <button class="w loan" data-k="marketing">marketing</button>.</p></div>
+
+    <div class="card" style="border-left:3px solid var(--proper)"><h4 style="color:var(--proper)">4 · Nombre propio</h4>
+      <p>Personas, marcas, lugares, instituciones, productos. <b>No se traducen</b> y son un regalo: te dicen de qué habla el texto.</p>
+      <p style="margin-bottom:0"><button class="w prop" data-k="Netflix">Netflix</button>, <button class="w prop" data-k="Valve">Valve</button>, <button class="w prop" data-k="Steam">Steam</button>, <button class="w prop" data-k="WHO">WHO</button>, <button class="w prop" data-k="Yangtze River">Yangtze River</button>, <button class="w prop" data-k="Texas">Texas</button>.</p></div>
+
+    <div class="card"><h4>5 · No cognado</h4>
+      <p>No se parece a nada del español. Se dividen en dos:</p>
+      <ul style="margin-bottom:0">
+        <li><b>Ya conocidas:</b> las sabés de tanto verlas (<button class="w" data-k="money">money</button>, <button class="w" data-k="country">country</button>, <button class="w" data-k="world">world</button>, <button class="w" data-k="work">work</button>).</li>
+        <li><b>Inferibles por el paratexto:</b> no las sabés, pero el contexto te las regala (<button class="w" data-k="ban">ban</button> junto a “fishing” y “recovery”; <button class="w" data-k="hunger">hunger</button> en la tapa de <i>The Hunger Games</i>).</li>
+        <li><b>Opacas:</b> no hay forma → diccionario.</li>
+      </ul></div>
+  </div>
+
+  <h3>La tabla del ejercicio 4 de la Guía 1, resuelta y justificada</h3>
+  <div class="tw"><table>
+    <tr><th>Palabra</th><th>Categoría</th><th>Significado</th><th>Por qué</th></tr>
+    <tr><td><button class="w" data-k="supply">supply</button> (A)</td><td>No cognado inferible</td><td>oferta / suministro</td><td>Aparece en <i>supply and demand</i>: la fórmula “oferta y demanda” te la da el contexto económico del paratexto.</td></tr>
+    <tr><td><button class="w" data-k="hunger">hunger</button> (C)</td><td>No cognado inferible</td><td>hambre</td><td>La tapa del libro <i>The Hunger Games</i> es conocida; la contratapa habla de supervivencia.</td></tr>
+    <tr><td><button class="w prop" data-k="Yangtze River">Yangtze River</button> (B)</td><td>Nombre propio</td><td>Río Yangtsé</td><td>Lugar geográfico + mayúsculas + la palabra <i>River</i>.</td></tr>
+    <tr><td><button class="w" data-k="countries">countries</button> (E)</td><td>Ya conocida, no cognado</td><td>países</td><td><i>Country</i> es vocabulario básico; <b>-ies</b> es el plural de las palabras terminadas en <b>-y</b>.</td></tr>
+    <tr><td><button class="w cog" data-k="demand">demand</button> (A)</td><td>Cognado</td><td>demanda</td><td>Se escribe casi igual y significa lo mismo.</td></tr>
+    <tr><td><button class="w loan" data-k="bestseller">bestseller</button> (C)</td><td>Préstamo lingüístico</td><td>libro más vendido</td><td>En español decimos “bestseller” sin traducirlo.</td></tr>
+    <tr><td><button class="w" data-k="ban">ban</button> (B)</td><td>No cognado inferible</td><td>prohibición / veda</td><td>La bajada habla de recuperación de peces <i>after fishing ban</i>: si los peces se recuperan, algo se prohibió.</td></tr>
+    <tr><td><button class="w cog" data-k="event">event</button> (F)</td><td>Cognado</td><td>evento</td><td>Idéntico salvo una letra.</td></tr>
+    <tr><td><button class="w" data-k="money">money</button> (A)</td><td>Ya conocida, no cognado</td><td>dinero</td><td>No se parece al español, pero es vocabulario básico universal.</td></tr>
+    <tr><td><button class="w cog" data-k="habits">habits</button> (D)</td><td>Cognado</td><td>hábitos</td><td><i>Habit</i> → hábito. La <b>-s</b> marca plural.</td></tr>
+    <tr><td><button class="w fal" data-k="career">career</button> (E)</td><td>Falso cognado ⚠</td><td>trayectoria / carrera <b>profesional</b></td><td>No es “carrera” de correr (eso es <i>race</i>) ni “carrera universitaria” (eso es <i>degree</i> o <i>major</i>). Se refiere a la vida laboral.</td></tr>
+    <tr><td><button class="w fal" data-k="runs">runs</button> (F)</td><td>Falso cognado en contexto ⚠</td><td>se desarrolla / va (del … al …)</td><td><i>The event runs from February 28 to March 15</i>: acá <i>run</i> no es “correr” sino “transcurrir, estar en marcha”.</td></tr>
+  </table></div>
+
+  <h3>Los falsos amigos que aparecen en TUS textos</h3>
+  <p>Memorizá estos doce: están en las guías 2 a 6 y son puntos perdidos si los traducís mal.</p>
+  <div class="tw"><table>
+    <tr><th>Inglés</th><th>Parece…</th><th>Pero significa</th><th>Aparece en</th></tr>
+    <tr><td><button class="w fal" data-k="career">career</button></td><td>carrera (universitaria / de correr)</td><td>trayectoria profesional</td><td>Guías 1, 3 y 5</td></tr>
+    <tr><td><button class="w fal" data-k="policy">policy</button></td><td>policía</td><td>política, normativa, lineamiento</td><td>Guía 6 (<i>policy priorities</i>)</td></tr>
+    <tr><td><button class="w fal" data-k="actually">actually</button></td><td>actualmente</td><td>en realidad, de hecho</td><td>frecuente en exámenes</td></tr>
+    <tr><td><button class="w fal" data-k="library">library</button></td><td>librería</td><td>biblioteca</td><td>Guía 5 (<i>library occupations</i>)</td></tr>
+    <tr><td><button class="w fal" data-k="success">success</button></td><td>suceso</td><td>éxito</td><td>Guías 4 y 5</td></tr>
+    <tr><td><button class="w fal" data-k="realize">realize</button></td><td>realizar</td><td>darse cuenta</td><td>general</td></tr>
+    <tr><td><button class="w fal" data-k="assist">assist</button></td><td>asistir (a un lugar)</td><td>ayudar, asistir a alguien</td><td>general</td></tr>
+    <tr><td><button class="w fal" data-k="attend">attend</button></td><td>atender</td><td>asistir / concurrir a</td><td>Guía 1 (<i>attendees</i> en F)</td></tr>
+    <tr><td><button class="w fal" data-k="fabric">fabric</button></td><td>fábrica</td><td>tela, tejido</td><td>general</td></tr>
+    <tr><td><button class="w fal" data-k="large">large</button></td><td>largo</td><td>grande, amplio</td><td>Guía 4 (<i>a large company</i>)</td></tr>
+    <tr><td><button class="w fal" data-k="sensible">sensible</button></td><td>sensible</td><td>sensato, razonable</td><td>general</td></tr>
+    <tr><td><button class="w fal" data-k="facilities">facilities</button></td><td>facilidades</td><td>instalaciones, centros</td><td>Guía 5 (<i>long-term care facilities</i>)</td></tr>
+  </table></div>
+
+  <div class="brain"><span class="bt">Truco de memoria</span>
+  Para los falsos amigos armá una imagen ridícula: <b>“En la <i>library</i> no se compran libros, se piden prestados”</b> · <b>“<i>Career</i> no se corre, se construye”</b> · <b>“La <i>policy</i> no te multa, te ordena”</b>. Lo absurdo se recuerda mejor que lo correcto: es el efecto de bizarría, y funciona porque tu cerebro marca lo raro como “esto hay que guardarlo”.</div>
+
+  <div class="ex" data-ex="palabras"><div class="exh"><span>Práctica rápida · Clasificación de palabras</span><span>6 consignas</span></div><div class="exbody"></div></div>
+
+  <label class="checkoff"><input type="checkbox" data-check="palabras"><span>Distingo cognado, falso cognado, préstamo, nombre propio y no cognado.</span></label>
+</section>
+
+<!-- ============ 03 ============ -->
+<section id="morfo" data-mod="morfo">
+  <p class="eyebrow">Módulo 03 · para poder usar el diccionario</p>
+  <h2>La palabra base, los sufijos y los prefijos</h2>
+  <p class="lead">Buscás <span class="en">revolutionized</span> en el diccionario y no aparece. No está roto el diccionario: tenés que <b>sacarle la terminación</b> y buscar la <b>palabra base</b>. Eso es todo este módulo.</p>
+
+  <h3>La regla de oro</h3>
+  <div class="note"><b>Palabra base</b> = la palabra “desnuda”, sin agregados. <span class="en">revolutionized</span> → saco <b>-ed</b> → <span class="en">revolutionize</span> → <b>revolucionar</b>. <span class="en">increasingly</span> → saco <b>-ly</b> → <span class="en">increasing</span> → saco <b>-ing</b> → <span class="en">increase</span> → <b>aumentar</b>.</div>
+
+  <h3>Sufijos: van al final y te dicen QUÉ ES la palabra</h3>
+  <div class="tw"><table>
+    <tr><th>Sufijo</th><th>Convierte la palabra en…</th><th>Ejemplo del cuadernillo</th><th>En español</th></tr>
+    <tr><td><b>-s / -es / -ies</b></td><td>plural de sustantivo <i>o</i> verbo en 3ª persona</td><td><span class="en">processes, countries, helps</span></td><td>procesos / países / ayuda</td></tr>
+    <tr><td><b>-ing</b></td><td>acción en curso o adjetivo</td><td><span class="en">transforming, nursing, increasing</span></td><td>transformando / enfermería / creciente</td></tr>
+    <tr><td><b>-ed</b></td><td>pasado o adjetivo participio</td><td><span class="en">revolutionized, trained, published</span></td><td>revolucionó / entrenado / publicado</td></tr>
+    <tr><td><b>-ly</b></td><td><b>adverbio</b> (modo: “-mente”)</td><td><span class="en">increasingly, effectively, globally</span></td><td>cada vez más / eficazmente / globalmente</td></tr>
+    <tr><td><b>-tion / -sion</b></td><td>sustantivo abstracto</td><td><span class="en">education, recognition, distribution</span></td><td>educación / reconocimiento / distribución</td></tr>
+    <tr><td><b>-ment</b></td><td>sustantivo (resultado de una acción)</td><td><span class="en">development, employment, environment</span></td><td>desarrollo / empleo / entorno</td></tr>
+    <tr><td><b>-ness</b></td><td>sustantivo (cualidad)</td><td><span class="en">awareness, illness</span></td><td>conciencia / enfermedad</td></tr>
+    <tr><td><b>-ity / -ty</b></td><td>sustantivo (cualidad)</td><td><span class="en">accessibility, quality, community</span></td><td>accesibilidad / calidad / comunidad</td></tr>
+    <tr><td><b>-er / -or / -ist</b></td><td>persona o cosa que hace algo</td><td><span class="en">educator, worker, scientist, leader</span></td><td>educador / trabajador / científico / líder</td></tr>
+    <tr><td><b>-ful</b></td><td>adjetivo: “lleno de”</td><td><span class="en">successful, meaningful, powerful</span></td><td>exitoso / significativo / poderoso</td></tr>
+    <tr><td><b>-less</b></td><td>adjetivo: “sin”</td><td><span class="en">endless, homeless</span></td><td>interminable / sin hogar</td></tr>
+    <tr><td><b>-able / -ible</b></td><td>adjetivo: “que se puede”</td><td><span class="en">sustainable, accessible, desirable</span></td><td>sostenible / accesible / deseable</td></tr>
+    <tr><td><b>-al / -ive / -ous / -ic</b></td><td>adjetivo</td><td><span class="en">educational, effective, dangerous, academic</span></td><td>educativo / eficaz / peligroso / académico</td></tr>
+    <tr><td><b>-ize / -ise</b></td><td>verbo: “convertir en”</td><td><span class="en">revolutionize, specialize</span></td><td>revolucionar / especializarse</td></tr>
+  </table></div>
+
+  <h3>Prefijos: van al principio y te dicen CUÁNTO o EN QUÉ DIRECCIÓN</h3>
+  <div class="tw"><table>
+    <tr><th>Prefijo</th><th>Significa</th><th>Ejemplo</th></tr>
+    <tr><td><b>un- / in- / im- / non-</b></td><td>negación: “no”</td><td><span class="en">unlikely</span> (poco probable), <span class="en">uneven</span> (desigual), <span class="en">nonprofit</span></td></tr>
+    <tr><td><b>re-</b></td><td>de nuevo</td><td><span class="en">recovery</span> (recuperación), <span class="en">rebounding</span> (rebote)</td></tr>
+    <tr><td><b>over- / under-</b></td><td>por encima / por debajo</td><td><span class="en">overall</span> (general), <span class="en">overview</span> (panorama)</td></tr>
+    <tr><td><b>inter- / multi-</b></td><td>entre / muchos</td><td><span class="en">interconnected</span>, <span class="en">multi-billion-dollar</span></td></tr>
+    <tr><td><b>pre- / post-</b></td><td>antes / después</td><td><span class="en">PreK-12</span> (nivel inicial a secundaria)</td></tr>
+    <tr><td><b>self-</b></td><td>auto-</td><td><span class="en">self-taught</span> (autodidacta)</td></tr>
+  </table></div>
+
+  <h3>El ejercicio 9 de la Guía 2, resuelto</h3>
+  <div class="tw"><table>
+    <tr><th>Término en el texto</th><th>Palabra base a buscar</th><th>Equivalente en español</th></tr>
+    <tr><td><span class="en">processes</span> (L5)</td><td><span class="en">process</span></td><td>proceso / procesos (acá es sustantivo plural: <i>intelligence processes</i>)</td></tr>
+    <tr><td><span class="en">transforming</span> (L8)</td><td><span class="en">transform</span></td><td>transformar → “ha estado transformando”</td></tr>
+    <tr><td><span class="en">revolutionized</span> (L12)</td><td><span class="en">revolutionize</span></td><td>revolucionar → “ha revolucionado”</td></tr>
+    <tr><td><span class="en">increasingly</span> (L18)</td><td><span class="en">increase</span></td><td>aumentar → <i>increasingly</i> = “cada vez más”</td></tr>
+    <tr><td><span class="en">helps</span> (L24)</td><td><span class="en">help</span></td><td>ayudar → “ayuda” (verbo en 3ª persona)</td></tr>
+  </table></div>
+
+  <div class="warn"><b>La trampa de la -s.</b> <span class="en">processes</span> puede ser “procesos” (sustantivo plural) o “procesa” (verbo). ¿Cómo se decide? Mirá lo que viene <b>antes</b>: si hay un artículo o un adjetivo (<i>the</i>, <i>human</i>), es <b>sustantivo</b>. Si viene justo después del sujeto, es <b>verbo</b>. En <span class="en">human intelligence processes</span> hay dos sustantivos antes → es sustantivo plural: “procesos”.</div>
+
+  <div class="ex" data-ex="morfo"><div class="exh"><span>Práctica rápida · Palabra base</span><span>6 consignas</span></div><div class="exbody"></div></div>
+
+  <label class="checkoff"><input type="checkbox" data-check="morfo"><span>Sé sacar sufijos y llegar a la palabra base para buscar en el diccionario.</span></label>
+</section>
+
+<style>
+.np{display:flex;flex-wrap:wrap;gap:7px;align-items:flex-end;background:var(--paper2);border:1px solid var(--line);border-radius:10px;padding:14px;margin:10px 0}
+.np .tok{display:flex;flex-direction:column;gap:3px;align-items:center;text-align:center}
+.np .tok .t{font-family:var(--f-s);font-size:17px;padding:3px 8px;border-radius:7px;background:var(--paper);border:1px solid var(--line2)}
+.np .tok .r{font-family:var(--f-m);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.np .tok.head .t{background:var(--hl);color:var(--hl-ink);border-color:var(--hl);font-weight:700}
+.np .tok.head .r{color:var(--hl-ink);background:var(--hl);border-radius:4px;padding:0 4px}
+.npx{font-size:14.5px;color:var(--ink2);margin:2px 0 16px;max-width:70ch}
+.npx b{color:var(--accent)}
+.arrowline{font-family:var(--f-m);font-size:11.5px;color:var(--accent);letter-spacing:.08em;margin:6px 0 0}
+</style>
+
+<!-- ============ 04 ============ -->
+<section id="dicc" data-mod="dicc">
+  <p class="eyebrow">Módulo 04 · sin esto el diccionario te miente</p>
+  <h2>Categorías gramaticales y cómo leer el diccionario</h2>
+  <p class="lead">Una misma palabra inglesa puede ser sustantivo y verbo a la vez. Elegir mal la acepción es el error que más baja notas. Acá está el método para no fallar.</p>
+
+  <h3>Las 8 categorías, explicadas desde cero</h3>
+  <div class="tw"><table>
+    <tr><th>Categoría</th><th>Qué hace</th><th>Cómo la reconocés en inglés</th><th>Ejemplos</th></tr>
+    <tr><td><b>Sustantivo</b><br><span class="mono">n. / SUST.</span></td><td>Nombra cosas, personas, ideas.</td><td>Viene después de <i>the, a, an</i> o de un adjetivo. Puede llevar <b>-s</b> de plural.</td><td><span class="en">nurse, patch, education, habits</span></td></tr>
+    <tr><td><b>Verbo</b><br><span class="mono">v. / VERBO</span></td><td>Indica acción o estado.</td><td>Suele llevar <b>to</b> delante (<i>to run</i>) o terminar en <b>-s, -ed, -ing</b>.</td><td><span class="en">run, teach, provide, include</span></td></tr>
+    <tr><td><b>Adjetivo</b><br><span class="mono">adj.</span></td><td>Describe al sustantivo.</td><td><b>Va SIEMPRE antes del sustantivo</b> y nunca lleva plural.</td><td><span class="en">critical, global, successful, essential</span></td></tr>
+    <tr><td><b>Adverbio</b><br><span class="mono">adv.</span></td><td>Modifica al verbo o al adjetivo: dice cómo, cuánto, cuándo.</td><td>Casi siempre termina en <b>-ly</b>.</td><td><span class="en">increasingly, globally, typically</span></td></tr>
+    <tr><td><b>Artículo</b></td><td>Anuncia que viene un sustantivo.</td><td>Solo hay tres: <b>the</b> (el/la/los/las), <b>a / an</b> (un/una).</td><td><span class="en">the patch, a nurse, an option</span></td></tr>
+    <tr><td><b>Cuantificador</b></td><td>Dice cantidad sin número exacto.</td><td>Lista corta y fija.</td><td><span class="en">many, more, most, some, every, all, several, few</span></td></tr>
+    <tr><td><b>Preposición</b></td><td>Relaciona: lugar, tiempo, dirección.</td><td>Palabras cortas antes de un sustantivo.</td><td><span class="en">in, on, of, from, to, between, by</span></td></tr>
+    <tr><td><b>Conector</b></td><td>Une ideas y marca la relación lógica.</td><td>Ver el Módulo 07.</td><td><span class="en">and, but, if, however, because</span></td></tr>
+  </table></div>
+
+  <div class="note"><b>La regla que cambia todo:</b> en inglés <b>el adjetivo va ANTES del sustantivo</b>, al revés que en español. <span class="en">visual arts education</span> = “educación en artes visuales”, no “visual artes educación”. Volvé a leerlo de atrás para adelante y se ordena solo.</div>
+
+  <h3>Cómo se lee una entrada de diccionario</h3>
+  <p>El cuadernillo te da dos entradas reales (Collins y Simon &amp; Schuster): <span class="en">country</span> y <span class="en">run</span>. Así se desarman:</p>
+
+  <div class="card">
+    <h4 style="margin-top:0"><span class="en" style="font-size:19px">country</span> <span class="mono">SUSTANTIVO</span></h4>
+    <ul>
+      <li><b>Formas de la palabra:</b> country, PL <i>countries</i> → te avisa cómo es el plural irregular (<b>-y</b> pasa a <b>-ies</b>).</li>
+      <li><b>Acepción 1 — el país:</b> <i>the border between the two countries</i> = la frontera entre los dos países.</li>
+      <li><b>Acepción 2 — el campo:</b> <i>I live in the country</i> = vivo en el campo.</li>
+      <li><b>Acepción 3 — la patria:</b> <i>to die for one’s country</i> = morir por la patria.</li>
+      <li><b>Acepción 4 — el terreno:</b> <i>mountainous country</i> = región montañosa.</li>
+    </ul>
+    <p style="margin-bottom:0"><b>En la publicación E</b> dice: <i>“Individuals from around the world are increasingly traveling to foreign <b>countries</b>”</i> → está en plural, con el adjetivo <i>foreign</i> (extranjero) delante → es la <b>acepción 1: países</b>. Categoría: <b>sustantivo</b>.</p>
+  </div>
+
+  <div class="card">
+    <h4 style="margin-top:0"><span class="en" style="font-size:19px">run</span> <span class="mono">SUSTANTIVO y VERBO</span></h4>
+    <ul>
+      <li><b>Como sustantivo:</b> la carrera (<i>I go for a run</i> = salgo a correr); <i>in the long run</i> = a la larga.</li>
+      <li><b>Como verbo</b> (formas: run, ran, run): 1) correr · 2) <b>dirigir</b> (<i>He runs a large company</i> = dirige una gran empresa) · 3) organizar (<i>They run music courses</i>) · 4) llevar en auto · 5) <b>funcionar / estar en marcha</b> (<i>The buses stop running at midnight</i> = dejan de funcionar).</li>
+    </ul>
+    <p style="margin-bottom:0"><b>En la publicación F</b> dice: <i>“The event <b>runs</b> from February 28 to March 15”</i> → el sujeto es <i>the event</i> (un evento no corre) y le siguen dos fechas → es el sentido de <b>funcionar / transcurrir</b>: “el evento <b>va</b> del 28 de febrero al 15 de marzo”. Categoría: <b>verbo</b>.</p>
+  </div>
+
+  <h3>Método de 4 pasos para elegir la acepción correcta</h3>
+  <ol>
+    <li><b>¿Qué palabra está al lado?</b> Si antes hay <i>the / a / an</i> o un adjetivo → sustantivo. Si hay un sujeto antes → verbo.</li>
+    <li><b>Buscá la palabra base</b> (sacá <b>-s, -ed, -ing</b>).</li>
+    <li><b>Leé TODAS las acepciones</b>, no la primera. La primera es la más común, no la que necesitás.</li>
+    <li><b>Probá la traducción en la oración completa.</b> Si suena absurdo (“el evento corre desde febrero”), es la acepción equivocada.</li>
+  </ol>
+
+  <div class="brain"><span class="bt">Por qué te equivocás con esto</span>
+  Tu cerebro elige la primera acepción por <b>economía cognitiva</b>: es la ruta más barata. El antídoto es mecánico, no de fuerza de voluntad: obligate siempre a leer la acepción 2 y 3 antes de decidir. Un paso extra fijo vence a la intuición.</div>
+
+  <div class="ex" data-ex="dicc"><div class="exh"><span>Práctica rápida · Categorías y acepciones</span><span>6 consignas</span></div><div class="exbody"></div></div>
+
+  <label class="checkoff"><input type="checkbox" data-check="dicc"><span>Sé identificar la categoría gramatical y elegir la acepción por contexto.</span></label>
+</section>
+
+<!-- ============ 05 ============ -->
+<section id="frases" data-mod="frases">
+  <p class="eyebrow">Módulo 05 · lo que más se repite en las guías 3, 4 y 5</p>
+  <h2>La frase nominal (<span class="en">noun phrase</span>)</h2>
+  <p class="lead">Es un bloque de palabras que funciona como un solo concepto. Las guías te piden identificarlas, decir cómo están formadas y cuáles representan los conceptos fundamentales. Con una sola regla las resolvés todas.</p>
+
+  <div class="note"><b>LA REGLA:</b> en una frase nominal inglesa, <b>el núcleo (la palabra importante) está al FINAL</b>. Todo lo que viene antes lo describe. Por eso <b>se traduce de derecha a izquierda</b>.</div>
+
+  <h3>Vamos despacio, con ejemplos reales del cuadernillo</h3>
+
+  <div class="np">
+    <div class="tok"><span class="t">sequential</span><span class="r">adjetivo</span></div>
+    <div class="tok"><span class="t">visual</span><span class="r">adjetivo</span></div>
+    <div class="tok"><span class="t">arts</span><span class="r">sust. modificador</span></div>
+    <div class="tok head"><span class="t">education</span><span class="r">núcleo</span></div>
+  </div>
+  <p class="arrowline">◀ SE LEE DE DERECHA A IZQUIERDA</p>
+  <p class="npx">“<b>Educación</b> en artes visuales secuencial”. El núcleo es <b>education</b>: el texto habla de educación, no de artes. (Guía 3, L9)</p>
+
+  <div class="np">
+    <div class="tok"><span class="t">an</span><span class="r">artículo</span></div>
+    <div class="tok"><span class="t">increasingly</span><span class="r">adverbio</span></div>
+    <div class="tok"><span class="t">complex</span><span class="r">adjetivo</span></div>
+    <div class="tok"><span class="t">and</span><span class="r">conector</span></div>
+    <div class="tok"><span class="t">interconnected</span><span class="r">adjetivo</span></div>
+    <div class="tok head"><span class="t">world</span><span class="r">núcleo</span></div>
+  </div>
+  <p class="npx">“Un <b>mundo</b> cada vez más complejo e interconectado”. Fijate el orden: el adverbio <i>increasingly</i> modifica al adjetivo <i>complex</i>, y los dos adjetivos modifican al núcleo <b>world</b>. (Guía 3, L6)</p>
+
+  <div class="np">
+    <div class="tok"><span class="t">a</span><span class="r">artículo</span></div>
+    <div class="tok"><span class="t">multi-billion-dollar</span><span class="r">palabra guionada (adj.)</span></div>
+    <div class="tok head"><span class="t">industry</span><span class="r">núcleo</span></div>
+  </div>
+  <p class="npx">“Una <b>industria</b> multimillonaria (de miles de millones de dólares)”. Las palabras unidas con guion funcionan como <b>un solo adjetivo</b>. (Guía 3, L18)</p>
+
+  <div class="np">
+    <div class="tok"><span class="t">every</span><span class="r">cuantificador</span></div>
+    <div class="tok"><span class="t">learner’s</span><span class="r">posesivo ’s</span></div>
+    <div class="tok"><span class="t">educational</span><span class="r">adjetivo</span></div>
+    <div class="tok head"><span class="t">foundation</span><span class="r">núcleo</span></div>
+    <div class="tok"><span class="t">and</span><span class="r">conector</span></div>
+    <div class="tok head"><span class="t">training</span><span class="r">núcleo 2</span></div>
+  </div>
+  <p class="npx">“La <b>formación</b> educativa y el <b>entrenamiento</b> de cada estudiante”. El <b>’s</b> indica posesión: <i>learner’s</i> = “del estudiante”. Acá hay <b>dos núcleos</b> unidos por <i>and</i>. (Guía 3, L5-6)</p>
+
+  <h3>El orden fijo de la frase nominal</h3>
+  <div class="tw"><table>
+    <tr><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6 · NÚCLEO</th></tr>
+    <tr><td>Artículo<br><span style="font-size:13px;color:var(--muted)">the, a, an</span></td><td>Cuantificador<br><span style="font-size:13px;color:var(--muted)">many, every, more</span></td><td>Adverbio<br><span style="font-size:13px;color:var(--muted)">increasingly</span></td><td>Adjetivo<br><span style="font-size:13px;color:var(--muted)">complex, critical</span></td><td>Sustantivo modificador<br><span style="font-size:13px;color:var(--muted)">arts, health, nursing</span></td><td style="background:var(--hl);color:var(--hl-ink)"><b>Sustantivo</b><br><span style="font-size:13px">education, world, industry</span></td></tr>
+  </table></div>
+  <p>No siempre están las seis posiciones, pero <b>el orden nunca se invierte</b> y el núcleo siempre cierra.</p>
+
+  <h3>Las 10 frases nominales de la Guía 3, resueltas</h3>
+  <div class="tw"><table>
+    <tr><th>Frase nominal (inglés)</th><th>Núcleo</th><th>Traducción</th><th>¿Concepto fundamental?</th></tr>
+    <tr><td><span class="en">every learner’s educational foundation and training</span> (L5-6)</td><td>foundation / training</td><td>la formación educativa y el entrenamiento de cada estudiante</td><td><b>Sí</b></td></tr>
+    <tr><td><span class="en">an increasingly complex and interconnected world</span> (L6)</td><td>world</td><td>un mundo cada vez más complejo e interconectado</td><td>Contextual</td></tr>
+    <tr><td><span class="en">number one trait</span> (L7)</td><td>trait</td><td>el rasgo número uno</td><td>Contextual</td></tr>
+    <tr><td><span class="en">creative leaders</span> (L8)</td><td>leaders</td><td>líderes creativos</td><td><b>Sí</b></td></tr>
+    <tr><td><span class="en">sequential visual arts education</span> (L9)</td><td>education</td><td>educación secuencial en artes visuales</td><td><b>Sí</b></td></tr>
+    <tr><td><span class="en">critical thinking</span> (L12)</td><td>thinking</td><td>pensamiento crítico</td><td><b>Sí</b></td></tr>
+    <tr><td><span class="en">one’s emotions</span> (L14)</td><td>emotions</td><td>las propias emociones</td><td>Contextual</td></tr>
+    <tr><td><span class="en">a multi-billion-dollar industry</span> (L18)</td><td>industry</td><td>una industria multimillonaria</td><td><b>Sí</b></td></tr>
+    <tr><td><span class="en">many states and provinces</span> (L18)</td><td>states / provinces</td><td>muchos estados y provincias</td><td>No</td></tr>
+    <tr><td><span class="en">successful employment</span> (L20)</td><td>employment</td><td>empleo exitoso</td><td><b>Sí</b></td></tr>
+  </table></div>
+  <div class="note"><b>Cómo decidir si es “concepto fundamental”:</b> preguntate <i>¿esta frase se repite o resume de qué trata el texto?</i> Si el texto es sobre la importancia de la educación artística para el trabajo, entonces <span class="en">visual arts education</span>, <span class="en">critical thinking</span> y <span class="en">successful employment</span> son fundamentales; <span class="en">many states and provinces</span> es solo un dato de apoyo.</div>
+
+  <h3>Palabras guionadas (Guía 4, Valve)</h3>
+  <p>Cuando dos o más palabras se unen con guion, forman <b>un solo adjetivo</b> que describe al sustantivo que viene después.</p>
+  <div class="tw"><table>
+    <tr><th>Palabra</th><th>Función</th><th>Equivalente en español</th></tr>
+    <tr><td><span class="en">Half-Life</span> (L3)</td><td>Nombre propio (título del videojuego)</td><td>No se traduce. Literalmente “vida media”.</td></tr>
+    <tr><td><span class="en">award-winning</span> (L6)</td><td>Adjetivo compuesto (sustantivo + <i>-ing</i>)</td><td>galardonado / premiado</td></tr>
+    <tr><td><span class="en">Counter-Strike</span> (L6)</td><td>Nombre propio (franquicia)</td><td>No se traduce.</td></tr>
+    <tr><td><span class="en">best-selling</span> (L9)</td><td>Adjetivo compuesto (superlativo + <i>-ing</i>)</td><td>más vendido / de mayor venta</td></tr>
+    <tr><td><span class="en">leading-edge</span> (L9)</td><td>Adjetivo compuesto</td><td>de vanguardia / de punta</td></tr>
+    <tr><td><span class="en">critically-acclaimed</span> (L16)</td><td>Adjetivo compuesto (adverbio + participio)</td><td>aclamado por la crítica</td></tr>
+  </table></div>
+
+  <h3>Sufijos que forman adjetivos (los vas a tener que resaltar)</h3>
+  <div class="legend">
+    <span class="chip"><b>-al</b> educational</span><span class="chip"><b>-ive</b> effective</span><span class="chip"><b>-ous</b> dangerous</span>
+    <span class="chip"><b>-ful</b> successful</span><span class="chip"><b>-able</b> sustainable</span><span class="chip"><b>-ic</b> academic</span>
+    <span class="chip"><b>-ing</b> increasing</span><span class="chip"><b>-ed</b> interconnected</span><span class="chip"><b>-ent/-ant</b> significant</span>
+  </div>
+
+  <div class="ex" data-ex="frases"><div class="exh"><span>Práctica rápida · Frases nominales</span><span>7 consignas</span></div><div class="exbody"></div></div>
+
+  <label class="checkoff"><input type="checkbox" data-check="frases"><span>Identifico el núcleo de una frase nominal y la traduzco de derecha a izquierda.</span></label>
+</section>
+
+<!-- ============ 06 ============ -->
+<section id="tecnicas" data-mod="tecnicas">
+  <p class="eyebrow">Módulo 06 · las dos técnicas con nombre en inglés</p>
+  <h2>Skimming, scanning y oración tópico</h2>
+  <p class="lead">Son las dos formas de leer que te van a pedir por nombre en la Guía 6. No son sinónimos y no se usan para lo mismo.</p>
+
+  <div class="grid2">
+    <div class="card" style="border-left:3px solid var(--accent)"><h4 style="margin-top:0"><span class="en">SKIMMING</span> · lectura global</h4>
+      <p><b>Para qué:</b> saber <b>de qué trata</b> el texto en menos de un minuto.</p>
+      <p><b>Cómo:</b> leés solo el título, los subtítulos, la primera oración de cada párrafo, las palabras en negrita y la última oración. <b>No leés el medio de los párrafos.</b></p>
+      <p style="margin-bottom:0"><b>Te sirve para:</b> “seleccione la idea principal”, “elabore una hipótesis”, “¿de qué trata el texto?”.</p>
+      <p class="mono" style="margin-top:8px;font-size:12.5px;color:var(--muted)">Memotécnica: SKIM = “desnatar”, pasás por arriba sin hundirte.</p></div>
+
+    <div class="card" style="border-left:3px solid var(--key)"><h4 style="margin-top:0"><span class="en">SCANNING</span> · lectura selectiva</h4>
+      <p><b>Para qué:</b> encontrar <b>un dato puntual</b> (un número, una fecha, un nombre, un porcentaje).</p>
+      <p><b>Cómo:</b> ya sabés qué buscás. Barrés la página con la vista buscando <b>la forma</b> de ese dato: cifras, mayúsculas, símbolos %, años.</p>
+      <p style="margin-bottom:0"><b>Te sirve para:</b> “¿en qué línea aparece…?”, “¿qué indican estas cifras?”, “busque en el texto la siguiente información”.</p>
+      <p class="mono" style="margin-top:8px;font-size:12.5px;color:var(--muted)">Memotécnica: SCAN = escanear, como un lector de código de barras.</p></div>
+  </div>
+
+  <div class="note"><b>Regla práctica:</b> primero <b>skimming</b> (1 minuto, para orientarte), después <b>scanning</b> (para cada pregunta puntual). Nunca empieces leyendo palabra por palabra desde el principio: es la forma más lenta y la que más te frustra.</div>
+
+  <h3>La oración tópico (<span class="en">topic sentence</span>)</h3>
+  <p>En los textos académicos en inglés, <b>la primera oración de cada párrafo dice de qué trata ese párrafo</b>. Es una convención de escritura muy respetada. Por eso el cuadernillo te pide: “lea la oración tópico para elaborar una hipótesis sobre la idea principal de ese párrafo”.</p>
+  <div class="card"><p><b>Ejemplo real (Guía 6, párrafo “Overview”):</b></p>
+    <p class="en" style="font-size:16px">“Nurses and midwives are central to Primary Health Care and are often the first and sometimes the only health professional that people see…”</p>
+    <p style="margin-bottom:0"><b>Hipótesis inmediata:</b> este párrafo va a explicar por qué enfermeros y parteras son centrales en la atención primaria. <b>Leo el resto:</b> confirma, porque agrega que son parte de la comunidad y adaptan las intervenciones. ✔ Hipótesis ratificada.</p></div>
+
+  <div class="brain"><span class="bt">Truco de examen</span>
+  Si tenés poco tiempo, leé <b>solo las oraciones tópico de todos los párrafos, una detrás de otra</b>. Eso te arma el resumen del texto completo. Es exactamente lo que pide el ejercicio 4 de la Guía 3: “sintetice el texto en una sola oración integrando las oraciones tópico”.</div>
+
+  <h3>La síntesis conceptual: la consigna que más puntos vale</h3>
+  <p>Aparece en poslectura de casi todas las guías, con extensión pedida de <b>80 a 100 palabras</b>. No es un resumen del texto entero: es un <b>tejido de los conceptos clave</b> que marcaste.</p>
+  <h4>Receta en 5 pasos</h4>
+  <ol>
+    <li>Listá <b>5 conceptos</b> (frases nominales) que se repiten en el texto.</li>
+    <li>Ordenalos: ¿cuál es el <b>problema</b>? ¿cuál la <b>causa</b>? ¿cuál la <b>consecuencia</b>? ¿cuál la <b>solución</b>?</li>
+    <li>Escribí una oración por relación, en español, en tercera persona.</li>
+    <li>Conectá con: <i>ya que · sin embargo · además · por eso · para responder a esto</i>.</li>
+    <li>Contá las palabras. Entre 80 y 100. Ni 40 ni 200.</li>
+  </ol>
+
+  <div class="card"><h4 style="margin-top:0">Modelo completo: síntesis de la Guía 6 (<span class="en">Nursing and midwifery</span>)</h4>
+  <p style="margin-bottom:0">“La <b>enfermería</b> y la <b>obstetricia</b> constituyen profesiones esenciales para el funcionamiento de los sistemas de <b>salud</b>, ya que garantizan <b>el acceso a la atención primaria y suelen ser el primer y único contacto sanitario de la población</b>. Sin embargo, existe una importante <b>escasez</b> de estos profesionales en distintas regiones del mundo, lo que dificulta <b>alcanzar la cobertura sanitaria universal</b>. Además de brindar atención directa a <b>pacientes</b>, <b>familias</b> y <b>comunidades</b>, estos profesionales también contribuyen a <b>la formulación de políticas de salud</b> y al fortalecimiento de <b>los sistemas sanitarios</b>. Para responder a esta situación, la Organización Mundial de la Salud impulsa estrategias destinadas a mejorar <b>la formación, el empleo, el liderazgo y la prestación de servicios</b>.” <span class="mono" style="font-size:12px">(96 palabras)</span></p></div>
+
+  <div class="card"><h4 style="margin-top:0">Modelo completo: síntesis de la Guía 5 (<span class="en">Nurse Educator</span>)</h4>
+  <p style="margin-bottom:0">“El Educador en Enfermería (<i>Nurse Educator</i>) es un profesional <b>altamente capacitado que forma y acompaña a las futuras generaciones de enfermeros, desarrollando en ellos competencia clínica, pensamiento crítico y cuidado compasivo</b>. Su formación exige <b>una licenciatura (BSN), al menos tres años de experiencia clínica y una maestría en Educación en Enfermería (MSN Ed), con la opción de un doctorado (DNP o PhD)</b>. Este camino, de seis a diez años, responde a una demanda laboral <b>en crecimiento del 18% en la década, muy superior al 4% del promedio de todas las ocupaciones</b> y <b>ofrece mejor remuneración, un entorno menos estresante y opciones de carrera fuera del cuidado directo del paciente</b>.”</p></div>
+
+  <div class="ex" data-ex="tecnicas"><div class="exh"><span>Práctica rápida · Técnicas de lectura</span><span>6 consignas</span></div><div class="exbody"></div></div>
+
+  <label class="checkoff"><input type="checkbox" data-check="tecnicas"><span>Sé cuándo usar skimming, cuándo scanning y cómo armar una síntesis conceptual.</span></label>
+</section>
+
+<!-- ============ 07 ============ -->
+<section id="conectores" data-mod="conectores">
+  <p class="eyebrow">Módulo 07 · 30 palabras que ordenan cualquier texto</p>
+  <h2>Conectores y señales del texto</h2>
+  <p class="lead">Los conectores son carteles de tránsito: te dicen si lo que viene <b>suma</b>, <b>contradice</b>, <b>explica</b> o <b>pone una condición</b>. Con estos 30, entendés la lógica de un texto aunque no entiendas todas las palabras.</p>
+
+  <div class="tw"><table>
+    <tr><th>Relación lógica</th><th>Conectores</th><th>Qué te avisa</th></tr>
+    <tr><td><b>Suma / adición</b></td><td><button class="w" data-k="and">and</button>, <button class="w" data-k="also">also</button>, <button class="w" data-k="in addition">in addition</button>, <button class="w" data-k="moreover">moreover</button>, <span class="en">as well as</span>, <span class="en">besides</span></td><td>Viene más de lo mismo. No cambia el rumbo.</td></tr>
+    <tr><td><b>Contraste / oposición</b></td><td><button class="w" data-k="but">but</button>, <button class="w" data-k="however">however</button>, <button class="w" data-k="although">although</button>, <span class="en">nevertheless</span>, <span class="en">while</span>, <span class="en">whereas</span>, <span class="en">on the other hand</span></td><td>⚠ Cambia el rumbo. <b>Casi siempre lo importante está DESPUÉS.</b></td></tr>
+    <tr><td><b>Causa</b></td><td><button class="w" data-k="because">because</button>, <button class="w" data-k="since">since</button>, <span class="en">due to</span>, <span class="en">as</span></td><td>Explica el porqué.</td></tr>
+    <tr><td><b>Consecuencia</b></td><td><button class="w" data-k="so">so</button>, <span class="en">therefore</span>, <span class="en">thus</span>, <span class="en">as a result</span>, <span class="en">which is why</span></td><td>Es el efecto de lo anterior.</td></tr>
+    <tr><td><b>Condición</b></td><td><button class="w" data-k="if">if</button>, <span class="en">unless</span>, <span class="en">provided that</span></td><td>Pone un requisito: “si pasa A, entonces B”.</td></tr>
+    <tr><td><b>Ejemplo</b></td><td><button class="w" data-k="such as">such as</button>, <span class="en">for example</span>, <span class="en">for instance</span>, <span class="en">including</span>, <span class="en">like</span></td><td>Lo que sigue es un ejemplo, no información nueva.</td></tr>
+    <tr><td><b>Tiempo</b></td><td><button class="w" data-k="when">when</button>, <span class="en">once</span>, <span class="en">then</span>, <span class="en">before</span>, <span class="en">after</span>, <span class="en">currently</span>, <span class="en">throughout</span></td><td>Ubica en el tiempo.</td></tr>
+    <tr><td><b>Propósito</b></td><td><span class="en">to</span>, <span class="en">in order to</span>, <span class="en">so that</span></td><td>Dice para qué se hace algo.</td></tr>
+    <tr><td><b>Comparación / cantidad</b></td><td><button class="w" data-k="more than">more than</button>, <button class="w" data-k="over">over</button>, <span class="en">less than</span>, <span class="en">compared to</span>, <span class="en">twice</span>, <span class="en">three times</span></td><td>Compara magnitudes.</td></tr>
+    <tr><td><b>Fuente</b></td><td><button class="w" data-k="according to">according to</button></td><td>“Según…”. Lo que sigue es la fuente del dato.</td></tr>
+  </table></div>
+
+  <div class="note"><b>Pregunta 10 de la Guía 5, resuelta:</b> “¿Qué relación lógica expresa el uso del conector <span class="en">If</span>?” → Expresa <b>condición</b>. El texto dice <i>“If you want to advance your career…, Nightingale College offers you…”</i> = “<b>Si</b> querés avanzar en tu carrera, Nightingale College te ofrece…”. Plantea una hipótesis sobre el lector (la condición) y le ofrece una solución (la consecuencia). Además cumple una <b>función persuasiva</b>: el texto pasa de informar a promocionar la institución.</div>
+
+  <div class="warn"><b>El conector más peligroso del examen:</b> <span class="en">however</span> / <span class="en">but</span> / <span class="en">although</span>. Cuando aparecen, la idea que realmente importa es la que viene <b>después</b>. Ejemplo de la Guía 5: <i>“<b>Although</b> an MSN will allow you to work in most educational environments, <b>if you want to pursue work in more advanced academic settings… you might need a doctoral degree</b>.”</i> → Lo importante: para niveles avanzados, <b>hace falta doctorado</b>.</div>
+
+  <div class="ex" data-ex="conectores"><div class="exh"><span>Práctica rápida · Conectores</span><span>6 consignas</span></div><div class="exbody"></div></div>
+
+  <label class="checkoff"><input type="checkbox" data-check="conectores"><span>Reconozco la relación lógica que marca cada conector.</span></label>
+</section>
+
+<!-- ============ 08 ============ -->
+<section id="datos" data-mod="datos">
+  <p class="eyebrow">Módulo 08 · puntos fáciles</p>
+  <h2>Números, siglas y datos</h2>
+  <p class="lead">Los números no se traducen: se interpretan. Y las siglas son regalos, porque casi siempre el texto las explica en la misma línea.</p>
+
+  <h3>Cómo se lee un número en un texto académico</h3>
+  <div class="tw"><table>
+    <tr><th>Aparece así</th><th>Significa</th><th>Ojo con…</th></tr>
+    <tr><td><span class="en">over 50 awards</span></td><td><b>más de</b> 50 premios</td><td><span class="en">over</span> = “más de”, no “sobre”.</td></tr>
+    <tr><td><span class="en">over 100 million units</span></td><td>más de 100 millones de unidades</td><td><span class="en">billion</span> en inglés = <b>mil millones</b>, no “billón”.</td></tr>
+    <tr><td><span class="en">1.15 to 2.41 million tonnes</span></td><td>de 1,15 a 2,41 millones de toneladas</td><td>⚠ El <b>punto</b> inglés es nuestra <b>coma</b> decimal.</td></tr>
+    <tr><td><span class="en">4.5 million nurses</span></td><td>4,5 millones de enfermeros</td><td>Es una <b>cantidad</b>, no un porcentaje.</td></tr>
+    <tr><td><span class="en">67% of the workforce</span></td><td>el 67% de la fuerza laboral</td><td>El % sí es porcentaje.</td></tr>
+    <tr><td><span class="en">one in every eight nurses</span></td><td>uno de cada ocho enfermeros</td><td>Proporción.</td></tr>
+    <tr><td><span class="en">twice the size of Texas</span></td><td>el doble del tamaño de Texas</td><td><span class="en">twice</span> = doble; <span class="en">three times</span> = triple.</td></tr>
+    <tr><td><span class="en">by the year 2030</span></td><td><b>para</b> el año 2030 (proyección a futuro)</td><td>No es “por el año”.</td></tr>
+    <tr><td><span class="en">by 2033</span> / <span class="en">throughout the decade</span></td><td>para 2033 / a lo largo de la década</td><td>Marca el plazo de una estadística.</td></tr>
+  </table></div>
+
+  <div class="warn"><b>Trampa del ejercicio 7 de la Guía 6.</b> El texto dice <i>“a shortage of <b>4.5 million</b> nurses and <b>0.31 million</b> midwives”</i>. La afirmación “la OMS estima un déficit del <b>4,5 %</b> de enfermeros y <b>31 %</b> de parteras” es <b>FALSA</b>: el texto habla de <b>millones de personas</b>, no de porcentajes. Esa es la aseveración que hay que marcar como no verdadera.</div>
+
+  <h3>Todas las siglas del cuadernillo</h3>
+  <div class="tw"><table>
+    <tr><th>Sigla</th><th>En inglés</th><th>En español</th><th>Qué es / qué rol cumple</th></tr>
+    <tr><td><b>WHO</b></td><td>World Health Organization</td><td>OMS — Organización Mundial de la Salud</td><td>Organismo de la ONU; define políticas sanitarias globales y publica el texto de la Guía 6.</td></tr>
+    <tr><td><b>SDNM</b></td><td>Global Strategic Directions for Nursing and Midwifery</td><td>Direcciones Estratégicas Mundiales para Enfermería y Obstetricia</td><td>Plan 2021–2025 con 4 áreas: educación, empleo, liderazgo y prestación de servicios.</td></tr>
+    <tr><td><b>UHC</b></td><td>Universal Health Coverage</td><td>CSU — Cobertura Sanitaria Universal</td><td>La meta: que toda la población acceda a salud sin ruina económica.</td></tr>
+    <tr><td><b>NMGCoP</b></td><td>Nursing and Midwifery Global Community of Practice</td><td>Comunidad Mundial de Práctica de Enfermería y Obstetricia</td><td>Red virtual <b>gratuita</b> para que enfermeros y parteras colaboren; se accede por app (Android/iOS) desde mayo de 2022.</td></tr>
+    <tr><td><b>GCNMO</b></td><td>Government Chief Nurses and Midwives</td><td>Jefes Gubernamentales de Enfermería y Obstetricia</td><td>Funcionarios con los que trabaja la OMS; su Foro Mundial existe desde 2004 y se reúne cada dos años.</td></tr>
+    <tr><td><b>CNE</b></td><td>Certified Nurse Educator</td><td>Educador en Enfermería Certificado</td><td>El profesional del que habla toda la Guía 5.</td></tr>
+    <tr><td><b>BSN</b></td><td>Bachelor of Science in Nursing</td><td>Licenciatura en Enfermería</td><td>Primer paso: dura unos 4 años.</td></tr>
+    <tr><td><b>MSN (Ed)</b></td><td>Master of Science in Nursing (Education)</td><td>Maestría en Ciencias de la Enfermería (Educación)</td><td>Requisito obligatorio para ser Nurse Educator: 2 a 3 años más.</td></tr>
+    <tr><td><b>DNP</b></td><td>Doctor of Nursing Practice</td><td>Doctorado en Práctica de Enfermería</td><td>Opcional; necesario para niveles universitarios avanzados.</td></tr>
+    <tr><td><b>NCLEX-RN</b></td><td>National Council Licensure Examination – Registered Nurse</td><td>Examen de habilitación para enfermeros</td><td>Hay que aprobarlo para ejercer.</td></tr>
+    <tr><td><b>NAEA</b></td><td>National Art Education Association</td><td>Asociación Nacional de Educación Artística</td><td>Autora institucional del texto de la Guía 3.</td></tr>
+    <tr><td><b>AI</b></td><td>Artificial Intelligence</td><td>IA — Inteligencia Artificial</td><td>Tema de la Guía 2.</td></tr>
+    <tr><td><b>ISBN</b></td><td>International Standard Book Number</td><td>Número Internacional Normalizado del Libro</td><td>Identifica un libro de forma única (publicación C).</td></tr>
+  </table></div>
+
+  <div class="note"><b>Método para cualquier sigla desconocida:</b> buscá en la misma línea o en la anterior un paréntesis. El inglés académico casi siempre presenta así: <i>“universal health coverage <b>(UHC)</b>”</i>. La definición está pegada a la sigla.</div>
+
+  <div class="ex" data-ex="datos"><div class="exh"><span>Práctica rápida · Números y siglas</span><span>6 consignas</span></div><div class="exbody"></div></div>
+
+  <label class="checkoff"><input type="checkbox" data-check="datos"><span>Interpreto cifras, porcentajes y siglas sin confundirlos.</span></label>
+</section>
+
+<!-- ============ 09 ============ -->
+<section id="textos" data-mod="textos">
+  <p class="eyebrow">Módulo 09 · el corazón del cuadernillo</p>
+  <h2>Los 6 textos, uno por uno</h2>
+  <p class="lead">Para cada guía: qué muestra el paratexto, el texto en inglés con su traducción línea por línea, el vocabulario que tenés que saber y las respuestas a las preguntas más difíciles. Todas las palabras de color son clickeables.</p>
+
+  <h3>Guía 1 · El paratexto (publicaciones A–F)</h3>
+  <p>Ya está resuelta completa en el <a href="#paratexto">Módulo 01</a>. Lo que tenés que llevarte: seis publicaciones distintas, seis soportes distintos, seis audiencias distintas. Y el ejercicio 4 de clasificación de palabras, que está resuelto en el <a href="#palabras">Módulo 02</a>.</p>
+
+  <h3>Guía 2 · <span class="en">The Importance of Artificial Intelligence in Everyday Life</span></h3>
+  <div class="card">
+    <p><b>Paratexto:</b> fuente <b>LinkedIn</b> (red social profesional), autoría institucional <b>Infosense AI</b>, publicado en <b>octubre de 2023</b>. Tiene título, subtítulo, encabezados de sección y líneas numeradas. <br><b>Hipótesis:</b> va a explicar qué es la IA y dar ejemplos de cómo la usamos todos los días. <b>Área:</b> tecnología.</p>
+    <p style="margin-bottom:0"><b>Respuesta a la pregunta 4 (“¿es posible reconocer el/la autor/a?”):</b> no hay una persona física; la autoría es <b>institucional / corporativa</b> (Infosense AI). Eso es una respuesta válida y esperada.</p>
+  </div>
+  <div class="src autoglos"><div class="sh"><span>Guía 2 · fragmento clave</span><span>LinkedIn · 2023</span></div><div class="sb"><ol>
+    <li data-n="5">Artificial intelligence is the simulation of human intelligence processes by machines, especially computer systems.<span class="tr">La inteligencia artificial es la simulación de los procesos de inteligencia humana por parte de máquinas, especialmente sistemas informáticos.</span></li>
+    <li data-n="8">Artificial Intelligence (AI) has been transforming various industries and aspects of modern life, from healthcare to entertainment, and from transportation to education.<span class="tr">La IA ha estado transformando diversas industrias y aspectos de la vida moderna, desde la salud hasta el entretenimiento y desde el transporte hasta la educación.</span></li>
+    <li data-n="12">AI has revolutionized the healthcare industry by providing more accurate diagnoses, developing more effective treatments, and improving patient outcomes.<span class="tr">La IA ha revolucionado la industria de la salud al proporcionar diagnósticos más precisos, desarrollar tratamientos más eficaces y mejorar los resultados de los pacientes.</span></li>
+    <li data-n="16">The entertainment industry has also been impacted by AI, with streaming services using recommendation algorithms to suggest content to users.<span class="tr">La industria del entretenimiento también fue impactada por la IA: los servicios de streaming usan algoritmos de recomendación para sugerir contenido a los usuarios.</span></li>
+    <li data-n="22">Personal Assistants: AI-powered digital assistants on smartphones like Siri, Google Assistant, or Bixby can help manage daily tasks, set reminders, provide information, send texts, and more.<span class="tr">Asistentes personales: los asistentes digitales impulsados por IA en smartphones como Siri, Google Assistant o Bixby ayudan a gestionar tareas diarias, poner recordatorios, brindar información y enviar mensajes.</span></li>
+    <li data-n="24">Online Shopping: AI is used in online shopping platforms to provide personalized recommendations based on your browsing and buying history.<span class="tr">Compras en línea: la IA se usa en plataformas de compra para dar recomendaciones personalizadas según tu historial de navegación y de compra.</span></li>
+    <li data-n="26">Email Filtering: AI helps filter out spam emails, categorizing incoming emails, and even suggesting quick replies.<span class="tr">Filtrado de correo: la IA ayuda a filtrar el spam, categorizar los correos entrantes e incluso sugerir respuestas rápidas.</span></li>
+    <li data-n="28">Navigation and Traffic: AI is used in apps like Google Maps and Waze to analyze real-time traffic data and provide the fastest routes.<span class="tr">Navegación y tránsito: la IA se usa en apps como Google Maps y Waze para analizar datos de tráfico en tiempo real y dar las rutas más rápidas.</span></li>
+  </ol></div></div>
+  <div class="note"><b>Pregunta 9 (“indicar el número de línea”), resuelta:</b> a) Asistentes tecnológicos personales → <b>L22</b> · b) Personalización al comprar → <b>L24</b> · c) Personalización al escuchar música o ver una película → <b>L16-17</b> · d) Organización de correos electrónicos → <b>L26</b> · e) Definición de Inteligencia Artificial → <b>L5</b> · f) Mención a la industria de la salud → <b>L12</b>.<br>
+  <b>Pregunta 7 (palabras que se repiten):</b> <i>AI / artificial intelligence, industry, life, education, healthcare</i>. Concepto común que las agrupa: <b>“el impacto de la inteligencia artificial en la vida cotidiana”</b>.<br>
+  <b>Pregunta 8 (nombres propios):</b> Netflix, Spotify, Siri, Google Assistant, Bixby, Google Maps, Waze → son <b>marcas de servicios y productos tecnológicos</b> que funcionan como ejemplos concretos de IA.</div>
+
+  <h3>Guía 3 · <span class="en">NAEA Position Statement on Visual Arts Workforce Development</span></h3>
+  <div class="card">
+    <p><b>Paratexto:</b> autor institucional <b>NAEA</b> (National Art Education Association), <b>sin fecha</b> (s.f.), con logotipo, título, enlace web y numeración de línea. <b>No</b> tiene bajada de título, ni notas al pie, ni imágenes.</p>
+    <p style="margin-bottom:0"><b>Tipo de texto:</b> una <i>position statement</i> = <b>declaración de posición institucional</b>. No informa neutralmente: <b>defiende una postura</b>. Por eso está lleno de adjetivos positivos.</p>
+  </div>
+  <div class="src autoglos"><div class="sh"><span>Guía 3 · oraciones tópico</span><span>NAEA · s.f.</span></div><div class="sb"><ol>
+    <li data-n="4">NAEA believes… that visual arts education is essential to every learner’s educational foundation and training for future employment in an increasingly complex and interconnected world.<span class="tr">La NAEA sostiene que la educación en artes visuales es esencial para la formación de cada estudiante y para su preparación laboral futura en un mundo cada vez más complejo e interconectado.</span></li>
+    <li data-n="7">When surveyed, CEOs identified creativity as the number one trait sought when hiring.<span class="tr">Al ser encuestados, los directores ejecutivos identificaron la creatividad como el rasgo número uno buscado al contratar.</span></li>
+    <li data-n="11">Visual arts education develops skills of deeper understanding and divergent thinking while also playing a vital role in cultivating collaboration, communication, critical thinking, curiosity, innovation, and problem solving.<span class="tr">La educación en artes visuales desarrolla habilidades de comprensión profunda y pensamiento divergente, y cumple un rol vital en cultivar colaboración, comunicación, pensamiento crítico, curiosidad, innovación y resolución de problemas.</span></li>
+    <li data-n="16">Learning in the visual arts benefits all areas of the business, industry, research, and service sectors.<span class="tr">El aprendizaje en artes visuales beneficia a todas las áreas de los sectores empresarial, industrial, de investigación y de servicios.</span></li>
+  </ol></div></div>
+  <div class="note"><b>Ejercicio 4 (síntesis en una sola oración, integrando las oraciones tópico):</b><br><i>“La NAEA sostiene que la educación en artes visuales es esencial para la formación de todo estudiante, porque desarrolla la creatividad —el rasgo más valorado por los empleadores—, el pensamiento crítico y la inteligencia emocional, y beneficia a todos los sectores productivos, preparando a las personas para un empleo exitoso.”</i></div>
+
+  <h3>Guía 4 · <span class="en">Valve Corporation</span></h3>
+  <div class="card"><p style="margin-bottom:0"><b>Paratexto:</b> es la página de <b>LinkedIn</b> de la empresa, sección <i>“Resumen”</i>. Autoría: la propia empresa. Sin fecha. <b>Intención de visitarla:</b> buscar trabajo, conocer la empresa o contactarla profesionalmente. Por eso el texto es <b>autopromocional</b>: todo lo que dice está elegido para que Valve se vea prestigiosa.</p></div>
+  <div class="src autoglos"><div class="sh"><span>Guía 4 · fragmento clave</span><span>LinkedIn · s.f.</span></div><div class="sb"><ol>
+    <li data-n="2">Valve is an entertainment software and technology company founded in 1996 and based in Bellevue, Washington.<span class="tr">Valve es una empresa de software y tecnología de entretenimiento fundada en 1996 y con sede en Bellevue, Washington.</span></li>
+    <li data-n="3">The company’s debut title, Half-Life, has won over 50 Game of the Year Awards and was named "Best PC Game Ever" in the November 1999, October 2001, and April 2005 issues of PC Gamer, the world's best-selling PC games magazine.<span class="tr">Su título debut, Half-Life, ganó más de 50 premios al Juego del Año y fue nombrado "Mejor juego de PC de la historia" en las ediciones de noviembre de 1999, octubre de 2001 y abril de 2005 de PC Gamer, la revista de juegos de PC más vendida del mundo.</span></li>
+    <li data-n="7">This portfolio of titles accounts for over 100 million units sold worldwide.<span class="tr">Este catálogo de títulos representa más de 100 millones de unidades vendidas en todo el mundo.</span></li>
+    <li data-n="9">Valve is a developer of leading-edge technologies including the Source® game engine and Steam®, a leading platform for digital content offering thousands of games to millions of users around the world.<span class="tr">Valve desarrolla tecnologías de vanguardia, entre ellas el motor gráfico Source® y Steam®, una plataforma líder de contenido digital que ofrece miles de juegos a millones de usuarios.</span></li>
+    <li data-n="11">In 2015, Valve introduced the Steam Hardware devices, a collection of hardware devices designed to extend Steam beyond the desktop.<span class="tr">En 2015 Valve presentó los dispositivos Steam Hardware, un conjunto de dispositivos diseñados para extender Steam más allá del escritorio.</span></li>
+    <li data-n="13">In 2016, launched SteamVR, a platform for the creation and distribution of leading edge VR products.<span class="tr">En 2016 lanzó SteamVR, una plataforma para la creación y distribución de productos de realidad virtual de vanguardia.</span></li>
+    <li data-n="14">Today, Valve is composed of over 300 of the industry's best artists, programmers, and writers.<span class="tr">Hoy Valve está compuesta por más de 300 de los mejores artistas, programadores y escritores de la industria.</span></li>
+  </ol></div></div>
+  <div class="note"><b>Ejercicio 4, resuelto:</b><br>
+  <b>a)</b> <i>over 50</i> (L3) = <b>más de 50</b> premios Juego del Año ganó Half-Life · <i>over 100 million</i> (L7) = <b>más de 100 millones</b> de unidades vendidas. <b><i>over</i> significa “más de”.</b><br>
+  <b>b)</b> La marca registrada que es un motor gráfico: <b>Source®</b> (<i>game engine</i>). El símbolo <b>®</b> te marca cuál es marca registrada.<br>
+  <b>c)</b> <b>Steam®</b> = plataforma líder de contenido digital · <b>Steam Hardware devices</b> = colección de dispositivos para llevar Steam más allá de la PC de escritorio · <b>SteamVR</b> = plataforma de realidad virtual. <b>El elemento que te guía es la aposición</b>: la coma que sigue al nombre propio introduce su definición (<i>Steam®, a leading platform…</i>).<br>
+  <b>d)</b> Lo nombró <b>PC Gamer</b> (la revista de juegos de PC más vendida del mundo), en <b>noviembre de 1999, octubre de 2001 y abril de 2005</b>.<br>
+  <b>e)</b> <b>2015</b> → lanzamiento de Steam Hardware · <b>2016</b> → lanzamiento de SteamVR.<br>
+  <b>f)</b> A ✔ (L14: más de 300 artistas, programadores y escritores) · B ✔ (L2: fundada en 1996, software y tecnología de entretenimiento) · C ✘ (nunca cuenta de qué tratan los juegos) · D ✔ (L3-4 y L15-16: premios y reconocimiento) · E ✘ (menciona el motor Source® pero no dice en qué juegos se usó).</div>
+
+  <h3>Guía 5 · <span class="en">How to Become a Nurse Educator</span></h3>
+  <div class="card"><p style="margin-bottom:0"><b>Paratexto:</b> fuente <b>Nightingale College Blog</b> — una institución educativa. <b>Dos fechas:</b> <i>Posted on Nov 18, 2020</i> (publicación original) y <i>Updated on Jun 20, 2025</i> (última actualización). <b>Relación fuente–objetivo:</b> es un blog institucional, así que el texto informa <b>y a la vez promociona</b> los programas de esa universidad (mirá L52-56). Palabras que se repiten en título y subtítulos: <b>nurse educator, career, program</b>.</p></div>
+  <div class="src autoglos"><div class="sh"><span>Guía 5 · fragmentos clave</span><span>Nightingale College · 2025</span></div><div class="sb"><ol>
+    <li data-n="14">A Certified Nurse Educator (CNE) is a highly trained professional responsible for educating and mentoring future nurses.<span class="tr">Un Educador en Enfermería Certificado (CNE) es un profesional altamente capacitado responsable de educar y guiar a los futuros enfermeros.</span></li>
+    <li data-n="15">Their role extends beyond teaching; they help shape the next generation of nursing professionals by fostering clinical competence, critical thinking, and compassionate patient care.<span class="tr">Su rol va más allá de enseñar: ayudan a formar a la próxima generación de profesionales fomentando competencia clínica, pensamiento crítico y cuidado compasivo del paciente.</span></li>
+    <li data-n="22">According to the Bureau of Labor Statistics, the overall increase in employment of Nurse Educators has been 18% throughout the decade. This is much faster than the increase for all occupations (4%).<span class="tr">Según la Oficina de Estadísticas Laborales, el aumento general del empleo de Educadores en Enfermería fue del 18% en la década. Es mucho más rápido que el aumento de todas las ocupaciones (4%).</span></li>
+    <li data-n="25">The job market growth represents 16,100 new jobs for Nurse Educators, bringing the overall employment to 105,900 jobs at a national level by 2033.<span class="tr">El crecimiento del mercado laboral representa 16.100 empleos nuevos, llevando el empleo total a 105.900 puestos a nivel nacional para 2033.</span></li>
+    <li data-n="28">Aspiring nurses… have to undergo a lengthier, more time-consuming, and more expensive academic path, but the result – significantly higher compensation, a less stressful working environment, and career options that don’t involve direct patient care – make it all worth it.<span class="tr">Los aspirantes deben recorrer un camino académico más largo, que lleva más tiempo y es más caro, pero el resultado —remuneración significativamente mayor, un entorno laboral menos estresante y opciones de carrera que no implican cuidado directo del paciente— hace que valga la pena.</span></li>
+    <li data-n="39">Nurse Educators need at least three years of clinical experience to build expertise and effectively train future nurses.<span class="tr">Los educadores necesitan al menos tres años de experiencia clínica para construir experticia y formar eficazmente a futuros enfermeros.</span></li>
+    <li data-n="58">The path to becoming a Certified Nurse Educator typically takes 6 to 10 years, depending on your prior education.<span class="tr">El camino para convertirse en CNE suele llevar de 6 a 10 años, según tu formación previa.</span></li>
+  </ol></div></div>
+  <div class="note"><b>Preguntas 6, 7, 8, 9, resueltas:</b><br>
+  <b>6) Siglas:</b> CNE = <i>Certified Nurse Educator</i> (Educador en Enfermería Certificado) · MSN = <i>Master of Science in Nursing</i> (Maestría en Ciencias de la Enfermería) · DNP = <i>Doctor of Nursing Practice</i> (Doctorado en Práctica de Enfermería).<br>
+  <b>7) Cinco adjetivos con connotación positiva:</b> <i>rewarding</i> (gratificante), <i>meaningful</i> (significativo), <i>significant</i>, <i>desirable</i> (deseable), <i>highly trained</i> (altamente capacitado), <i>compassionate</i> (compasivo), <i>flexible</i>, <i>accessible</i>. <b>Intención:</b> persuadir al lector de que este cambio de carrera vale la pena y posicionar a Nightingale College como la opción ideal. Es <b>publicidad con forma de información</b>.<br>
+  <b>8) Las tres ventajas que justifican la inversión</b> (están en L29-31): <b>1.</b> remuneración significativamente más alta · <b>2.</b> un entorno de trabajo menos estresante · <b>3.</b> opciones de carrera que no implican el cuidado directo del paciente.<br>
+  <b>9) Palabras del ámbito de la salud:</b> <i>nurse, patient care, clinical experience, hospitals, clinics, long-term care facilities, pharmacology, pediatric nursing, geriatric nursing, health promotion, disease prevention</i>.</div>
+  <div class="card"><h4 style="margin-top:0">Los 4 pasos para ser Nurse Educator (por si te lo toman como pregunta de orden)</h4>
+    <ol style="margin-bottom:0"><li><b>Earn your BSN degree</b> — licenciatura en enfermería (≈4 años) + aprobar el examen <b>NCLEX-RN</b>.</li>
+    <li><b>Get hands-on clinical experience</b> — al menos 3 años de experiencia clínica real.</li>
+    <li><b>Earn your MSN degree</b> — maestría en educación en enfermería (2 a 3 años). <b>Obligatoria.</b></li>
+    <li><b>Consider getting a doctoral degree</b> — DNP o PhD (3 a 5 años). <b>Opcional</b>, salvo para niveles universitarios avanzados.</li></ol></div>
+
+  <h3>Guía 6 · <span class="en">Nursing and Midwifery</span> (OMS)</h3>
+  <div class="card"><p style="margin-bottom:0"><b>Paratexto:</b> fuente <b>World Health Organization (WHO)</b>, del <b>17 de julio de 2025</b>, con tiempo estimado de lectura (3 min, 821 palabras) y secciones: <i>Key facts</i>, <i>Overview</i>, <i>WHO response</i>, <i>References</i>. Los títulos tienen <b>distinta tipografía y tamaño</b>, y eso marca la <b>jerarquía</b>: el título principal es el más grande, los subtítulos organizan el contenido.</p></div>
+  <div class="src autoglos"><div class="sh"><span>Guía 6 · Key facts</span><span>WHO · 17/07/2025</span></div><div class="sb"><ol>
+    <li data-n="4">There are an estimated 29 million nurses worldwide and 2.2 million midwives. WHO estimates a shortage of 4.5 million nurses and 0.31 million midwives by the year 2030.<span class="tr">Se estima que hay 29 millones de enfermeros y 2,2 millones de parteras en el mundo. La OMS estima un déficit de 4,5 millones de enfermeros y 0,31 millones de parteras para 2030.</span></li>
+    <li data-n="9">Nurses and midwives play a pivotal role in improving health and contributing to the wider economy. Investing in them is imperative to achieve efficient, effective, resilient and sustainable health systems.<span class="tr">Enfermeros y parteras cumplen un rol fundamental en mejorar la salud y aportar a la economía. Invertir en ellos es imperativo para lograr sistemas de salud eficientes, eficaces, resilientes y sostenibles.</span></li>
+    <li data-n="14">Globally, 67% of the health and social workforce are women compared to 41% in all employment sectors.<span class="tr">A nivel mundial, el 67% del personal sanitario y social son mujeres, frente al 41% en todos los sectores de empleo.</span></li>
+    <li data-n="16">More than 80% of the world’s nurses work in countries that are home to half of the world’s population. And one in every eight nurses practices in a country other than the one where they were born or trained.<span class="tr">Más del 80% de los enfermeros del mundo trabajan en países donde vive la mitad de la población mundial. Y uno de cada ocho ejerce en un país distinto de aquel donde nació o se formó.</span></li>
+    <li data-n="22">Nurses and midwives are central to Primary Health Care and are often the first and sometimes the only health professional that people see.<span class="tr">Enfermeros y parteras son centrales para la Atención Primaria de Salud y suelen ser el primer —y a veces el único— profesional que la gente ve.</span></li>
+    <li data-n="32">The SDNM comprises four policy focus areas: education, jobs, leadership, and service delivery.<span class="tr">Las SDNM comprenden cuatro áreas de política: educación, empleo, liderazgo y prestación de servicios.</span></li>
+    <li data-n="54">The Nursing and Midwifery Global Community of Practice is free to join and available to nurses and midwives everywhere.<span class="tr">La Comunidad Mundial de Práctica es de adhesión gratuita y está disponible para enfermeros y parteras de todo el mundo.</span></li>
+  </ol></div></div>
+  <div class="note"><b>Preguntas 1 a 7 de la Guía 6, resueltas:</b><br>
+  <b>1c)</b> Las <b>viñetas</b> de <i>Key facts</i> se usan porque cada una presenta un <b>dato independiente y autónomo</b>: permiten leer rápido sin buscar dentro de un párrafo. <b>1d)</b> Cada viñeta desarrolla una <b>idea distinta</b>. <b>1e)</b> Sin viñetas quedaría un párrafo corrido, más difícil de escanear.<br>
+  <b>2) Idea principal (skimming):</b> <b>b) La importancia de enfermeros y parteros en la atención sanitaria.</b><br>
+  <b>4)</b> Los porcentajes expresan <b>hechos</b> (datos estadísticos verificables), no opiniones.<br>
+  <b>5)</b> El <b>(1)</b> de la línea 5 es una <b>nota de referencia</b>: remite a la fuente número 1 de la bibliografía (Boniol, Kunjumen, Nair et al., <i>BMJ Global Health</i>, 2022).<br>
+  <b>6a)</b> En sus comunidades, enfermeros y parteras <b>son parte de la comunidad local</b>: comparten su cultura, fortalezas y vulnerabilidades, y por eso pueden diseñar y aplicar intervenciones eficaces (L24-25).<br>
+  <b>6b)</b> Para lograr la <b>cobertura sanitaria universal (UHC)</b> el mundo necesita <b>más enfermeros y parteras formados, empleados, liderando y respaldados</b>: exactamente las 4 áreas de las SDNM.<br>
+  <b>6c)</b> La OMS responde con la resolución <b>WHA74.15 (2021)</b>, las <b>SDNM 2021-2025</b>, el trabajo con los <b>GCNMO</b>, los <b>47 centros colaboradores</b> académicos y la <b>comunidad virtual NMGCoP</b>.<br>
+  <b>6e) Las 4 áreas estratégicas:</b> <b>educación</b>, <b>empleo</b>, <b>liderazgo</b> y <b>prestación de servicios</b>.<br>
+  <b>6f)</b> Se accede por <b>app para Android e iOS</b> (desde mayo de 2022) y es <b>gratuita</b>.<br>
+  <b>7) La aseveración NO verdadera es la a)</b>: el texto dice 4,5 <b>millones</b> y 0,31 <b>millones</b>, no 4,5% ni 31%.</div>
+
+  <label class="checkoff"><input type="checkbox" data-check="textos"><span>Repasé los 6 textos y entiendo de qué habla cada uno.</span></label>
+</section>
+
+<!-- ============ 10 ============ -->
+<section id="practica" data-mod="practica">
+  <p class="eyebrow">Módulo 10 · entrenamiento libre</p>
+  <h2>Zona de práctica</h2>
+  <p class="lead">Ejercicios sueltos, mezclados, con corrección inmediata y explicación. Repetilos hasta que te salgan sin pensar: esa automatización es lo que te va a salvar el día del examen.</p>
+  <div class="row" style="margin-top:0">
+    <button class="btn pri" id="mixgo">Tanda de 10 mezcladas</button>
+    <button class="btn" id="mixreset">Reiniciar</button>
+  </div>
+  <div class="ex" id="mixbox" hidden><div class="exh"><span>Tanda mezclada</span><span id="mixscore">0 / 0</span></div><div class="exbody"></div></div>
+
+  <h3>Traducción de frases nominales</h3>
+  <div class="ex" data-ex="np2"><div class="exh"><span>Escribí el núcleo de cada frase</span><span>6 consignas</span></div><div class="exbody"></div></div>
+
+  <h3>Verdadero o falso sobre los textos</h3>
+  <div class="ex" data-ex="vf"><div class="exh"><span>Basado en las Guías 2 a 6</span><span>8 consignas</span></div><div class="exbody"></div></div>
+
+  <label class="checkoff"><input type="checkbox" data-check="practica"><span>Hice al menos dos tandas de práctica completas.</span></label>
+</section>
+
+<!-- ============ 11 ============ -->
+<section id="examen" data-mod="examen">
+  <p class="eyebrow">Módulo 11 · la prueba de fuego</p>
+  <h2>Examen</h2>
+  <p class="lead">Dos modos. El primero te enseña mientras respondés. El segundo simula las condiciones reales: tiempo contado, sin ayuda y con la nota al final.</p>
+
+  <div class="modes">
+    <div class="mode">
+      <span class="lvl">Nivel 1 · Validación</span>
+      <h3>Chequeo de conocimientos</h3>
+      <ul>
+        <li><b>20 preguntas</b> sobre los 8 módulos.</li>
+        <li><b>Corrección inmediata</b> pregunta por pregunta.</li>
+        <li>Explicación de por qué está bien o mal.</li>
+        <li><b>Sin límite de tiempo.</b> Podés volver atrás.</li>
+        <li>Objetivo: detectar qué tema todavía no entendés.</li>
+      </ul>
+      <p class="best" data-best="n1">Mejor resultado: —</p>
+      <button class="btn pri" data-start="1">Empezar Nivel 1</button>
+    </div>
+    <div class="mode m2">
+      <span class="lvl">Nivel 2 · Simulacro real</span>
+      <h3>Examen parcial simulado</h3>
+      <ul>
+        <li><b>25 preguntas</b> con formato de parcial, incluidas consignas sobre un texto nuevo.</li>
+        <li><b>40 minutos</b> de reloj, con cuenta regresiva.</li>
+        <li><b>Sin corrección</b> hasta entregar.</li>
+        <li>Preguntas y opciones <b>mezcladas</b> cada vez.</li>
+        <li>Al final: nota, desglose por tema y revisión de errores.</li>
+      </ul>
+      <p class="best" data-best="n2">Mejor resultado: —</p>
+      <button class="btn pri" data-start="2">Empezar Nivel 2</button>
+    </div>
+  </div>
+
+  <div class="brain"><span class="bt">Por qué examinarte funciona mejor que releer</span>
+  Es el <b>efecto de examen</b>: recuperar un dato de la memoria lo fija mucho más que volver a leerlo. Releer te da una <i>sensación</i> de saber (fluidez) que es falsa. Equivocarte en un simulacro y corregirlo vale más que tres relecturas. <b>Objetivo realista: 70% en Nivel 1 antes de pasar al Nivel 2.</b></div>
+
+  <div id="examarea"></div>
+
+  <label class="checkoff"><input type="checkbox" data-check="examen"><span>Aprobé el Nivel 2 con 70% o más.</span></label>
+</section>
+
+<!-- ============ 12 ============ -->
+<section id="glosario" data-mod="glosario">
+  <p class="eyebrow">Módulo 12 · tu diccionario personal</p>
+  <h2>Glosario y flashcards</h2>
+  <p class="lead">Todas las palabras clickeables de la página, en un solo lugar. Buscá, filtrá o entrenalas de a una con las tarjetas.</p>
+
+  <h4>Tarjetas de memoria</h4>
+  <p>Leé la palabra, decí la traducción <b>en voz alta</b> antes de dar vuelta la tarjeta. Ese medio segundo de esfuerzo es donde se forma la memoria.</p>
+  <div class="fcwrap">
+    <div class="fc" id="fcard" role="button" tabindex="0"><span class="fh">tocá para dar vuelta</span><span class="fw">—</span></div>
+  </div>
+  <div class="row" style="margin-top:0">
+    <button class="btn" id="fcno">No la sabía ✗</button>
+    <button class="btn pri" id="fcyes">La sabía ✓</button>
+    <button class="btn" id="fcmix">Mezclar mazo</button>
+  </div>
+  <div class="streakbox">
+    <div class="sb"><b id="fcok">0</b><span>acertadas</span></div>
+    <div class="sb"><b id="fcbad">0</b><span>para repasar</span></div>
+    <div class="sb"><b id="fcleft">0</b><span>en el mazo</span></div>
+  </div>
+
+  <h4>Buscador del glosario</h4>
+  <div class="inputrow">
+    <input type="text" id="gsearch" placeholder="Buscá una palabra en inglés o en español…" aria-label="Buscar en el glosario">
+    <button class="btn" data-gf="all">Todas</button>
+    <button class="btn" data-gf="cog">Cognados</button>
+    <button class="btn" data-gf="fal">Falsos amigos</button>
+    <button class="btn" data-gf="loan">Préstamos</button>
+    <button class="btn" data-gf="prop">Nombres propios</button>
+  </div>
+  <div class="tw" style="max-height:520px;overflow:auto"><table id="gtable"><thead><tr><th>Palabra</th><th>Cat.</th><th>Traducción</th><th>Ejemplo</th></tr></thead><tbody></tbody></table></div>
+
+  <label class="checkoff"><input type="checkbox" data-check="glosario"><span>Pasé el mazo completo de flashcards al menos una vez.</span></label>
+</section>
+
+<!-- ============ 13 ============ -->
+<section id="plan" data-mod="plan">
+  <p class="eyebrow">Módulo 13 · el cierre</p>
+  <h2>Plan de 7 días (repaso espaciado)</h2>
+  <p class="lead">No estudies todo un día antes. La memoria se consolida cuando volvés al material <b>justo cuando estás por olvidarlo</b>. Este calendario está armado con esos intervalos.</p>
+  <div class="tw"><table>
+    <tr><th>Día</th><th>Qué hacés</th><th>Tiempo</th><th>Cómo sabés que funcionó</th></tr>
+    <tr><td><b>1</b></td><td>Módulos 00, 01 y 02 + sus ejercicios.</td><td>45 min</td><td>Podés nombrar 8 elementos del paratexto sin mirar.</td></tr>
+    <tr><td><b>2</b></td><td>Módulos 03 y 04 + ejercicios. Repaso rápido del 02.</td><td>40 min</td><td>Sacás la palabra base de 5 palabras seguidas.</td></tr>
+    <tr><td><b>3</b></td><td>Módulo 05 (frases nominales). <b>Nivel 1 del examen.</b></td><td>50 min</td><td>Llegás a 60% o más en el Nivel 1.</td></tr>
+    <tr><td><b>4</b></td><td>Módulos 06, 07 y 08. Flashcards 10 min.</td><td>45 min</td><td>Explicás skimming vs scanning con tus palabras.</td></tr>
+    <tr><td><b>5</b></td><td>Módulo 09: leé los 6 textos con el cuadernillo al lado.</td><td>60 min</td><td>Escribís una síntesis conceptual de 90 palabras.</td></tr>
+    <tr><td><b>6</b></td><td><b>Nivel 2 completo.</b> Revisás solo los errores.</td><td>60 min</td><td>70% o más. Si no, repetís los módulos que fallaron.</td></tr>
+    <tr><td><b>7</b></td><td>Tanda mezclada + flashcards + releer los falsos amigos.</td><td>30 min</td><td>Nivel 2 por segunda vez, arriba de 85%.</td></tr>
+  </table></div>
+
+  <h3>Los 6 errores que más caros salen</h3>
+  <ol>
+    <li><b>Traducir palabra por palabra.</b> Perdés el sentido y el tiempo. Leé bloques (frases nominales), no palabras.</li>
+    <li><b>Confiar en el primer parecido.</b> <span class="en">career</span>, <span class="en">library</span>, <span class="en">policy</span>: frená y verificá.</li>
+    <li><b>Responder el paratexto después de leer.</b> La anticipación se responde <b>antes</b>; ahí está la mitad de la nota.</li>
+    <li><b>Buscar en el diccionario la palabra con sufijo.</b> Sacale <b>-s, -ed, -ing, -ly</b> primero.</li>
+    <li><b>Ignorar el conector.</b> Un <span class="en">however</span> puede dar vuelta el sentido de todo el párrafo.</li>
+    <li><b>Escribir una síntesis de 30 palabras.</b> Si piden 80-100, contalas. Es un requisito, no una sugerencia.</li>
+  </ol>
+
+  <div class="note" style="font-size:16px"><b>Lo único que tenés que recordar si te bloqueás en el examen:</b> mirá el paratexto, subrayá los cognados, buscá el núcleo al final de cada frase nominal y leé la primera oración de cada párrafo. Con eso solo, ya entendés de qué habla cualquier texto en inglés.</div>
+
+  <label class="checkoff"><input type="checkbox" data-check="plan"><span>Armé mi plan de estudio y elegí el día del simulacro.</span></label>
+</section>
+
+<footer>
+  <p>Material de estudio para <b>Inglés I Transversal</b> · basado en las Guías 1 a 6 del cuadernillo de textos y guías de actividades (páginas 1 a 25). Las respuestas resueltas son orientativas: contrastalas siempre con lo trabajado en clase.</p>
+  <p style="margin-top:6px">Tu progreso se guarda en este navegador. Si abrís la página en otro dispositivo, empieza de cero.</p>
+</footer>
+</main>
+</div>
+
+<div id="pop" role="dialog" aria-live="polite">
+  <button class="x" id="popx" aria-label="Cerrar">✕</button>
+  <div class="ptag" id="ptag"></div>
+  <div class="pw" id="pw"></div>
+  <div class="pc" id="pc"></div>
+  <div class="ptr" id="ptr"></div>
+  <div class="pex"><div class="e" id="pe"></div><div class="s" id="ps"></div></div>
+</div>
+
+<script>
+/* ============ DICCIONARIO ============
+   clave: [traducción, categoría, ejemplo inglés, traducción del ejemplo, tipo]
+   tipo: '' clave · cog cognado · fal falso amigo · loan préstamo · prop nombre propio */
+var DICT = {
+"supply":["oferta, suministro","sustantivo / verbo","...real supply and demand cycles.","...ciclos reales de oferta y demanda.",""],
+"demand":["demanda","sustantivo / verbo","supply and demand cycles","ciclos de oferta y demanda","cog"],
+"money":["dinero","sustantivo","...consistent ways to make money.","...formas consistentes de hacer dinero.",""],
+"hunger":["hambre","sustantivo","The Hunger Games","Los juegos del hambre",""],
+"ban":["prohibición, veda","sustantivo / verbo","...recovery after fishing ban.","...recuperación tras la prohibición de pesca.",""],
+"event":["evento, acontecimiento","sustantivo","VALORANT Masters is the first international event of the season.","Masters es el primer evento internacional de la temporada.","cog"],
+"runs":["se desarrolla, va (del... al...)","verbo (3ª pers.)","The event runs from February 28 to March 15.","El evento va del 28 de febrero al 15 de marzo.","fal"],
+"run":["correr / dirigir / funcionar","verbo y sustantivo","He runs a large company.","Dirige una gran empresa.","fal"],
+"habits":["hábitos","sustantivo plural","...based on users' previous listening habits.","...según los hábitos de escucha previos del usuario.","cog"],
+"career":["trayectoria o carrera profesional (NO carrera universitaria ni de correr)","sustantivo","Is medical tourism the next big career opportunity?","¿Es el turismo médico la próxima gran oportunidad profesional?","fal"],
+"careers":["carreras profesionales","sustantivo plural","...gainful careers in art and design are abundant.","...abundan las carreras rentables en arte y diseño.","fal"],
+"country":["país (también: campo, patria, terreno)","sustantivo","...one in every eight nurses practices in a country other than...","...uno de cada ocho enfermeros ejerce en un país distinto de...",""],
+"countries":["países","sustantivo plural","...traveling to foreign countries.","...viajando a países extranjeros.",""],
+"library":["biblioteca (NO librería)","sustantivo","...educational instruction and library occupations (2%).","...ocupaciones de instrucción educativa y bibliotecas (2%).","fal"],
+"actually":["en realidad, de hecho (NO actualmente)","adverbio","Actually, the data shows the opposite.","En realidad, los datos muestran lo contrario.","fal"],
+"realize":["darse cuenta (NO realizar)","verbo","We did not realize the impact.","No nos dimos cuenta del impacto.","fal"],
+"success":["éxito (NO suceso)","sustantivo","...a string of best-selling products.","...una serie de productos de gran éxito de ventas.","fal"],
+"successful":["exitoso","adjetivo","...preparing them for successful employment.","...preparándolos para un empleo exitoso.","fal"],
+"policy":["política, normativa (NO policía)","sustantivo","The SDNM is a set of policy priorities.","Las SDNM son un conjunto de prioridades de política.","fal"],
+"assist":["ayudar, asistir a alguien","verbo","Nurses assist patients daily.","Los enfermeros ayudan a los pacientes a diario.","fal"],
+"attend":["asistir, concurrir a un lugar","verbo","Attendees can enter this open competition.","Los asistentes pueden entrar en esta competencia abierta.","fal"],
+"fabric":["tela, tejido (NO fábrica)","sustantivo","French bonus to mend clothes and fabric.","Bono francés para remendar ropa y telas.","fal"],
+"large":["grande, amplio (NO largo)","adjetivo","He runs a large company.","Dirige una gran empresa.","fal"],
+"sensible":["sensato, razonable (NO sensible)","adjetivo","a sensible decision","una decisión sensata","fal"],
+"facilities":["instalaciones, centros (NO facilidades)","sustantivo plural","Working in hospitals, clinics, or long-term care facilities.","Trabajar en hospitales, clínicas o centros de cuidados prolongados.","fal"],
+"bestseller":["libro más vendido","sustantivo","THE NUMBER ONE BESTSELLER","EL BESTSELLER NÚMERO UNO","loan"],
+"best-selling":["más vendido, de mayor venta","adjetivo compuesto","the world's best-selling PC games magazine","la revista de juegos de PC más vendida del mundo",""],
+"award-winning":["galardonado, premiado","adjetivo compuesto","the award-winning Counter-Strike franchise","la galardonada franquicia Counter-Strike",""],
+"leading-edge":["de vanguardia, de punta","adjetivo compuesto","a developer of leading-edge technologies","un desarrollador de tecnologías de vanguardia",""],
+"critically-acclaimed":["aclamado por la crítica","adjetivo compuesto","best-selling and critically-acclaimed PC products","productos de PC exitosos y aclamados por la crítica",""],
+"online":["en línea","adjetivo / adverbio","Online Shopping: AI is used in online shopping platforms.","Compras en línea: la IA se usa en plataformas de compra en línea.","loan"],
+"streaming":["transmisión en continuo","sustantivo","Streaming services like Netflix and Spotify use AI.","Servicios de streaming como Netflix y Spotify usan IA.","loan"],
+"software":["programas informáticos","sustantivo","Valve is an entertainment software company.","Valve es una empresa de software de entretenimiento.","loan"],
+"hardware":["equipamiento físico","sustantivo","the Steam Hardware devices","los dispositivos Steam Hardware","loan"],
+"app":["aplicación","sustantivo","...available for Android and IOS via the APP store.","...disponible para Android e iOS en la tienda de apps.","loan"],
+"spam":["correo basura","sustantivo","AI helps filter out spam emails.","La IA ayuda a filtrar los correos basura.","loan"],
+"marketing":["mercadotecnia","sustantivo","a marketing strategy","una estrategia de marketing","loan"],
+"Netflix":["Netflix","nombre propio (marca)","Streaming services like Netflix and Spotify use AI.","Servicios como Netflix y Spotify usan IA.","prop"],
+"Spotify":["Spotify","nombre propio (marca)","...Netflix and Spotify use AI to recommend music.","...Netflix y Spotify usan IA para recomendar música.","prop"],
+"Valve":["Valve","nombre propio (empresa)","Valve is an entertainment software company founded in 1996.","Valve es una empresa de software de entretenimiento fundada en 1996.","prop"],
+"Steam":["Steam","nombre propio (plataforma)","Steam, a leading platform for digital content.","Steam, una plataforma líder de contenido digital.","prop"],
+"WHO":["OMS, Organización Mundial de la Salud","sigla / nombre propio","WHO estimates a shortage of 4.5 million nurses.","La OMS estima un déficit de 4,5 millones de enfermeros.","prop"],
+"Yangtze River":["Río Yangtsé","nombre propio (lugar)","China's Yangtze River shows signs of recovery.","El río Yangtsé de China muestra señales de recuperación.","prop"],
+"Texas":["Texas","nombre propio (lugar)","an area twice the size of Texas","un área del doble del tamaño de Texas","prop"],
+"world":["mundo","sustantivo","an increasingly complex and interconnected world","un mundo cada vez más complejo e interconectado",""],
+"worldwide":["en todo el mundo, mundial","adverbio / adjetivo","over 100 million units sold worldwide","más de 100 millones de unidades vendidas en todo el mundo",""],
+"work":["trabajo / trabajar","sustantivo y verbo","More than 80% of the world's nurses work in...","Más del 80% de los enfermeros del mundo trabajan en...",""],
+"workforce":["fuerza laboral, personal","sustantivo","67% of the health and social workforce are women.","El 67% del personal sanitario y social son mujeres.",""],
+"information":["información","sustantivo","...provide information, send texts, and more.","...brindar información, enviar mensajes y más.","cog"],
+"important":["importante","adjetivo","the importance of AI in everyday life","la importancia de la IA en la vida cotidiana","cog"],
+"importance":["importancia","sustantivo","The Importance of Artificial Intelligence","La importancia de la inteligencia artificial","cog"],
+"education":["educación","sustantivo","...from transportation to education.","...desde el transporte hasta la educación.","cog"],
+"educational":["educativo","adjetivo","every learner's educational foundation","la formación educativa de cada estudiante","cog"],
+"educator":["educador","sustantivo","A Certified Nurse Educator (CNE)","Un Educador en Enfermería Certificado","cog"],
+"industry":["industria","sustantivo","AI has revolutionized the healthcare industry.","La IA ha revolucionado la industria de la salud.","cog"],
+"artificial":["artificial","adjetivo","Artificial intelligence is the simulation of human intelligence.","La inteligencia artificial es la simulación de la inteligencia humana.","cog"],
+"intelligence":["inteligencia","sustantivo","human intelligence processes","procesos de inteligencia humana","cog"],
+"simulation":["simulación","sustantivo","...the simulation of human intelligence processes.","...la simulación de los procesos de inteligencia humana.","cog"],
+"machines":["máquinas","sustantivo plural","...processes by machines, especially computer systems.","...procesos por parte de máquinas, especialmente sistemas informáticos.",""],
+"processes":["procesos / procesa","sustantivo plural o verbo","human intelligence processes","procesos de inteligencia humana",""],
+"healthcare":["atención sanitaria, salud","sustantivo","...from healthcare to entertainment.","...desde la salud hasta el entretenimiento.",""],
+"health":["salud","sustantivo","...efficient, effective and sustainable health systems.","...sistemas de salud eficientes, eficaces y sostenibles.",""],
+"entertainment":["entretenimiento","sustantivo","Valve is an entertainment software company.","Valve es una empresa de software de entretenimiento.","cog"],
+"transportation":["transporte","sustantivo","...from transportation to education.","...desde el transporte hasta la educación.","cog"],
+"accurate":["preciso, exacto","adjetivo","providing more accurate diagnoses","proporcionando diagnósticos más precisos",""],
+"diagnoses":["diagnósticos","sustantivo plural","more accurate diagnoses","diagnósticos más precisos","cog"],
+"treatments":["tratamientos","sustantivo plural","developing more effective treatments","desarrollando tratamientos más eficaces","cog"],
+"patient":["paciente","sustantivo / adjetivo","improving patient outcomes","mejorando los resultados de los pacientes","cog"],
+"outcomes":["resultados","sustantivo plural","improving patient outcomes","mejorando los resultados de los pacientes",""],
+"recommendation":["recomendación","sustantivo","recommendation algorithms","algoritmos de recomendación","cog"],
+"algorithms":["algoritmos","sustantivo plural","...using recommendation algorithms.","...usando algoritmos de recomendación.","cog"],
+"users":["usuarios","sustantivo plural","...to suggest content to users.","...para sugerir contenido a los usuarios.","cog"],
+"smartphones":["teléfonos inteligentes","sustantivo plural","digital assistants on smartphones","asistentes digitales en smartphones","loan"],
+"reminders":["recordatorios","sustantivo plural","...manage daily tasks, set reminders...","...gestionar tareas diarias, poner recordatorios...",""],
+"shopping":["compras","sustantivo","Online Shopping","compras en línea","loan"],
+"browsing":["navegación (por internet)","sustantivo","based on your browsing and buying history","según tu historial de navegación y de compra",""],
+"emails":["correos electrónicos","sustantivo plural","AI helps filter out spam emails.","La IA ayuda a filtrar los correos basura.","loan"],
+"traffic":["tránsito, tráfico","sustantivo","...analyze real-time traffic data.","...analizar datos de tránsito en tiempo real.","cog"],
+"routes":["rutas","sustantivo plural","...provide the fastest routes.","...brindar las rutas más rápidas.","cog"],
+"efficiency":["eficiencia","sustantivo","benefits such as increased efficiency","beneficios como una mayor eficiencia","cog"],
+"learner":["estudiante, aprendiz","sustantivo","every learner's educational foundation","la formación educativa de cada estudiante",""],
+"employment":["empleo","sustantivo","...training for future employment.","...preparación para el empleo futuro.",""],
+"creativity":["creatividad","sustantivo","CEOs identified creativity as the number one trait.","Los directivos identificaron la creatividad como el rasgo número uno.","cog"],
+"trait":["rasgo, característica","sustantivo","the number one trait sought when hiring","el rasgo número uno buscado al contratar",""],
+"hiring":["contratación","sustantivo / verbo -ing","the number one trait sought when hiring","el rasgo más buscado al contratar",""],
+"skills":["habilidades, destrezas","sustantivo plural","develops skills of deeper understanding","desarrolla habilidades de comprensión profunda",""],
+"thinking":["pensamiento","sustantivo","critical thinking","pensamiento crítico",""],
+"critical":["crítico","adjetivo","critical thinking","pensamiento crítico","cog"],
+"collaboration":["colaboración","sustantivo","cultivating collaboration and communication","cultivando la colaboración y la comunicación","cog"],
+"communication":["comunicación","sustantivo","collaboration, communication, critical thinking","colaboración, comunicación, pensamiento crítico","cog"],
+"curiosity":["curiosidad","sustantivo","curiosity, innovation, and problem solving","curiosidad, innovación y resolución de problemas","cog"],
+"innovation":["innovación","sustantivo","curiosity, innovation, and problem solving","curiosidad, innovación y resolución de problemas","cog"],
+"research":["investigación","sustantivo","business, industry, research, and service sectors","sectores empresarial, industrial, de investigación y de servicios",""],
+"company":["empresa, compañía","sustantivo","The company's debut title, Half-Life...","El título debut de la empresa, Half-Life...","cog"],
+"founded":["fundada","verbo participio","a company founded in 1996","una empresa fundada en 1996","cog"],
+"based":["con sede en","participio","based in Bellevue, Washington","con sede en Bellevue, Washington",""],
+"title":["título (de una obra o juego)","sustantivo","The company's debut title, Half-Life","El título debut de la empresa, Half-Life","cog"],
+"awards":["premios","sustantivo plural","over 50 Game of the Year Awards","más de 50 premios al Juego del Año",""],
+"magazine":["revista","sustantivo","the world's best-selling PC games magazine","la revista de juegos de PC más vendida del mundo","fal"],
+"portfolio":["catálogo, cartera de productos","sustantivo","Valve's portfolio also includes titles in...","El catálogo de Valve también incluye títulos de...","cog"],
+"developer":["desarrollador","sustantivo","Valve is a developer of leading-edge technologies.","Valve es un desarrollador de tecnologías de vanguardia.",""],
+"technologies":["tecnologías","sustantivo plural","leading-edge technologies","tecnologías de vanguardia","cog"],
+"game engine":["motor gráfico, motor de juego","frase nominal","the Source game engine","el motor gráfico Source",""],
+"platform":["plataforma","sustantivo","a leading platform for digital content","una plataforma líder de contenido digital","cog"],
+"devices":["dispositivos","sustantivo plural","a collection of hardware devices","un conjunto de dispositivos de hardware",""],
+"launched":["lanzó","verbo pasado","In 2016, launched SteamVR.","En 2016 lanzó SteamVR.",""],
+"nurse":["enfermero/a","sustantivo","How to become a Nurse Educator","Cómo convertirse en Educador en Enfermería",""],
+"nurses":["enfermeros/as","sustantivo plural","There are an estimated 29 million nurses worldwide.","Se estima que hay 29 millones de enfermeros en el mundo.",""],
+"nursing":["enfermería","sustantivo","Nursing and midwifery occupations","ocupaciones de enfermería y obstetricia",""],
+"midwives":["parteras, obstetras","sustantivo plural","...29 million nurses worldwide and 2.2 million midwives.","...29 millones de enfermeros y 2,2 millones de parteras.",""],
+"midwifery":["obstetricia, partería","sustantivo","Nursing and midwifery","Enfermería y obstetricia",""],
+"shortage":["escasez, déficit","sustantivo","WHO estimates a shortage of 4.5 million nurses.","La OMS estima un déficit de 4,5 millones de enfermeros.",""],
+"degree":["título universitario, grado","sustantivo","Earn Your BSN Degree","Obtené tu título de licenciatura","fal"],
+"teaching":["enseñanza, docencia","sustantivo","a career that blends teaching and nursing","una carrera que combina docencia y enfermería",""],
+"training":["formación, entrenamiento","sustantivo","educational foundation and training","formación educativa y entrenamiento",""],
+"leadership":["liderazgo","sustantivo","education, jobs, leadership, and service delivery","educación, empleo, liderazgo y prestación de servicios",""],
+"stakeholders":["partes interesadas, actores clave","sustantivo plural","WHO engages other relevant stakeholders.","La OMS convoca a otras partes interesadas.",""],
+"network":["red","sustantivo","a virtual network created to provide a forum","una red virtual creada para ofrecer un foro","cog"],
+"free":["gratuito / libre","adjetivo","The Community of Practice is free to join.","La Comunidad de Práctica es de adhesión gratuita.",""],
+"pivotal":["fundamental, crucial","adjetivo","Nurses and midwives play a pivotal role.","Enfermeros y parteras cumplen un rol fundamental.",""],
+"sustainable":["sostenible","adjetivo","resilient and sustainable health systems","sistemas de salud resilientes y sostenibles","cog"],
+"increasingly":["cada vez más","adverbio","AI is increasingly a part of our everyday lives.","La IA es cada vez más parte de nuestra vida cotidiana.",""],
+"overall":["general, total","adjetivo","the overall increase in employment","el aumento general del empleo",""],
+"over":["más de","preposición","over 50 Game of the Year Awards","más de 50 premios al Juego del Año",""],
+"more than":["más de / más que","expresión","More than 80% of the world's nurses...","Más del 80% de los enfermeros del mundo...",""],
+"according to":["según","expresión","According to the Bureau of Labor Statistics...","Según la Oficina de Estadísticas Laborales...",""],
+"and":["y","conector (suma)","nurses and midwives","enfermeros y parteras",""],
+"also":["también","conector (suma)","Valve's portfolio also includes...","El catálogo de Valve también incluye...",""],
+"in addition":["además","conector (suma)","In addition, you can also specialize.","Además, también podés especializarte.",""],
+"moreover":["además, es más","conector (suma)","Moreover, the cost is lower.","Además, el costo es menor.",""],
+"but":["pero","conector (contraste)","...more expensive, but the result makes it worth it.","...más caro, pero el resultado hace que valga la pena.",""],
+"however":["sin embargo","conector (contraste)","However, to train more advanced students...","Sin embargo, para formar estudiantes más avanzados...",""],
+"although":["aunque","conector (contraste)","Although an MSN will allow you to work...","Aunque una maestría te permitirá trabajar...",""],
+"because":["porque","conector (causa)","...because it improves health outcomes.","...porque mejora los resultados de salud.",""],
+"since":["dado que / desde","conector (causa o tiempo)","Since learners are future contributors...","Dado que los estudiantes son futuros contribuyentes...",""],
+"so":["así que, por eso","conector (consecuencia)","...so that nurses can contribute optimally.","...para que los enfermeros puedan contribuir de forma óptima.",""],
+"if":["si","conector (condición)","If you want to advance your career...","Si querés avanzar en tu carrera...",""],
+"such as":["tales como, como por ejemplo","conector (ejemplo)","advanced academic degrees, such as a Master of Science","títulos avanzados, como una Maestría en Ciencias",""],
+"when":["cuando","conector (tiempo)","When surveyed, CEOs identified creativity...","Al ser encuestados, los directivos identificaron la creatividad...",""],
+"key facts":["datos clave","frase nominal","Key facts","Datos clave",""],
+"overview":["panorama general, resumen","sustantivo","Event Overview","Panorama del evento",""],
+"issues":["ediciones (de una revista) / problemas","sustantivo plural","in the November 1999 issues of PC Gamer","en las ediciones de noviembre de 1999 de PC Gamer","fal"],
+"tonnes":["toneladas","sustantivo plural","1.15 to 2.41 million tonnes of plastic","de 1,15 a 2,41 millones de toneladas de plástico","cog"]
+};
+
+/* ============ AUTO-RESALTADO ============ */
+(function(){
+  var NOAUTO={"and":1,"also":1,"but":1,"if":1,"so":1,"when":1,"since":1,"over":1,"free":1,"based":1,"work":1,"world":1,"title":1};
+  var keys = Object.keys(DICT).filter(function(k){return !NOAUTO[k];}).sort(function(a,b){return b.length-a.length;});
+  var LOOK = {};
+  keys.forEach(function(k){ LOOK[k]=k; if(k[0]===k[0].toLowerCase()) LOOK[k[0].toUpperCase()+k.slice(1)]=k; });
+  function esc(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+  var alts = Object.keys(LOOK).sort(function(a,b){return b.length-a.length;}).map(esc);
+  var RE = new RegExp("(" + alts.join("|") + ")(?![A-Za-z-])","g");
+  function okBefore(txt,i){ if(i===0) return true; var c=txt.charAt(i-1); return !/[A-Za-z\-]/.test(c); }
+  var SKIP = {SCRIPT:1,STYLE:1,BUTTON:1,INPUT:1,TEXTAREA:1,CODE:1,TH:1};
+
+  function markup(root){
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode:function(n){
+        if(!n.nodeValue || n.nodeValue.trim().length<2) return NodeFilter.FILTER_REJECT;
+        var p=n.parentNode;
+        while(p && p!==root.parentNode){
+          if(p.nodeType===1){
+            if(SKIP[p.tagName]) return NodeFilter.FILTER_REJECT;
+            if(p.classList && (p.classList.contains('w')||p.classList.contains('tr')||p.classList.contains('np'))) return NodeFilter.FILTER_REJECT;
+          }
+          p=p.parentNode;
+        }
+        return NodeFilter.FILTER_ACCEPT;
+      }});
+    var nodes=[],n;
+    while((n=walker.nextNode())) nodes.push(n);
+    nodes.forEach(function(node){
+      var txt=node.nodeValue;
+      RE.lastIndex=0;
+      if(!RE.test(txt)) return;
+      RE.lastIndex=0;
+      var found=false;
+      var frag=document.createDocumentFragment(), last=0, m;
+      while((m=RE.exec(txt))){
+        var key=LOOK[m[1]];
+        if(!key || !okBefore(txt,m.index)) continue;
+        found=true;
+        if(m.index>last) frag.appendChild(document.createTextNode(txt.slice(last,m.index)));
+        var b=document.createElement('button');
+        b.className='w '+(DICT[key][4]||'');
+        b.setAttribute('data-k',key);
+        b.textContent=m[1];
+        frag.appendChild(b);
+        last=m.index+m[1].length;
+      }
+      if(!found) return;
+      if(last<txt.length) frag.appendChild(document.createTextNode(txt.slice(last)));
+      node.parentNode.replaceChild(frag,node);
+    });
+  }
+  window.MARKUP=function(root){ try{ markup(root); }catch(e){} };
+  try{
+    document.querySelectorAll('.autoglos, .en').forEach(markup);
+  }catch(e){}
+})();
+
+/* ============ POPOVER ============ */
+(function(){
+  var pop=document.getElementById('pop'), cur=null;
+  var TAG={'':['Palabra clave','t-key'],cog:['Cognado','t-cog'],fal:['Falso cognado ⚠','t-fal'],loan:['Préstamo lingüístico','t-loan'],prop:['Nombre propio','t-prop']};
+  function close(){pop.classList.remove('show');if(cur)cur.classList.remove('on');cur=null;}
+  function place(btn){
+    var r=btn.getBoundingClientRect(), pw=pop.offsetWidth, ph=pop.offsetHeight;
+    if(r.bottom<0||r.top>window.innerHeight){close();return;}
+    var left=Math.min(Math.max(12,r.left+r.width/2-pw/2), window.innerWidth-pw-12);
+    var top=r.bottom+10;
+    if(top+ph>window.innerHeight-12) top=Math.max(12,r.top-ph-10);
+    pop.style.left=left+'px'; pop.style.top=top+'px';
+  }
+  function open(btn){
+    var k=btn.getAttribute('data-k'), d=DICT[k]||DICT[k.toLowerCase()];
+    if(!d) return;
+    if(cur)cur.classList.remove('on');
+    cur=btn; btn.classList.add('on');
+    var tg=TAG[d[4]||''];
+    var tag=document.getElementById('ptag');
+    tag.textContent=tg[0]; tag.className='ptag '+tg[1];
+    document.getElementById('pw').textContent=k;
+    document.getElementById('pc').textContent=d[1];
+    document.getElementById('ptr').textContent=d[0];
+    document.getElementById('pe').textContent='“'+d[2]+'”';
+    document.getElementById('ps').textContent=d[3];
+    pop.classList.add('show');
+    place(btn);
+    try{ localStorage.setItem('ing_seen_'+k,'1'); }catch(e){}
+  }
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('.w');
+    if(b){e.preventDefault();(b===cur&&pop.classList.contains('show'))?close():open(b);return;}
+    if(!e.target.closest('#pop')) close();
+  });
+  document.getElementById('popx').addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  window.addEventListener('resize',close);
+  var ticking=false;
+  window.addEventListener('scroll',function(){
+    if(!pop.classList.contains('show')||!cur||ticking) return;
+    ticking=true;
+    requestAnimationFrame(function(){ticking=false;if(cur)place(cur);});
+  },{passive:true});
+})();
+
+/* ============ TEMA ============ */
+(function(){
+  var btn=document.getElementById('themebtn');
+  try{var s=localStorage.getItem('ing_theme'); if(s)document.documentElement.setAttribute('data-theme',s);}catch(e){}
+  btn.addEventListener('click',function(){
+    var cur=document.documentElement.getAttribute('data-theme');
+    var next = cur==='dark'?'light':(cur==='light'?'dark':(window.matchMedia('(prefers-color-scheme: dark)').matches?'light':'dark'));
+    document.documentElement.setAttribute('data-theme',next);
+    try{localStorage.setItem('ing_theme',next);}catch(e){}
+  });
+})();
+
+/* ============ PROGRESO ============ */
+var PROG=(function(){
+  var boxes=Array.prototype.slice.call(document.querySelectorAll('[data-check]'));
+  var fill=document.getElementById('barfill'), pct=document.getElementById('pct');
+  function save(){
+    var o={}; boxes.forEach(function(b){o[b.getAttribute('data-check')]=b.checked;});
+    try{localStorage.setItem('ing_prog',JSON.stringify(o));}catch(e){}
+  }
+  function paint(){
+    var done=boxes.filter(function(b){return b.checked;}).length;
+    var p=Math.round(done/boxes.length*100);
+    fill.style.width=p+'%'; pct.textContent=p+'%';
+    boxes.forEach(function(b){
+      b.parentNode.classList.toggle('done',b.checked);
+      var sec=b.closest('section');
+      if(sec){var a=document.querySelector('#nav a[href="#'+sec.id+'"]'); if(a)a.classList.toggle('done',b.checked);}
+    });
+  }
+  try{
+    var saved=JSON.parse(localStorage.getItem('ing_prog')||'{}');
+    boxes.forEach(function(b){ if(saved[b.getAttribute('data-check')]) b.checked=true; });
+  }catch(e){}
+  boxes.forEach(function(b){b.addEventListener('change',function(){save();paint();});});
+  paint();
+  return {mark:function(id){var b=document.querySelector('[data-check="'+id+'"]');if(b&&!b.checked){b.checked=true;save();paint();}}};
+})();
+
+/* ============ NAV ACTIVA ============ */
+(function(){
+  var links=Array.prototype.slice.call(document.querySelectorAll('#nav a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));}).filter(Boolean);
+  if(!('IntersectionObserver' in window)) return;
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id);});
+      }
+    });
+  },{rootMargin:'-20% 0px -70% 0px'});
+  secs.forEach(function(s){io.observe(s);});
+})();
+
+/* ============ GLOSARIO + FLASHCARDS ============ */
+(function(){
+  var tb=document.querySelector('#gtable tbody'), search=document.getElementById('gsearch'), filter='all';
+  var LBL={'':'clave',cog:'cognado',fal:'falso ⚠',loan:'préstamo',prop:'propio'};
+  var CLS={'':'',cog:'cog',fal:'fal',loan:'loan',prop:'prop'};
+  var entries=Object.keys(DICT).map(function(k){return [k,DICT[k]];});
+  function render(){
+    var q=(search.value||'').toLowerCase().trim();
+    var rows=entries.filter(function(e){
+      var kind=e[1][4]||'';
+      if(filter!=='all' && kind!==filter) return false;
+      if(!q) return true;
+      return e[0].toLowerCase().indexOf(q)>=0 || e[1][0].toLowerCase().indexOf(q)>=0;
+    });
+    tb.innerHTML = rows.map(function(e){
+      var k=e[0], d=e[1];
+      return '<tr><td><button class="w '+CLS[d[4]||'']+'" data-k="'+k+'">'+k+'</button><br><span class="mono" style="font-size:10.5px;color:var(--muted)">'+LBL[d[4]||'']+'</span></td>'+
+        '<td style="font-size:13px;color:var(--muted)">'+d[1]+'</td><td><b>'+d[0]+'</b></td>'+
+        '<td style="font-size:13.5px"><span style="font-family:var(--f-s)">'+d[2]+'</span><br><span style="color:var(--muted);font-style:italic">'+d[3]+'</span></td></tr>';
+    }).join('') || '<tr><td colspan="4" style="color:var(--muted)">No hay palabras con ese filtro.</td></tr>';
+  }
+  search.addEventListener('input',render);
+  document.querySelectorAll('[data-gf]').forEach(function(b){
+    b.addEventListener('click',function(){filter=b.getAttribute('data-gf');render();});
+  });
+  render();
+
+  /* flashcards */
+  var deck=[], idx=0, flipped=false, ok=0, bad=0;
+  var card=document.getElementById('fcard');
+  function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+  function build(){deck=shuffle(entries.slice());idx=0;ok=0;bad=0;flipped=false;show();}
+  function show(){
+    document.getElementById('fcok').textContent=ok;
+    document.getElementById('fcbad').textContent=bad;
+    document.getElementById('fcleft').textContent=Math.max(0,deck.length-idx);
+    if(idx>=deck.length){card.innerHTML='<span class="fh">mazo terminado</span><span class="fw">¡Listo!</span><span class="fa">'+ok+' de '+deck.length+' acertadas</span><span class="fe">Tocá “Mezclar mazo” para volver a empezar.</span>';return;}
+    var e=deck[idx];
+    if(!flipped) card.innerHTML='<span class="fh">¿qué significa?</span><span class="fw">'+e[0]+'</span><span class="fe">'+e[1][1]+'</span>';
+    else card.innerHTML='<span class="fh">'+e[0]+'</span><span class="fa">'+e[1][0]+'</span><span class="fe">“'+e[1][2]+'”<br>'+e[1][3]+'</span>';
+  }
+  card.addEventListener('click',function(){flipped=!flipped;show();});
+  card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();flipped=!flipped;show();}});
+  document.getElementById('fcyes').addEventListener('click',function(){if(idx<deck.length){ok++;idx++;flipped=false;show();}});
+  document.getElementById('fcno').addEventListener('click',function(){if(idx<deck.length){bad++;deck.push(deck[idx]);idx++;flipped=false;show();}});
+  document.getElementById('fcmix').addEventListener('click',build);
+  build();
+})();
+</script>
+
+<script>
+/* ============ MOTOR DE EJERCICIOS ============ */
+function norm(s){return (s||'').toString().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9áéíóúñ ]/gi,'').replace(/\s+/g,' ').trim();}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function shuffleQ(q){
+  if(q.t!=='mc') return q;
+  var pairs=q.o.map(function(o,i){return {o:o,c:i===q.a};});
+  pairs=shuffle(pairs);
+  return {t:q.t,q:q.q,o:pairs.map(function(p){return p.o;}),a:pairs.findIndex(function(p){return p.c;}),e:q.e,topic:q.topic};
+}
+var LETTERS=['A','B','C','D','E'];
+
+function Quiz(host, qs, mode){
+  this.host=host; this.qs=qs; this.mode=mode; this.ans=new Array(qs.length).fill(null); this.done=false;
+  this.render();
+}
+Quiz.prototype.render=function(){
+  var self=this, h='';
+  this.qs.forEach(function(q,i){
+    h+='<div class="q" data-q="'+i+'"><div class="qt"><span class="n">'+(i+1)+'</span><span>'+q.q+'</span></div>';
+    if(q.t==='mc'){
+      h+='<div class="opts">';
+      q.o.forEach(function(o,j){ h+='<button class="opt" data-o="'+j+'"><span class="k">'+LETTERS[j]+'</span><span>'+o+'</span></button>'; });
+      h+='</div>';
+    } else {
+      h+='<div class="inputrow"><input type="text" id="in_'+(self.host.id||'q')+'_'+i+'" data-in="'+i+'" autocomplete="off" placeholder="Escribí tu respuesta…">'+
+         (self.mode==='practice'?'<button class="btn" data-chk="'+i+'">Comprobar</button>':'')+'</div>';
+    }
+    h+='<div class="fb" data-fb="'+i+'"></div></div>';
+  });
+  this.host.innerHTML='';
+  var root=document.createElement('div');
+  root.innerHTML=h;
+  this.host.appendChild(root);
+  this.root=root;
+  root.addEventListener('click',function(e){
+    var opt=e.target.closest('.opt'); 
+    if(opt && !self.done){ self.pick(parseInt(opt.closest('.q').getAttribute('data-q'),10), parseInt(opt.getAttribute('data-o'),10)); return; }
+    var chk=e.target.closest('[data-chk]');
+    if(chk){ self.checkInput(parseInt(chk.getAttribute('data-chk'),10)); }
+  });
+  root.addEventListener('keydown',function(e){
+    if(e.key==='Enter'&&e.target.hasAttribute('data-in')&&self.mode==='practice'){e.preventDefault();self.checkInput(parseInt(e.target.getAttribute('data-in'),10));}
+  });
+  root.addEventListener('input',function(e){
+    if(e.target.hasAttribute('data-in')){
+      self.ans[parseInt(e.target.getAttribute('data-in'),10)] = e.target.value;
+      if(self.onChange) self.onChange();
+    }
+  });
+};
+Quiz.prototype.pick=function(i,j){
+  var q=this.qs[i], box=this.root.querySelector('[data-q="'+i+'"]');
+  this.ans[i]=j;
+  if(this.mode==='exam'){
+    box.querySelectorAll('.opt').forEach(function(o,k){o.classList.toggle('sel',k===j);});
+    if(this.onChange) this.onChange();
+    return;
+  }
+  var ok=(j===q.a);
+  box.querySelectorAll('.opt').forEach(function(o,k){
+    o.disabled=true;
+    if(k===q.a)o.classList.add('good');
+    else if(k===j)o.classList.add('bad');
+  });
+  this.feedback(i,ok,q.e);
+  if(this.onChange) this.onChange();
+};
+Quiz.prototype.checkInput=function(i){
+  var q=this.qs[i], inp=this.root.querySelector('[data-in="'+i+'"]');
+  var v=norm(inp.value);
+  if(!v) return;
+  this.ans[i]=inp.value;
+  var ok=q.a.some(function(a){return norm(a)===v;});
+  if(this.mode==='practice'){
+    inp.style.borderColor = ok?'var(--ok)':'var(--bad)';
+    this.feedback(i,ok,(ok?'':'Respuesta correcta: <b>'+q.a[0]+'</b>. ')+q.e);
+  }
+  if(this.onChange) this.onChange();
+};
+Quiz.prototype.feedback=function(i,ok,txt){
+  var fb=this.root.querySelector('[data-fb="'+i+'"]');
+  fb.className='fb show '+(ok?'good':'bad');
+  fb.innerHTML='<b>'+(ok?'✓ Correcto':'✗ Incorrecto')+'</b>'+txt;
+};
+Quiz.prototype.grade=function(){
+  var self=this, res={score:0,total:this.qs.length,byTopic:{}};
+  this.qs.forEach(function(q,i){
+    var ok;
+    if(q.t==='mc') ok=(self.ans[i]===q.a);
+    else ok=(self.ans[i]!=null) && q.a.some(function(a){return norm(a)===norm(self.ans[i]);});
+    var tp=q.topic||'General';
+    if(!res.byTopic[tp]) res.byTopic[tp]={ok:0,n:0};
+    res.byTopic[tp].n++; if(ok){res.score++;res.byTopic[tp].ok++;}
+    var box=self.root.querySelector('[data-q="'+i+'"]');
+    if(q.t==='mc'){
+      box.querySelectorAll('.opt').forEach(function(o,k){
+        o.disabled=true; o.classList.remove('sel');
+        if(k===q.a)o.classList.add('good');
+        else if(k===self.ans[i])o.classList.add('bad');
+      });
+    } else {
+      var inp=box.querySelector('[data-in="'+i+'"]');
+      if(inp){inp.disabled=true;inp.style.borderColor=ok?'var(--ok)':'var(--bad)';}
+    }
+    self.feedback(i,ok,(ok?'':'Respuesta correcta: <b>'+(q.t==='mc'?q.o[q.a]:q.a[0])+'</b>. ')+q.e);
+  });
+  this.done=true;
+  return res;
+};
+
+/* ============ BANCOS DE EJERCICIOS ============ */
+var EX={
+paratexto:[
+ {t:'mc',topic:'Paratexto',q:'El logotipo de la OMS, el título “Nursing and midwifery” y la fecha 17 de julio de 2025 son, en conjunto:',o:['El paratexto de la publicación','El cuerpo del texto','La síntesis conceptual','Una frase nominal'],a:0,e:'El paratexto es todo lo que rodea al texto sin ser el texto: logo, título, fecha, fuente, imágenes.'},
+ {t:'mc',topic:'Paratexto',q:'La publicación D (<i>Atomic Habits</i> en Amazon). ¿Cuál es su <b>soporte</b>?',o:['Papel','Sitio de comercio electrónico','Revista impresa','Red social profesional'],a:1,e:'El soporte responde “dónde está”: es una ficha de producto en Amazon, un sitio de e-commerce. El tipo de publicación es “ficha de producto”.'},
+ {t:'mc',topic:'Paratexto',q:'¿En cuál de las publicaciones aparece el ISBN?',o:['A (blog de skins)','B (The Guardian)','C (The Hunger Games)','F (VALORANT)'],a:2,e:'El ISBN identifica libros. Aparece en la contratapa de C, junto al código de barras: 978-1-407132-08-2.'},
+ {t:'mc',topic:'Paratexto',q:'“China’s Yangtze River shows signs of remarkable recovery after fishing ban” con una línea debajo que amplía la noticia. ¿Qué tipo de publicación es?',o:['Entrada de blog personal','Artículo periodístico con título y bajada','Contratapa de libro','Perfil de empresa'],a:1,e:'Título + bajada + medio (The Guardian) + fecha + autor = artículo periodístico.'},
+ {t:'in',topic:'Paratexto',q:'¿Cómo se llama la línea que va <b>debajo del título</b> y amplía la información de la noticia?',a:['bajada','bajada de titulo','subtitulo','bajada de título','subtítulo'],e:'Se llama bajada de título (o subtítulo). Es un elemento paratextual clave para anticipar el contenido.'}
+],
+palabras:[
+ {t:'mc',topic:'Vocabulario',q:'La palabra <span class="en">event</span> (F) se clasifica como:',o:['Cognado','Falso cognado','Préstamo lingüístico','Nombre propio'],a:0,e:'Se escribe casi igual que “evento” y significa lo mismo: es un cognado.'},
+ {t:'mc',topic:'Vocabulario',q:'La palabra <span class="en">career</span> (E) se clasifica como:',o:['Cognado','Falso cognado','Préstamo lingüístico','Ya conocida'],a:1,e:'Parece “carrera” de correr o universitaria, pero significa trayectoria profesional. Es un falso cognado.'},
+ {t:'mc',topic:'Vocabulario',q:'La palabra <span class="en">bestseller</span> (C) se clasifica como:',o:['Falso cognado','Nombre propio','Préstamo lingüístico','No cognado opaco'],a:2,e:'La usamos en español tal cual, sin traducir: es un préstamo lingüístico.'},
+ {t:'mc',topic:'Vocabulario',q:'<span class="en">Yangtze River</span> (B) se clasifica como:',o:['Nombre propio','Cognado','Préstamo','Falso cognado'],a:0,e:'Es un lugar geográfico, con mayúsculas: nombre propio. No se traduce (se adapta: río Yangtsé).'},
+ {t:'mc',topic:'Vocabulario',q:'<span class="en">library</span> significa:',o:['Librería','Biblioteca','Librero','Libro'],a:1,e:'Falso amigo clásico. “Librería” en inglés es <i>bookshop</i> o <i>bookstore</i>.'},
+ {t:'in',topic:'Vocabulario',q:'En <span class="en">“recovery after fishing ban”</span>, ¿qué significa <span class="en">ban</span>?',a:['prohibicion','prohibición','veda','prohibicion de pesca'],e:'Ban = prohibición o veda. Se infiere del paratexto: si los peces se recuperan, la pesca se prohibió.'}
+],
+morfo:[
+ {t:'in',topic:'Morfología',q:'¿Cuál es la <b>palabra base</b> de <span class="en">revolutionized</span> (la que buscás en el diccionario)?',a:['revolutionize','revolutionise'],e:'Se saca el sufijo -ed del pasado: revolutionize = revolucionar.'},
+ {t:'in',topic:'Morfología',q:'¿Cuál es la palabra base de <span class="en">increasingly</span>?',a:['increase'],e:'increasingly → saco -ly → increasing → saco -ing → increase (aumentar).'},
+ {t:'mc',topic:'Morfología',q:'Si una palabra termina en <b>-ly</b>, lo más probable es que sea:',o:['Un sustantivo','Un adjetivo','Un adverbio','Un verbo'],a:2,e:'-ly es la marca del adverbio, equivale a nuestro “-mente”: globally = globalmente.'},
+ {t:'mc',topic:'Morfología',q:'El sufijo <b>-tion</b> (education, information, distribution) forma:',o:['Sustantivos','Adjetivos','Verbos','Adverbios'],a:0,e:'-tion / -sion forman sustantivos abstractos.'},
+ {t:'in',topic:'Morfología',q:'Palabra base de <span class="en">helps</span>:',a:['help'],e:'La -s marca la 3ª persona del verbo: help = ayudar.'},
+ {t:'mc',topic:'Morfología',q:'En <span class="en">human intelligence processes</span>, la palabra <span class="en">processes</span> es:',o:['Verbo (procesa)','Sustantivo plural (procesos)','Adjetivo','Adverbio'],a:1,e:'Está precedida por dos sustantivos que la modifican y es el núcleo de la frase nominal: “procesos de inteligencia humana”.'}
+],
+dicc:[
+ {t:'mc',topic:'Diccionario',q:'<span class="en">The event runs from February 28 to March 15.</span> ¿Qué significa <span class="en">runs</span> acá?',o:['Corre','Dirige','Se desarrolla / va','Organiza'],a:2,e:'Un evento no corre: el sentido es “funcionar, transcurrir”. El evento va del 28/2 al 15/3.'},
+ {t:'mc',topic:'Diccionario',q:'<span class="en">traveling to foreign countries</span>. ¿Qué acepción de <span class="en">country</span> corresponde?',o:['El campo','La patria','El terreno','El país'],a:3,e:'Con el adjetivo “foreign” (extranjero) y en plural, la acepción es “países”.'},
+ {t:'mc',topic:'Diccionario',q:'¿Qué categoría gramatical es <span class="en">increasingly</span>?',o:['Adverbio','Adjetivo','Sustantivo','Verbo'],a:0,e:'Termina en -ly y modifica al adjetivo complex: “cada vez más complejo”.'},
+ {t:'mc',topic:'Diccionario',q:'<span class="en">He runs a large company.</span> ¿Qué significa?',o:['Corre por una empresa grande','Dirige una gran empresa','Organiza una empresa larga','Funciona como empresa'],a:1,e:'Acepción 2 del diccionario: run = dirigir. Y large = grande, no “largo”.'},
+ {t:'mc',topic:'Diccionario',q:'En inglés, el adjetivo respecto del sustantivo va:',o:['Siempre antes','Siempre después','Indistinto','Solo con artículo'],a:0,e:'visual arts education = educación en artes visuales. Se traduce de derecha a izquierda.'},
+ {t:'in',topic:'Diccionario',q:'¿Qué palabra base buscarías en el diccionario para <span class="en">transforming</span>?',a:['transform'],e:'Se saca -ing: transform = transformar.'}
+],
+frases:[
+ {t:'mc',topic:'Frase nominal',q:'¿Cuál es el <b>núcleo</b> de <span class="en">sequential visual arts education</span>?',o:['sequential','visual','arts','education'],a:3,e:'El núcleo siempre está al final: education. El texto habla de educación, no de artes.'},
+ {t:'mc',topic:'Frase nominal',q:'¿Cuál es el núcleo de <span class="en">a multi-billion-dollar industry</span>?',o:['industry','dollar','multi','a'],a:0,e:'industry es el núcleo; multi-billion-dollar es un adjetivo compuesto que lo describe.'},
+ {t:'mc',topic:'Frase nominal',q:'<span class="en">critical thinking</span> se traduce:',o:['Crítica pensante','Pensamiento crítico','Criticar pensando','Pensar la crítica'],a:1,e:'Núcleo: thinking (pensamiento). Modificador: critical. De derecha a izquierda.'},
+ {t:'mc',topic:'Frase nominal',q:'En <span class="en">award-winning franchise</span>, la palabra guionada funciona como:',o:['Sustantivo','Adjetivo','Verbo','Adverbio'],a:1,e:'Las palabras unidas con guion antes de un sustantivo funcionan como un solo adjetivo: “franquicia galardonada”.'},
+ {t:'mc',topic:'Frase nominal',q:'Núcleo de <span class="en">the world’s best-selling PC games magazine</span>:',o:['world','games','magazine','PC'],a:2,e:'magazine (revista): “la revista de juegos de PC más vendida del mundo”.'},
+ {t:'in',topic:'Frase nominal',q:'Traducí <span class="en">creative leaders</span>:',a:['lideres creativos','líderes creativos','lideres creativas'],e:'Núcleo leaders (líderes) + adjetivo creative.'},
+ {t:'mc',topic:'Frase nominal',q:'¿Cuál es el orden correcto de una frase nominal inglesa?',o:['Núcleo + adjetivos','Artículo + cuantificador + adverbio + adjetivo + sustantivo modificador + núcleo','Adjetivo + núcleo + artículo','Verbo + núcleo'],a:1,e:'El orden es fijo y el núcleo cierra siempre la frase.'}
+],
+tecnicas:[
+ {t:'mc',topic:'Técnicas',q:'Necesitás encontrar el porcentaje de mujeres en el personal sanitario. ¿Qué técnica usás?',o:['Skimming','Scanning','Traducción literal','Poslectura'],a:1,e:'Scanning: buscás un dato puntual barriendo el texto por su forma (%, cifras).'},
+ {t:'mc',topic:'Técnicas',q:'Querés saber en un minuto de qué trata el texto. ¿Qué técnica usás?',o:['Scanning','Skimming','Diccionario','Síntesis'],a:1,e:'Skimming: lectura global de título, subtítulos y primeras oraciones.'},
+ {t:'mc',topic:'Técnicas',q:'La <b>oración tópico</b> es:',o:['La primera oración de cada párrafo, que anuncia su idea principal','La última oración del texto','El título','La oración más larga'],a:0,e:'Convención del inglés académico: la primera oración del párrafo dice de qué trata.'},
+ {t:'mc',topic:'Técnicas',q:'Idea principal de <span class="en">Nursing and midwifery</span> (OMS):',o:['La construcción de hospitales','La importancia de enfermeros y parteros en la atención sanitaria','El uso de tecnología médica','La formación de médicos especialistas'],a:1,e:'Es la opción b del ejercicio 2 de la Guía 6. El texto gira en torno al rol y la escasez de estos profesionales.'},
+ {t:'mc',topic:'Técnicas',q:'La síntesis conceptual de la Guía 5 pide una extensión de:',o:['20 a 30 palabras','50 palabras exactas','80 a 100 palabras','Media carilla'],a:2,e:'80 a 100 palabras. Es un requisito de la consigna: contalas.'},
+ {t:'in',topic:'Técnicas',q:'¿Cómo se llama en inglés la lectura rápida y global para captar el tema? (una palabra)',a:['skimming','skiming'],e:'Skimming = “desnatar”, pasar por arriba. Scanning es buscar un dato puntual.'}
+],
+conectores:[
+ {t:'mc',topic:'Conectores',q:'<span class="en">However</span> expresa:',o:['Suma','Contraste','Causa','Ejemplo'],a:1,e:'Contraste: “sin embargo”. Lo importante suele venir después.'},
+ {t:'mc',topic:'Conectores',q:'<span class="en">If you want to advance your career…</span> El conector <span class="en">If</span> expresa:',o:['Condición','Consecuencia','Tiempo','Oposición'],a:0,e:'Condición: “si… entonces”. Es la respuesta al ejercicio 10 de la Guía 5.'},
+ {t:'mc',topic:'Conectores',q:'<span class="en">such as</span> introduce:',o:['Una causa','Un ejemplo','Una conclusión','Una condición'],a:1,e:'“tales como”: lo que sigue es un ejemplo, no información nueva.'},
+ {t:'mc',topic:'Conectores',q:'<span class="en">According to the Bureau of Labor Statistics…</span> introduce:',o:['Una opinión del autor','La fuente del dato','Una consecuencia','Una comparación'],a:1,e:'“Según…”: indica de dónde salió la estadística.'},
+ {t:'mc',topic:'Conectores',q:'<span class="en">because</span> y <span class="en">since</span> expresan:',o:['Causa','Contraste','Adición','Propósito'],a:0,e:'Ambos explican el porqué. Ojo: since también puede ser temporal (“desde”).'},
+ {t:'mc',topic:'Conectores',q:'Cuando aparece <span class="en">although</span> al inicio de una oración, la idea que más importa está:',o:['Antes del conector','Después del conector','En el título','En la nota al pie'],a:1,e:'El contraste pone el peso en la segunda parte: “Although an MSN will allow you… you might need a doctoral degree”.'}
+],
+datos:[
+ {t:'mc',topic:'Datos y siglas',q:'<span class="en">over 100 million units sold</span> significa:',o:['Sobre 100 millones de unidades','Más de 100 millones de unidades vendidas','Cerca de 100 millones','100 millones exactos'],a:1,e:'over = “más de”. Es la respuesta al ejercicio 4a de la Guía 4.'},
+ {t:'mc',topic:'Datos y siglas',q:'<span class="en">a shortage of 4.5 million nurses</span> significa:',o:['Un déficit del 4,5% de enfermeros','Un déficit de 4,5 millones de enfermeros','Un excedente de 4,5 millones','4,5 enfermeros por millón'],a:1,e:'Es una cantidad de personas, no un porcentaje. Esta confusión es la trampa del ejercicio 7 de la Guía 6.'},
+ {t:'mc',topic:'Datos y siglas',q:'WHO corresponde en español a:',o:['OMC','OMS','ONU','OIT'],a:1,e:'World Health Organization = Organización Mundial de la Salud.'},
+ {t:'mc',topic:'Datos y siglas',q:'<span class="en">an area twice the size of Texas</span>:',o:['La mitad del tamaño de Texas','El mismo tamaño','El doble del tamaño','El triple'],a:2,e:'twice = dos veces, el doble. three times = el triple.'},
+ {t:'mc',topic:'Datos y siglas',q:'MSN (Ed) es:',o:['Una maestría en educación en enfermería','Un doctorado','Una licenciatura','Un examen de habilitación'],a:0,e:'Master of Science in Nursing Education: obligatoria para ser Nurse Educator.'},
+ {t:'in',topic:'Datos y siglas',q:'¿Qué sigla usa la OMS para “cobertura sanitaria universal”? (3 letras)',a:['uhc'],e:'UHC = Universal Health Coverage.'}
+],
+np2:[
+ {t:'in',topic:'Frase nominal',q:'Núcleo de <span class="en">an increasingly complex and interconnected world</span>:',a:['world','mundo'],e:'world: un mundo cada vez más complejo e interconectado.'},
+ {t:'in',topic:'Frase nominal',q:'Núcleo de <span class="en">every learner’s educational foundation</span>:',a:['foundation','formacion','formación'],e:'foundation (formación / base).'},
+ {t:'in',topic:'Frase nominal',q:'Núcleo de <span class="en">a leading platform for digital content</span>:',a:['platform','plataforma'],e:'platform: una plataforma líder de contenido digital.'},
+ {t:'in',topic:'Frase nominal',q:'Núcleo de <span class="en">four policy focus areas</span>:',a:['areas','áreas'],e:'areas: cuatro áreas de política.'},
+ {t:'in',topic:'Frase nominal',q:'Núcleo de <span class="en">advanced academic degrees</span>:',a:['degrees','degree','titulos','títulos'],e:'degrees: títulos académicos avanzados.'},
+ {t:'in',topic:'Frase nominal',q:'Núcleo de <span class="en">the next generation of nursing professionals</span>:',a:['generation','generacion','generación'],e:'generation: la próxima generación de profesionales de la enfermería.'}
+],
+vf:[
+ {t:'mc',topic:'Comprensión',q:'Valve fue fundada en 1996 y tiene sede en Bellevue, Washington.',o:['Verdadero','Falso'],a:0,e:'L2 del texto de Valve lo dice literalmente.'},
+ {t:'mc',topic:'Comprensión',q:'El texto de Valve explica de qué tratan sus juegos más vendidos.',o:['Verdadero','Falso'],a:1,e:'Falso: nombra los títulos y sus premios, pero nunca cuenta el argumento. Es el ítem C del ejercicio 4f.'},
+ {t:'mc',topic:'Comprensión',q:'La OMS estima un déficit del 4,5 % de enfermeros para 2030.',o:['Verdadero','Falso'],a:1,e:'Falso: son 4,5 MILLONES de enfermeros, no un porcentaje.'},
+ {t:'mc',topic:'Comprensión',q:'Un Nurse Educator necesita al menos tres años de experiencia clínica.',o:['Verdadero','Falso'],a:0,e:'L39: “need at least three years of clinical experience”.'},
+ {t:'mc',topic:'Comprensión',q:'El doctorado (DNP o PhD) es obligatorio para ser Nurse Educator.',o:['Verdadero','Falso'],a:1,e:'Falso: es opcional (“is not required for all roles”). Lo obligatorio es la maestría MSN.'},
+ {t:'mc',topic:'Comprensión',q:'Según la NAEA, los CEOs señalaron la creatividad como el rasgo número uno al contratar.',o:['Verdadero','Falso'],a:0,e:'L7: “CEOs identified creativity as the number one trait sought when hiring”.'},
+ {t:'mc',topic:'Comprensión',q:'La Comunidad Mundial de Práctica de la OMS (NMGCoP) tiene costo de membresía.',o:['Verdadero','Falso'],a:1,e:'Falso: “is free to join”, es gratuita y accesible por app.'},
+ {t:'mc',topic:'Comprensión',q:'Más del 80 % de los enfermeros del mundo trabajan en países donde vive la mitad de la población mundial.',o:['Verdadero','Falso'],a:0,e:'L16-17 del texto de la OMS.'}
+]
+};
+
+/* montar ejercicios de cada módulo */
+Object.keys(EX).forEach(function(k){
+  var host=document.querySelector('[data-ex="'+k+'"] .exbody');
+  if(host) new Quiz(host, EX[k], 'practice');
+});
+
+/* tanda mezclada */
+(function(){
+  var box=document.getElementById('mixbox'), go=document.getElementById('mixgo'), rs=document.getElementById('mixreset');
+  var pool=[]; Object.keys(EX).forEach(function(k){pool=pool.concat(EX[k]);});
+  var quiz=null;
+  function start(){
+    box.hidden=false;
+    var qs=shuffle(pool).slice(0,10).map(shuffleQ);
+    quiz=new Quiz(box.querySelector('.exbody'), qs, 'practice');
+    quiz.onChange=function(){
+      var done=quiz.ans.filter(function(a){return a!=null;}).length;
+      var ok=0; qs.forEach(function(q,i){ if(q.t==='mc'? quiz.ans[i]===q.a : (quiz.ans[i]!=null&&q.a.some(function(a){return norm(a)===norm(quiz.ans[i]);}))) ok++; });
+      document.getElementById('mixscore').textContent=ok+' / '+done;
+      if(done===qs.length) PROG.mark('practica');
+    };
+    document.getElementById('mixscore').textContent='0 / 0';
+    box.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  go.addEventListener('click',start);
+  rs.addEventListener('click',function(){box.hidden=true;});
+})();
+</script>
+
+<script>
+/* ============ BANCOS DE EXAMEN ============ */
+var N1=[
+ {t:'mc',topic:'Paratexto',q:'¿Cuál de estos NO es un elemento paratextual?',o:['El logotipo','La bajada de título','La idea principal del párrafo 3','El número de página'],a:2,e:'La idea principal pertenece al texto, no al paratexto.'},
+ {t:'mc',topic:'Paratexto',q:'La publicación de LinkedIn de Valve Corporation. ¿Con qué intención se la visitaría?',o:['Para jugar online','Para conocer la empresa, buscar trabajo o contactarla','Para comprar juegos','Para leer noticias del país'],a:1,e:'LinkedIn es una red profesional: el perfil sirve para conocer y contactar a la empresa.'},
+ {t:'mc',topic:'Paratexto',q:'En la Guía 5 aparecen dos fechas: <i>Posted on: Nov 18, 2020; Updated on: Jun 20, 2025</i>. ¿Qué indican?',o:['El inicio y el fin del curso','La fecha de publicación original y la de actualización','Dos autores distintos','El período que analiza el texto'],a:1,e:'Posted = publicado; Updated = actualizado. Muestra que el contenido se mantiene vigente.'},
+ {t:'mc',topic:'Paratexto',q:'“Artículo periodístico” responde a la pregunta de…',o:['Soporte','Tipo de publicación','Autoría','Audiencia'],a:1,e:'El soporte sería “sitio web de diario”. El tipo es la clase de texto.'},
+ {t:'mc',topic:'Vocabulario',q:'Clasificá <span class="en">software</span>:',o:['Cognado','Préstamo lingüístico','Falso cognado','Nombre propio'],a:1,e:'Lo usamos en español sin traducir.'},
+ {t:'mc',topic:'Vocabulario',q:'Clasificá <span class="en">habits</span>:',o:['Cognado','Falso cognado','Préstamo','Nombre propio'],a:0,e:'habit = hábito. Cognado directo.'},
+ {t:'mc',topic:'Vocabulario',q:'<span class="en">facilities</span> en <span class="en">long-term care facilities</span> significa:',o:['Facilidades de pago','Instalaciones / centros','Ventajas','Servicios opcionales'],a:1,e:'Falso amigo: facilities = instalaciones. “Centros de cuidados prolongados”.'},
+ {t:'mc',topic:'Vocabulario',q:'¿Cuál de estas es un <b>no cognado inferible a partir del paratexto</b>?',o:['information','ban (junto a “fishing” y “recovery”)','Netflix','bestseller'],a:1,e:'No se parece al español, pero el contexto te da el significado: prohibición.'},
+ {t:'mc',topic:'Morfología',q:'Palabra base de <span class="en">sustainable</span>:',o:['sustain','sustainability','sustainably','able'],a:0,e:'-able es sufijo de adjetivo: sustain (sostener) → sustainable (sostenible).'},
+ {t:'mc',topic:'Morfología',q:'El sufijo <b>-ment</b> en <span class="en">employment, development</span> forma:',o:['Adjetivos','Adverbios','Sustantivos','Verbos'],a:2,e:'-ment forma sustantivos: empleo, desarrollo.'},
+ {t:'mc',topic:'Morfología',q:'El prefijo <b>un-</b> en <span class="en">unlikely</span> indica:',o:['Repetición','Negación','Exceso','Anterioridad'],a:1,e:'unlikely = poco probable, improbable.'},
+ {t:'mc',topic:'Diccionario',q:'¿Cómo distinguís si <span class="en">processes</span> es sustantivo o verbo?',o:['Por el largo de la palabra','Por lo que viene antes: artículo o adjetivo = sustantivo','Siempre es verbo','Por la letra inicial'],a:1,e:'El contexto inmediato decide: “human intelligence processes” tiene modificadores delante → sustantivo.'},
+ {t:'mc',topic:'Diccionario',q:'El diccionario indica <i>“Formas de la palabra: run, ran, run”</i>. Eso significa que:',o:['Es un sustantivo irregular','Es un verbo y esas son sus formas de pasado y participio','Hay tres acepciones','Se pronuncia de tres maneras'],a:1,e:'Es la conjugación irregular del verbo: run / ran / run.'},
+ {t:'mc',topic:'Frase nominal',q:'Núcleo de <span class="en">the primary responsibilities of a Nurse Educator</span>:',o:['primary','responsibilities','Nurse','Educator'],a:1,e:'responsibilities es el núcleo; lo que sigue a “of” es un complemento.'},
+ {t:'mc',topic:'Frase nominal',q:'<span class="en">emotional intelligence</span> se traduce:',o:['Inteligencia emocional','Emoción inteligente','Emocionalmente inteligente','Inteligencia de emociones'],a:0,e:'Núcleo intelligence + adjetivo emotional.'},
+ {t:'mc',topic:'Frase nominal',q:'¿Cuál de estas frases nominales representa un <b>concepto fundamental</b> del texto de la NAEA?',o:['many states and provinces','sequential visual arts education','the November 1999 issue','four years'],a:1,e:'Es el concepto sobre el que gira toda la declaración de posición.'},
+ {t:'mc',topic:'Técnicas',q:'Para responder “¿en qué línea se define la inteligencia artificial?” usás:',o:['Skimming','Scanning','Poslectura','Hipótesis'],a:1,e:'Scanning: buscás un dato puntual. (La respuesta es L5.)'},
+ {t:'mc',topic:'Técnicas',q:'Una hipótesis de lectura se elabora:',o:['Antes de leer el texto, a partir del paratexto','Después de leer todo el texto','Solo con el diccionario','Al final, como conclusión'],a:0,e:'Pertenece a la etapa de anticipación.'},
+ {t:'mc',topic:'Conectores',q:'<span class="en">In addition, you can also choose to specialize…</span> El conector expresa:',o:['Contraste','Adición','Condición','Causa'],a:1,e:'In addition = además. Suma información.'},
+ {t:'mc',topic:'Datos y siglas',q:'<span class="en">one in every eight nurses</span> significa:',o:['Uno de cada ocho enfermeros','Ocho de cada enfermero','Un octavo de enfermero','Ocho enfermeros por país'],a:0,e:'Proporción: uno de cada ocho ejerce en un país distinto del que nació o se formó.'}
+];
+
+var PASSAGE = '<div class="src autoglos"><div class="sh"><span>Texto para las preguntas 21 a 25</span><span>Publicaciones E y F</span></div><div class="sb"><ol>'+
+'<li data-n="1">Medical tourism has grown into a significant sector, transforming how people access healthcare and reshaping the global medical landscape.</li>'+
+'<li data-n="2">Individuals from around the world are increasingly traveling to foreign countries to receive specialized, affordable medical treatments that may not be available in their home countries.</li>'+
+'<li data-n="3">VALORANT Masters Santiago 2026 is the first international event of the VCT 2026 season. It brings together 12 teams from four regions at Espacio Riesco in Santiago, Chile.</li>'+
+'<li data-n="4">The event runs from February 28 to March 15, 2026. Alongside the main matches, there will be a live Skirmish tournament series at the venue.</li>'+
+'<li data-n="5">Attendees can enter this open competition for a chance to qualify for the final weekend and earn rewards. The Skirmish finals are planned for March 14 on the VCT stage.</li>'+
+'</ol></div></div>';
+
+var N2=[
+ {t:'mc',topic:'Paratexto',q:'Una publicación presenta: logotipo institucional, título, subtítulos “Key facts” y “Overview”, tiempo estimado de lectura y una lista de referencias numeradas. ¿Qué inferís?',o:['Es un texto de ficción','Es una ficha informativa de un organismo oficial','Es una publicación de red social personal','Es la contratapa de un libro'],a:1,e:'Logotipo institucional + referencias + secciones fijas = ficha informativa oficial (WHO fact sheet).'},
+ {t:'mc',topic:'Paratexto',q:'¿Por qué la información de “Key facts” se presenta con viñetas?',o:['Por estética','Porque cada viñeta desarrolla una idea distinta y autónoma, que se lee de un vistazo','Porque el texto es corto','Porque son citas textuales'],a:1,e:'Las viñetas separan datos independientes y facilitan el scanning.'},
+ {t:'in',topic:'Paratexto',q:'¿Cómo se llama el elemento paratextual que identifica de forma única a un libro y aparece junto al código de barras? (sigla)',a:['isbn'],e:'ISBN: International Standard Book Number.'},
+ {t:'mc',topic:'Vocabulario',q:'¿Cuál de estos pares es un <b>falso cognado</b> con su traducción CORRECTA?',o:['career → carrera universitaria','policy → política / normativa','success → suceso','library → librería'],a:1,e:'policy = política o normativa, no “policía”. Las otras tres opciones traducen mal.'},
+ {t:'mc',topic:'Vocabulario',q:'En <span class="en">Their extensive clinical experience allows them to effectively train students</span>, la palabra <span class="en">train</span> significa:',o:['Tren','Formar / entrenar','Viajar','Arrastrar'],a:1,e:'Después de “allows them to” viene un verbo: formar, capacitar.'},
+ {t:'mc',topic:'Vocabulario',q:'Clasificá <span class="en">Bureau of Labor Statistics</span>:',o:['Cognado','Préstamo','Nombre propio (institución)','Falso cognado'],a:2,e:'Mayúsculas + institución. Aporta autoridad al dato estadístico.'},
+ {t:'mc',topic:'Morfología',q:'<span class="en">judiciously</span> (L15, NAEA). ¿Qué categoría es y cuál es su base?',o:['Sustantivo, base judge','Adverbio, base judicious','Verbo, base judge','Adjetivo, base judicial'],a:1,e:'-ly = adverbio. Base: judicious (juicioso) → judiciously = juiciosamente.'},
+ {t:'mc',topic:'Morfología',q:'¿Cuál de estas palabras es un <b>adjetivo</b> formado por sufijo?',o:['development','meaningful','increasingly','recognition'],a:1,e:'-ful forma adjetivos: meaningful = significativo.'},
+ {t:'in',topic:'Morfología',q:'Escribí la palabra base de <span class="en">accredited</span>:',a:['accredit'],e:'Se saca -ed: accredit = acreditar. Accredited college = universidad acreditada.'},
+ {t:'mc',topic:'Diccionario',q:'<span class="en">Don’t leave the faucet running.</span> Según la entrada del diccionario, <span class="en">running</span> acá corresponde a la acepción:',o:['Correr','Dirigir','Funcionar / estar abierto','Organizar'],a:2,e:'“No dejen la llave abierta”: el sentido de funcionamiento.'},
+ {t:'mc',topic:'Diccionario',q:'Ante una palabra con varias acepciones, el criterio correcto es:',o:['Elegir siempre la primera','Elegir la más corta','Probar la acepción en la oración completa hasta que tenga sentido','Elegir la que se parezca al español'],a:2,e:'El contexto manda. La primera acepción es la más frecuente, no la correcta para tu oración.'},
+ {t:'mc',topic:'Frase nominal',q:'Núcleo de <span class="en">a collection of hardware devices designed to extend Steam beyond the desktop</span>:',o:['collection','hardware','devices','desktop'],a:0,e:'El núcleo es collection; “of hardware devices” es un complemento que lo especifica.'},
+ {t:'mc',topic:'Frase nominal',q:'<span class="en">compassionate patient care</span> se traduce:',o:['Paciente cuidado compasivo','Cuidado compasivo del paciente','Cuidar pacientes compasivos','Compasión del paciente'],a:1,e:'Núcleo care + modificadores patient y compassionate, de derecha a izquierda.'},
+ {t:'mc',topic:'Frase nominal',q:'En <span class="en">a less stressful working environment</span>, ¿cuántos modificadores tiene el núcleo?',o:['Ninguno','Uno','Tres (less, stressful, working)','Cinco'],a:2,e:'Núcleo environment, modificado por less (cuantificador), stressful (adj.) y working (adj. en -ing).'},
+ {t:'mc',topic:'Técnicas',q:'Leés solo la primera oración de cada párrafo y armás con ellas un resumen. Estás aplicando:',o:['Scanning','La técnica de las oraciones tópico','Traducción literal','Análisis morfológico'],a:1,e:'Es el ejercicio 4 de la Guía 3 y la forma más rápida de resumir un texto académico.'},
+ {t:'mc',topic:'Técnicas',q:'Tu hipótesis decía “el texto va a hablar de la formación de médicos” y el texto habla de enfermeros y parteras. En poslectura corresponde:',o:['Ocultar la hipótesis','Refutarla y justificar con datos del texto','Cambiar la hipótesis original','Dejar la pregunta en blanco'],a:1,e:'Refutar una hipótesis también es una respuesta correcta, siempre que la justifiques.'},
+ {t:'mc',topic:'Conectores',q:'<span class="en">If enacted and sustained, these policy priorities can support advancement…</span> La relación lógica es:',o:['Condición: si se aplican, entonces pueden apoyar el avance','Causa','Contraste','Ejemplo'],a:0,e:'If = condición. La consecuencia viene después de la coma.'},
+ {t:'mc',topic:'Conectores',q:'<span class="en">Although it takes a great deal of dedication, time, and effort, … can be both rewarding and meaningful.</span> ¿Qué idea prevalece?',o:['Que exige mucha dedicación','Que puede ser gratificante y significativo','Que es imposible','Que no vale la pena'],a:1,e:'Although concede algo y luego afirma lo importante: la segunda parte.'},
+ {t:'mc',topic:'Datos y siglas',q:'El aumento del empleo de Nurse Educators fue del 18 % y el de todas las ocupaciones del 4 %. Eso significa que:',o:['Crece más lento que el promedio','Crece mucho más rápido que el promedio','Crece igual','Está en caída'],a:1,e:'18% frente a 4%: “much faster than the increase for all occupations”.'},
+ {t:'mc',topic:'Datos y siglas',q:'Las cuatro áreas de política de las SDNM son:',o:['Educación, empleo, liderazgo y prestación de servicios','Salud, economía, industria y turismo','Medicina, enfermería, obstetricia y farmacia','Investigación, docencia, extensión y gestión'],a:0,e:'L32: education, jobs, leadership, and service delivery.'},
+ {t:'mc',topic:'Comprensión de texto',q:'Según el texto, ¿por qué las personas viajan a otros países por tratamientos médicos?',o:['Porque son más rápidos','Porque buscan tratamientos especializados y accesibles que pueden no estar disponibles en su país','Porque los obligan las obras sociales','Porque quieren hacer turismo'],a:1,e:'Línea 2: “specialized, affordable medical treatments that may not be available in their home countries”.'},
+ {t:'mc',topic:'Comprensión de texto',q:'<span class="en">The event runs from February 28 to March 15, 2026.</span> ¿Qué significa <span class="en">runs</span>?',o:['Corre','Se desarrolla / va del … al …','Dirige','Compite'],a:1,e:'El sujeto es “the event” y le siguen dos fechas: transcurre.'},
+ {t:'in',topic:'Comprensión de texto',q:'¿Cuántos equipos reúne VALORANT Masters Santiago 2026? (escribí el número)',a:['12','doce'],e:'Línea 3: “It brings together 12 teams from four regions”.'},
+ {t:'mc',topic:'Comprensión de texto',q:'¿Qué información NO aparece en el fragmento sobre VALORANT Masters?',o:['La sede del evento','La cantidad de equipos','El precio de las entradas','La fecha de la final del Skirmish'],a:2,e:'Menciona sede (Espacio Riesco), equipos (12) y la final del Skirmish (14 de marzo), pero nunca precios.'},
+ {t:'mc',topic:'Comprensión de texto',q:'<span class="en">Attendees can enter this open competition for a chance to qualify…</span> ¿Quiénes son los <span class="en">attendees</span>?',o:['Los organizadores','Los asistentes al evento','Los jugadores profesionales','Los patrocinadores'],a:1,e:'attend = asistir a un lugar → attendees = asistentes. Falso amigo: no es “atender”.'}
+];
+
+/* ============ MOTOR DE EXAMEN ============ */
+(function(){
+  var area=document.getElementById('examarea'), quiz=null, timerId=null, endAt=0, level=1;
+  function best(key,val){
+    try{
+      if(val!=null){var p=parseInt(localStorage.getItem(key)||'0',10); if(val>p) localStorage.setItem(key,String(val));}
+      return parseInt(localStorage.getItem(key)||'0',10);
+    }catch(e){return 0;}
+  }
+  function paintBest(){
+    [['n1','ing_best_n1'],['n2','ing_best_n2']].forEach(function(p){
+      var el=document.querySelector('[data-best="'+p[0]+'"]'); if(!el)return;
+      var v=best(p[1]); el.textContent = v? ('Mejor resultado: '+v+'%') : 'Mejor resultado: —';
+    });
+  }
+  paintBest();
+
+  function fmt(s){var m=Math.floor(s/60), r=s%60; return m+':'+(r<10?'0':'')+r;}
+
+  function start(lv){
+    level=lv;
+    var bank = lv===1 ? N1.map(shuffleQ) : shuffle(N2).map(shuffleQ);
+    var mode = lv===1 ? 'practice' : 'exam';
+    var head = '<div class="examtop">'+
+      '<b style="font-family:var(--f-d);font-size:16px">'+(lv===1?'Nivel 1 · Validación':'Nivel 2 · Simulacro real')+'</b>'+
+      (lv===2?'<span class="tm" id="clock">40:00</span>':'')+
+      '<span class="lbl" id="answered">0 de '+bank.length+' respondidas</span>'+
+      '<span style="flex:1"></span>'+
+      '<button class="btn pri" id="submitex">'+(lv===1?'Ver resultado':'Entregar examen')+'</button>'+
+      '<button class="btn" id="quitex">Salir</button></div>'+
+      (lv===2?'<div id="passagebox" hidden>'+PASSAGE+'</div>':'')+
+      '<div class="ex" id="exhost"><div class="exbody"></div></div>';
+    area.innerHTML=head;
+    if(lv===2){
+      var pb=document.getElementById('passagebox');
+      pb.hidden=false;
+      if(window.MARKUP) pb.querySelectorAll('.autoglos').forEach(window.MARKUP);
+    }
+    quiz=new Quiz(document.getElementById('exhost').querySelector('.exbody'), bank, mode);
+    quiz.onChange=function(){
+      var n=quiz.ans.filter(function(a){return a!=null&&a!=='';}).length;
+      document.getElementById('answered').textContent=n+' de '+bank.length+' respondidas';
+    };
+    document.getElementById('submitex').addEventListener('click',function(){finish(bank);});
+    document.getElementById('quitex').addEventListener('click',function(){stopTimer();area.innerHTML='';window.scrollTo({top:document.getElementById('examen').offsetTop-60,behavior:'smooth'});});
+    if(lv===2){
+      endAt=Date.now()+40*60*1000;
+      timerId=setInterval(function(){
+        var left=Math.max(0,Math.round((endAt-Date.now())/1000));
+        var c=document.getElementById('clock'); if(!c){stopTimer();return;}
+        c.textContent=fmt(left);
+        if(left<=300)c.classList.add('low');
+        if(left<=0){stopTimer();finish(bank,true);}
+      },1000);
+    }
+    area.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  function stopTimer(){if(timerId){clearInterval(timerId);timerId=null;}}
+
+  function finish(bank,auto){
+    if(!quiz||quiz.done) return;
+    var pending=quiz.ans.filter(function(a){return a==null||a==='';}).length;
+    var sb=document.getElementById('submitex');
+    if(!auto && pending>0 && sb && sb.getAttribute('data-armed')!=='1'){
+      sb.setAttribute('data-armed','1');
+      sb.textContent='Entregar igual ('+pending+' sin responder)';
+      sb.style.background='var(--bad)';
+      return;
+    }
+    stopTimer();
+    // completar respuestas de texto escritas pero no comprobadas
+    quiz.qs.forEach(function(q,i){
+      if(q.t==='in'){var inp=quiz.root.querySelector('[data-in="'+i+'"]'); if(inp&&inp.value) quiz.ans[i]=inp.value;}
+    });
+    var r=quiz.grade();
+    var pc=Math.round(r.score/r.total*100);
+    best(level===1?'ing_best_n1':'ing_best_n2', pc); paintBest();
+    if(level===2 && pc>=70) PROG.mark('examen');
+    var msg = pc>=90?'Excelente. Estás en condiciones de rendir.':pc>=70?'Aprobado. Repasá los temas flojos del desglose.':pc>=50?'Casi. Volvé a los módulos donde perdiste puntos y repetí.':'Todavía no. Volvé al Módulo 01 y hacé los ejercicios de cada sección antes de repetir.';
+    var topics=Object.keys(r.byTopic).sort(function(a,b){return r.byTopic[a].ok/r.byTopic[a].n - r.byTopic[b].ok/r.byTopic[b].n;});
+    var html='<div class="result"><div class="lvl mono" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">'+(level===1?'Nivel 1':'Nivel 2')+(auto?' · tiempo agotado':'')+'</div>'+
+      '<div class="bigscore">'+pc+'%<small> · '+r.score+' de '+r.total+'</small></div>'+
+      '<p style="margin-top:8px;font-size:16px">'+msg+'</p><div class="tbreak">'+
+      topics.map(function(t){
+        var v=r.byTopic[t], p=Math.round(v.ok/v.n*100);
+        return '<div class="tb"><span>'+t+'</span><span class="mini"><i class="'+(p<60?'w3':'')+'" style="width:'+p+'%"></i></span><span class="v">'+v.ok+'/'+v.n+'</span></div>';
+      }).join('')+'</div>'+
+      '<div class="row"><button class="btn pri" id="again">Repetir este nivel</button>'+
+      (level===1?'<button class="btn" id="tolvl2">Pasar al Nivel 2</button>':'<button class="btn" id="tolvl1">Volver al Nivel 1</button>')+'</div>'+
+      '<p class="scoreline">Abajo quedaron todas las preguntas con la respuesta correcta y su explicación.</p></div>';
+    var head=area.querySelector('.examtop');
+    var div=document.createElement('div'); div.innerHTML=html;
+    area.insertBefore(div, head.nextSibling);
+    var sub=document.getElementById('submitex'); if(sub){sub.disabled=true;sub.textContent='Entregado';}
+    var ag=document.getElementById('again'); if(ag)ag.addEventListener('click',function(){start(level);});
+    var t2=document.getElementById('tolvl2'); if(t2)t2.addEventListener('click',function(){start(2);});
+    var t1=document.getElementById('tolvl1'); if(t1)t1.addEventListener('click',function(){start(1);});
+    div.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+
+  document.querySelectorAll('[data-start]').forEach(function(b){
+    b.addEventListener('click',function(){start(parseInt(b.getAttribute('data-start'),10));});
+  });
+})();
+</script>
